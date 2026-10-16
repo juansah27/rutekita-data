@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "updatedAt": "2026-10-16",
+  "sources": {
+    "djka": {
+      "name": "CCTV Monitoring Stasiun · DJKA Kemenhub",
+      "owner": "Direktorat Jenderal Perkeretaapian, Kementerian Perhubungan",
+      "page": "https://cctv-stasiun.kemenhub.go.id"
+    },
+    "dki": {
+      "name": "CCTV Publik DKI Jakarta",
+      "owner": "Pemprov DKI Jakarta (jaringan Bali Tower)",
+      "page": "https://jakcctv.jakarta.go.id/publik"
+    },
+    "bekasi": {
+      "name": "CCTV Kota Bekasi",
+      "owner": "Pemkot Bekasi",
+      "page": "https://bekasikota.go.id/cctv"
+    },
+    "bogor": {
+      "name": "CCTV Daerah · Bogor Single Window",
+      "owner": "Pemkot Bogor",
+      "page": "https://bsw.kotabogor.go.id/cctv"
+    },
+    "depok": {
+      "name": "CCTV Dishub Kota Depok",
+      "owner": "Dinas Perhubungan Kota Depok",
+      "page": "https://dishub.depok.go.id/cctv"
+    }
+  },
+  "cameras": [
+    { "id": "djka-manggarai-102", "station": "MRI", "source": "djka", "kind": "station", "name": "Kamera 1", "play": { "type": "page", "url": "https://cctv-stasiun.kemenhub.go.id/stream.html?src=Manggarai-102" }, "page": "https://cctv-stasiun.kemenhub.go.id/public/stasiun/live/manggarai" },
+    { "id": "djka-manggarai-302", "station": "MRI", "source": "djka", "kind": "station", "name": "Kamera 2", "play": { "type": "page", "url": "https://cctv-stasiun.kemenhub.go.id/stream.html?src=Manggarai-302" }, "page": "https://cctv-stasiun.kemenhub.go.id/public/stasiun/live/manggarai" },
+    { "id": "djka-manggarai-402", "station": "MRI", "source": "djka", "kind": "station", "name": "Kamera 3", "play": { "type": "page", "url": "https://cctv-stasiun.kemenhub.go.id/stream.html?src=Manggarai-402" }, "page": "https://cctv-stasiun.kemenhub.go.id/public/stasiun/live/manggarai" },
+    { "id": "djka-manggarai-802", "station": "MRI", "source": "djka", "kind": "station", "name": "Kamera 4", "play": { "type": "page", "url": "https://cctv-stasiun.kemenhub.go.id/stream.html?src=Manggarai-802" }, "page": "https://cctv-stasiun.kemenhub.go.id/public/stasiun/live/manggarai" },
+
+    { "id": "djka-tanah-abang-102", "station": "THB", "source": "djka", "kind": "station", "name": "Kamera 1", "play": { "type": "page", "url": "https://cctv-stasiun.kemenhub.go.id/stream.html?src=Tanah-Abang-102" }, "page": "https://cctv-stasiun.kemenhub.go.id/public/stasiun/live/tanah-abang" },
+    { "id": "djka-tanah-abang-202", "station": "THB", "source": "djka", "kind": "station", "name": "Kamera 2", "play": { "type": "page", "url": "https://cctv-stasiun.kemenhub.go.id/stream.html?src=Tanah-Abang-202" }, "page": "https://cctv-stasiun.kemenhub.go.id/public/stasiun/live/tanah-abang" },
+
+    { "id": "djka-jakarta-kota-802", "station": "JAKK", "source": "djka", "kind": "station", "name": "Kamera 1", "play": { "type": "page", "url": "https://cctv-stasiun.kemenhub.go.id/stream.html?src=Jakarta-Kota-802" }, "page": "https://cctv-stasiun.kemenhub.go.id/public/stasiun/live/jakarta-kota" },
+    { "id": "djka-jakarta-kota-402", "station": "JAKK", "source": "djka", "kind": "station", "name": "Kamera 2", "play": { "type": "page", "url": "https://cctv-stasiun.kemenhub.go.id/stream.html?src=Jakarta-Kota-402" }, "page": "https://cctv-stasiun.kemenhub.go.id/public/stasiun/live/jakarta-kota" },
+    { "id": "djka-jakarta-kota-502", "station": "JAKK", "source": "djka", "kind": "station", "name": "Kamera 3", "play": { "type": "page", "url": "https://cctv-stasiun.kemenhub.go.id/stream.html?src=Jakarta-Kota-502" }, "page": "https://cctv-stasiun.kemenhub.go.id/public/stasiun/live/jakarta-kota" },
+    { "id": "djka-jakarta-kota-602", "station": "JAKK", "source": "djka", "kind": "station", "name": "Kamera 4", "play": { "type": "page", "url": "https://cctv-stasiun.kemenhub.go.id/stream.html?src=Jakarta-Kota-602" }, "page": "https://cctv-stasiun.kemenhub.go.id/public/stasiun/live/jakarta-kota" },
+
+    { "id": "djka-senen-302", "station": "PSE", "source": "djka", "kind": "station", "name": "Kamera 1", "play": { "type": "page", "url": "https://cctv-stasiun.kemenhub.go.id/stream.html?src=Senen-302" }, "page": "https://cctv-stasiun.kemenhub.go.id/public/stasiun/live/senen" },
+    { "id": "djka-senen-402", "station": "PSE", "source": "djka", "kind": "station", "name": "Kamera 2", "play": { "type": "page", "url": "https://cctv-stasiun.kemenhub.go.id/stream.html?src=Senen-402" }, "page": "https://cctv-stasiun.kemenhub.go.id/public/stasiun/live/senen" },
+    { "id": "djka-senen-602", "station": "PSE", "source": "djka", "kind": "station", "name": "Kamera 3", "play": { "type": "page", "url": "https://cctv-stasiun.kemenhub.go.id/stream.html?src=Senen-602" }, "page": "https://cctv-stasiun.kemenhub.go.id/public/stasiun/live/senen" },
+    { "id": "djka-senen-802", "station": "PSE", "source": "djka", "kind": "station", "name": "Kamera 4", "play": { "type": "page", "url": "https://cctv-stasiun.kemenhub.go.id/stream.html?src=Senen-802" }, "page": "https://cctv-stasiun.kemenhub.go.id/public/stasiun/live/senen" },
+
+    { "id": "djka-jatinegara-302", "station": "JNG", "source": "djka", "kind": "station", "name": "Kamera 1", "play": { "type": "page", "url": "https://cctv-stasiun.kemenhub.go.id/stream.html?src=Jatinegara-302" }, "page": "https://cctv-stasiun.kemenhub.go.id/public/stasiun/live/jatinegara" },
+    { "id": "djka-jatinegara-602", "station": "JNG", "source": "djka", "kind": "station", "name": "Kamera 2", "play": { "type": "page", "url": "https://cctv-stasiun.kemenhub.go.id/stream.html?src=Jatinegara-602" }, "page": "https://cctv-stasiun.kemenhub.go.id/public/stasiun/live/jatinegara" },
+    { "id": "djka-jatinegara-702", "station": "JNG", "source": "djka", "kind": "station", "name": "Kamera 3", "play": { "type": "page", "url": "https://cctv-stasiun.kemenhub.go.id/stream.html?src=Jatinegara-702" }, "page": "https://cctv-stasiun.kemenhub.go.id/public/stasiun/live/jatinegara" },
+
+    { "id": "djka-bekasi-302", "station": "BKS", "source": "djka", "kind": "station", "name": "Kamera 1", "play": { "type": "page", "url": "https://cctv-stasiun.kemenhub.go.id/stream.html?src=Bekasi-302" }, "page": "https://cctv-stasiun.kemenhub.go.id/public/stasiun/live/bekasi" },
+    { "id": "djka-bekasi-402", "station": "BKS", "source": "djka", "kind": "station", "name": "Kamera 2", "play": { "type": "page", "url": "https://cctv-stasiun.kemenhub.go.id/stream.html?src=Bekasi-402" }, "page": "https://cctv-stasiun.kemenhub.go.id/public/stasiun/live/bekasi" },
+
+    { "id": "dki-503675-jati-baru-raya-c02-1", "station": "THB", "source": "dki", "kind": "street", "name": "Jl. Jatibaru Raya", "play": { "type": "hls", "url": "https://dki-jkt.balitower.co.id:7028/503675_JKP_BAKESBANGPOL_JL.-JATI-BARU-RAYA-C02_CCTV-01/index.fmp4.m3u8", "web": true }, "page": "https://dki-jkt.balitower.co.id:7028/503675_JKP_BAKESBANGPOL_JL.-JATI-BARU-RAYA-C02_CCTV-01/embed.html" },
+    { "id": "dki-501594-manggarai-utara-2-c01-1", "station": "MRI", "source": "dki", "kind": "street", "name": "Jl. Manggarai Utara II", "play": { "type": "hls", "url": "https://dki-jkt.balitower.co.id:7028/501594_JKS_DISGULKARMAT_JL.-MANGGARAI-UTARA-2-C01_CCTV-01/index.fmp4.m3u8", "web": true }, "page": "https://dki-jkt.balitower.co.id:7028/501594_JKS_DISGULKARMAT_JL.-MANGGARAI-UTARA-2-C01_CCTV-01/embed.html" },
+    { "id": "dki-502041-kh-mas-mansyur-c02-2", "station": "KAT", "source": "dki", "kind": "street", "name": "Jl. KH Mas Mansyur", "play": { "type": "hls", "url": "https://dki-jkt.balitower.co.id:7028/502041_JKP_POLDA_JL.-KH.-MAS-MANSYUR-C02_CCTV-02/index.fmp4.m3u8", "web": true }, "page": "https://dki-jkt.balitower.co.id:7028/502041_JKP_POLDA_JL.-KH.-MAS-MANSYUR-C02_CCTV-02/embed.html" },
+    { "id": "dki-503301-tentara-pelajar-c04-1", "station": "PLM", "source": "dki", "kind": "street", "name": "Jl. Tentara Pelajar · 1", "play": { "type": "hls", "url": "https://dki-jkt.balitower.co.id:7028/503301_JKP_POLDA_JL.-TENTARA-PELAJAR-C04_CCTV-01/index.fmp4.m3u8", "web": true }, "page": "https://dki-jkt.balitower.co.id:7028/503301_JKP_POLDA_JL.-TENTARA-PELAJAR-C04_CCTV-01/embed.html" },
+    { "id": "dki-503301-tentara-pelajar-c04-2", "station": "PLM", "source": "dki", "kind": "street", "name": "Jl. Tentara Pelajar · 2", "play": { "type": "hls", "url": "https://dki-jkt.balitower.co.id:7028/503301_JKP_POLDA_JL.-TENTARA-PELAJAR-C04_CCTV-02/index.fmp4.m3u8", "web": true }, "page": "https://dki-jkt.balitower.co.id:7028/503301_JKP_POLDA_JL.-TENTARA-PELAJAR-C04_CCTV-02/embed.html" },
+
+    { "id": "bekasi-juanda-stasiun", "station": "BKS", "source": "bekasi", "kind": "street", "name": "Jl. Ir. H. Juanda · depan stasiun", "play": { "type": "hls", "url": "https://eofficev2.bekasikota.go.id/backupcctv/m3/Jl_Ir_H_Juanda_Stasiun_Kota_Bekasi.m3u8", "web": true }, "page": "https://bekasikota.go.id/cctv" },
+
+    { "id": "bogor-82-alun-alun", "station": "BOO", "source": "bogor", "kind": "street", "name": "Depan Alun-Alun Kota Bogor", "play": { "type": "hls", "url": "https://restreamer2.kotabogor.go.id/memfs/c07c1926-288c-46e4-a19c-9f51022edc5d.m3u8", "web": false }, "page": "https://bsw.kotabogor.go.id/cctv/82/detail" },
+    { "id": "bogor-136-mawar-merdeka", "station": "BOO", "source": "bogor", "kind": "street", "name": "Pertigaan Jl. Mawar arah Merdeka", "play": { "type": "hls", "url": "https://restreamer3.kotabogor.go.id/memfs/8b39d204-4039-4352-b236-01635b3f5e7a.m3u8", "web": false }, "page": "https://bsw.kotabogor.go.id/cctv/136/detail" },
+    { "id": "bogor-114-ma-salmun-mawar", "station": "BOO", "source": "bogor", "kind": "street", "name": "Jl. MA Salmun arah Mawar", "play": { "type": "hls", "url": "https://restreamer.kotabogor.go.id/memfs/aaa81ab7-5f96-4073-8090-e33d882a5dff.m3u8", "web": false }, "page": "https://bsw.kotabogor.go.id/cctv/114/detail" },
+    { "id": "bogor-134-juanda-balaikota", "station": "BOO", "source": "bogor", "kind": "street", "name": "Jl. Juanda depan Balai Kota", "play": { "type": "hls", "url": "https://restreamer3.kotabogor.go.id/memfs/e7d14e54-b9bd-474a-8976-dd08baec4498.m3u8", "web": false }, "page": "https://bsw.kotabogor.go.id/cctv/134/detail" },
+
+    { "id": "depok-1010902-jpo-detos-margo-1", "station": "POC", "source": "depok", "kind": "street", "name": "JPO Detos–Margo City · 1", "lat": -6.369145, "lon": 106.833815, "play": { "type": "hls", "url": "https://dishub.depok.go.id/vi/1010902.m3u8", "web": false }, "page": "https://dishub.depok.go.id/cctv" },
+    { "id": "depok-1010903-jpo-detos-margo-2", "station": "POC", "source": "depok", "kind": "street", "name": "JPO Detos–Margo City · 2", "lat": -6.369229, "lon": 106.834037, "play": { "type": "hls", "url": "https://dishub.depok.go.id/vi/1010903.m3u8", "web": false }, "page": "https://dishub.depok.go.id/cctv" }
+  ]
+}
