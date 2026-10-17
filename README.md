@@ -9,10 +9,13 @@ road cameras.
 
 - **Links only.** Video plays straight from each camera owner's server. Nothing here stores,
   records or re-streams video.
-- **Official sources only:** DJKA Kemenhub, Pemprov DKI Jakarta, Pemkot Bekasi, Pemkot Bogor,
+- **Official sources:** DJKA Kemenhub, Pemprov DKI Jakarta, Pemkot Bekasi, Pemkot Bogor,
   Dishub Kota Depok, Dishub Kabupaten Tangerang, DPUPR Kota Tangerang (SIPANTAU river posts and
-  floodgates), Bina Marga Kementerian PU (national roads), the toll-road operators as listed by BPJT Kementerian PU, and Pemprov Banten.
-  Each camera names its source and links its owner's page (`page`) for attribution. A toll camera's
+  floodgates), Bina Marga Kementerian PU (national roads), the toll-road operators as listed by
+  BPJT Kementerian PU, and Pemprov Banten.
+- **One channel that is not a government's:** Pakuan Network's YouTube lives of Bogor's roads
+  (cameras by Cemerlang CCTV and Padjajaran CCTV), played in YouTube's own embedded player.
+- Each camera names its source and links its owner's page (`page`) for attribution. A toll camera's
   owner is its operator (badan usaha jalan tol); its page is BPJT's CCTV page.
 - Camera owners who want a camera removed: open an issue and it will be taken out.
 
@@ -37,11 +40,14 @@ Every `road` camera is built, not hand-written. The builder reads BPJT's CCTV pa
 (https://bpjt.pu.go.id/cctv/), the Pemprov Banten list (https://cctv.bantenprov.go.id), Bina
 Marga's national-road map (https://binamarga.pu.go.id/cctv-non-tol/), and the city lists of Dishub
 Depok, Dishub Kabupaten Tangerang, Pemprov DKI and Pemkot Bekasi, and the river posts of SIPANTAU
-(https://sipantau.dpuprkotang.info/). It keeps the cameras inside
+(https://sipantau.dpuprkotang.info/) and Pakuan Network's YouTube lives
+(https://www.youtube.com/@PakuanNetwork). It keeps the cameras inside
 Jabodetabek whose stream answers right now, skips streams already hand-picked as station or street
 cameras, and replaces every `road` camera in `cctv/v1.json`; the hand-picked cameras stay as
 written. DKI and Bekasi publish no positions, so their cameras have none. SIPANTAU cameras play in
-the owner's player page (`page`); their stream's playlist is only asked to see that they are up. Pemkot Bogor's city list
+the owner's player page (`page`); their stream's playlist is only asked to see that they are up. A Pakuan Network live is taken when
+YouTube says it is live now and may be embedded, under the place `PAKUAN_PLACES` gives its title;
+a stream that restarts gets a new video, which the next build picks up. Pemkot Bogor's city list
 is not built yet: its server did not answer on 2026-10-17. Run it again to pick up cameras that were
 offline (as of 2026-10-17 Jasa Marga's and BSD's streams answer empty or 404, also on BPJT's own
 page). An operator BPJT names that is not yet in `TOLL_OPERATORS` is reported and left out until
