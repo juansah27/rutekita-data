@@ -1,7 +1,7 @@
 // Validates cctv/v1.json and facilities/*.v1.json. Run before every commit:
 //   node scripts/check.mjs                      shape only
 //   node scripts/check.mjs --live               also request every stream
-//   node scripts/check.mjs --stations krl.json  also check station codes against RuteKita data
+//   node scripts/check.mjs --stations krl.json,rail.json  also check station codes against RuteKita data
 // Exit code 1 if any check fails.
 
 import { readFile } from 'node:fs/promises';
@@ -11,7 +11,7 @@ const live = args.includes('--live');
 const stationsArg = args.indexOf('--stations');
 const stationsPath = stationsArg >= 0 ? args[stationsArg + 1] : null;
 
-const KINDS = new Set(['station', 'street']);
+const KINDS = new Set(['station', 'street', 'road']);
 const PLAY_TYPES = new Set(['hls', 'page']);
 const errors = [];
 const fail = (id, msg) => errors.push(`${id}: ${msg}`);
@@ -26,7 +26,7 @@ for (const [key, s] of Object.entries(catalog.sources ?? {})) {
 }
 
 const stationCodes = stationsPath
-  ? new Set(JSON.parse(await readFile(stationsPath, 'utf8')).stations.map((s) => s.code))
+  ? new Set((await Promise.all(stationsPath.split(',').map(async (path) => JSON.parse(await readFile(path, 'utf8')).stations))).flat().map((s) => s.code))
   : null;
 
 const ids = new Set();
@@ -38,7 +38,12 @@ for (const c of catalog.cameras ?? []) {
   if (!catalog.sources?.[c.source]) fail(id, `unknown source "${c.source}"`);
   if (!KINDS.has(c.kind)) fail(id, `kind must be one of ${[...KINDS].join(', ')}`);
   if (!c.name) fail(id, 'missing name');
-  if (stationCodes && !stationCodes.has(c.station)) fail(id, `unknown station code "${c.station}"`);
+  // A road camera names a station only when it stands next to one; the others need one.
+  if (c.kind === 'road') {
+    if (!c.area) fail(id, 'road camera needs an area');
+    if (typeof c.lat !== 'number' || typeof c.lon !== 'number') fail(id, 'road camera needs lat and lon');
+  } else if (!c.station) fail(id, 'missing station');
+  if (stationCodes && c.station !== undefined && !stationCodes.has(c.station)) fail(id, `unknown station code "${c.station}"`);
   if (!PLAY_TYPES.has(c.play?.type)) fail(id, `play.type must be one of ${[...PLAY_TYPES].join(', ')}`);
   if (!isHttps(c.play?.url)) fail(id, 'play.url must be https');
   if (c.play?.type === 'hls' && typeof c.play.web !== 'boolean') fail(id, 'hls play needs web: true|false');

@@ -4,27 +4,44 @@ Data that the RuteKita app fetches at runtime, so it can change without an app r
 
 ## `cctv/v1.json`
 
-Public CCTV cameras at or near KRL Jabodetabek stations.
+Public CCTV cameras at or near Jabodetabek rail stations (KRL, MRT, LRT), plus toll-road and city
+road cameras.
 
 - **Links only.** Video plays straight from each camera owner's server. Nothing here stores,
   records or re-streams video.
-- **Official sources only:** DJKA Kemenhub, Pemprov DKI Jakarta, Pemkot Bekasi, Pemkot Bogor and
-  Dishub Kota Depok. Each camera names its source and links its owner's page (`page`) for
-  attribution.
+- **Official sources only:** DJKA Kemenhub, Pemprov DKI Jakarta, Pemkot Bekasi, Pemkot Bogor,
+  Dishub Kota Depok, the toll-road operators as listed by BPJT Kementerian PU, and Pemprov Banten.
+  Each camera names its source and links its owner's page (`page`) for attribution. A toll camera's
+  owner is its operator (badan usaha jalan tol); its page is BPJT's CCTV page.
 - Camera owners who want a camera removed: open an issue and it will be taken out.
 
 ### Fields
 
 | Field | Meaning |
 |---|---|
-| `station` | RuteKita station code, e.g. `MRI` (Manggarai) |
-| `kind` | `station` = inside the station; `street` = public road next to it |
+| `station` | RuteKita station code, e.g. `MRI` (Manggarai) or `mrt:bundaran-hi`. Optional for `road` cameras: set only when one stands within 400 m of a station |
+| `kind` | `station` = inside the station; `street` = public road next to it; `road` = a toll road or city road, not tied to a station |
+| `area` | `road` only: the toll road or region the camera watches, e.g. `Tol JORR S`; the app groups road cameras by it |
 | `play.type` | `hls` = an `.m3u8` stream for the app's video player; `page` = the owner's player page, opened in a web view |
 | `play.web` | `hls` only: `true` when the stream allows playback from other websites (CORS `*`). When `false`, the web version links to `page` instead |
-| `lat`, `lon` | Optional; only where the owner publishes the camera's position |
+| `lat`, `lon` | Where the owner publishes the camera's position; required for `road` cameras |
 
 Bump `version` (and the file name) only for a change older apps cannot read. Adding cameras or
-sources is not such a change.
+sources is not such a change, and neither is `road`: apps from before it skip those cameras.
+
+### Road cameras
+
+The `tol-*` and `banten` cameras are built, not hand-written. The builder reads BPJT's CCTV page
+(https://bpjt.pu.go.id/cctv/) and the Pemprov Banten list (https://cctv.bantenprov.go.id), keeps
+the cameras inside Jabodetabek whose stream answers right now, and replaces those sources' cameras
+in `cctv/v1.json`; every other camera stays as written. Run it again to pick up cameras that were
+offline (as of 2026-10-17 Jasa Marga's and BSD's streams answer empty or 404, also on BPJT's own
+page). An operator BPJT names that is not yet in `TOLL_OPERATORS` is reported and left out until
+its company name is added.
+
+```bash
+node scripts/build-cctv-roads.mjs --stations ../rutekita/assets/data/krl.json,../rutekita/assets/data/rail.json
+```
 
 ## `facilities/`
 
@@ -67,5 +84,5 @@ the same files.
 Checks the CCTV catalog and both facility files; `--live` also requests every camera stream.
 
 ```bash
-node scripts/check.mjs --live --stations ../rutekita/assets/data/krl.json
+node scripts/check.mjs --live --stations ../rutekita/assets/data/krl.json,../rutekita/assets/data/rail.json
 ```
