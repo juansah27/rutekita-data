@@ -42,9 +42,14 @@ Marga's national-road map (https://binamarga.pu.go.id/cctv-non-tol/), and the ci
 Depok, Dishub Kabupaten Tangerang, Pemprov DKI and Pemkot Bekasi, and the river posts of SIPANTAU
 (https://sipantau.dpuprkotang.info/) and Pakuan Network's YouTube lives
 (https://www.youtube.com/@PakuanNetwork). It keeps the cameras inside
-Jabodetabek whose stream answers right now, skips streams already hand-picked as station or street
+Jabodetabek whose stream is live right now, skips streams already hand-picked as station or street
 cameras, and replaces every `road` camera in `cctv/v1.json`; the hand-picked cameras stay as
-written. DKI and Bekasi publish no positions, so their cameras have none. SIPANTAU cameras play in
+written. Live means more than a playlist: its newest segment must be video (some owners answer a
+removed segment with their home page), it must not have ended (`#EXT-X-ENDLIST`, a short
+recording), and it must move on within one and a half segments. A stream that starts only once it
+is asked for (Dishub Depok) is given 25 s to start. `play.web` needs every step, playlists and
+segments, to allow other websites, as the web player fetches them itself. It reports what it left
+out per source and why. DKI and Bekasi publish no positions, so their cameras have none. SIPANTAU cameras play in
 the owner's player page (`page`); their stream's playlist is only asked to see that they are up. A Pakuan Network live is taken when
 YouTube says it is live now and may be embedded, under the place `PAKUAN_PLACES` gives its title;
 a stream that restarts gets a new video, which the next build picks up. Pemkot Bogor's city list

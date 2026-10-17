@@ -5,7 +5,7 @@
 //   node scripts/build-cctv-roads.mjs --stations ../rutekita/assets/data/krl.json,../rutekita/assets/data/rail.json
 // Every road camera is replaced; the hand-picked station and street cameras are kept, and a road
 // camera whose stream is already hand-picked is left out.
-// Only cameras whose stream answers with a playlist right now are written, so run it again later
+// Only cameras whose stream is live right now (see `probe`) are written, so run it again later
 // to pick up cameras that were offline.
 //
 // A road camera has `kind: "road"`, an `area` (the toll road or region it watches), `lat`/`lon` when
@@ -13,6 +13,7 @@
 // older than road cameras skip them; apps older than road cameras without a position skip those.
 
 import { readFile, writeFile } from 'node:fs/promises';
+import { setTimeout as sleep } from 'node:timers/promises';
 
 const args = process.argv.slice(2);
 const stationsArg = args.includes('--stations') ? args[args.indexOf('--stations') + 1] : null;
@@ -109,17 +110,97 @@ async function get(url) {
   throw new Error(`${url} could not be read (${failure}); cctv/v1.json was left unchanged`);
 }
 
-/** Whether the stream answers with a playlist now, and whether other sites may play it. */
-async function probe(url) {
+const PROBE_CONCURRENCY = 24;
+// How long a stream that starts on demand gets before it is asked again (Depok's first segment takes ~17 s).
+const WAKE_MS = 25_000;
+const askStream = (url) => fetch(url, { headers: { origin: WEB_ORIGIN }, signal: AbortSignal.timeout(15_000) });
+const allowsWeb = (res) => ['*', WEB_ORIGIN].includes(res.headers.get('access-control-allow-origin'));
+const hlsTag = (playlist, name) => playlist.match(new RegExp(`^#${name}:(.*)$`, 'm'))?.[1]?.trim();
+/** A playlist's entries (variants or segments), resolved against its own address. */
+const hlsEntries = (playlist, base) =>
+  playlist
+    .split(/\r?\n/)
+    .map((l) => l.trim())
+    .filter((l) => l && !l.startsWith('#'))
+    .map((l) => new URL(l, base).href);
+
+/** Whether bytes open like video: an MPEG-TS packet, an fMP4 box, or the ID3 tag some streams lead with. */
+function looksLikeMedia(bytes) {
+  const text = (from, to) => String.fromCharCode(...bytes.subarray(from, to));
+  return bytes[0] === 0x47 || ['ftyp', 'styp', 'moof', 'sidx', 'emsg', 'prft'].includes(text(4, 8)) || text(0, 3) === 'ID3';
+}
+
+/**
+ * Whether the stream is live now, and whether other sites may play it. A playlist alone does not
+ * show that: some owners keep serving one that ends (#EXT-X-ENDLIST, a short recording), one whose
+ * segments are gone (answered with their home page), or one that stopped moving. So the newest
+ * segment must be video, and the playlist must move on within one and a half segments. On the web
+ * the player fetches the playlists and segments itself, so all of them must allow other sites.
+ *
+ * Some servers (Dishub Depok) start a camera's stream only when it is asked for, and until then
+ * answer with nothing or with the playlist the last viewer left; so a stream that is not live at
+ * first is asked again once it has had time to start.
+ *
+ * `shallow` stops at the first playlist: for a camera that plays in its owner's page, whose server
+ * answers that one but refuses the rest to anyone but its own player (SIPANTAU's go2rtc).
+ */
+async function probe(url, { shallow = false } = {}) {
   try {
-    const res = await fetch(url, { headers: { origin: WEB_ORIGIN }, signal: AbortSignal.timeout(15_000) });
-    const body = await res.text();
-    if (!res.ok || !body.startsWith('#EXTM3U')) return null;
-    const cors = res.headers.get('access-control-allow-origin');
-    return { web: cors === '*' || cors === WEB_ORIGIN };
+    let top = await askStream(url);
+    let playlist = await top.text();
+    if (!top.ok || !playlist.startsWith('#EXTM3U')) {
+      if (shallow) return { dead: 'no playlist' };
+      await sleep(WAKE_MS);
+      top = await askStream(url);
+      playlist = await top.text();
+      if (!top.ok || !playlist.startsWith('#EXTM3U')) return { dead: 'no playlist' };
+    }
+    if (shallow) return { web: false };
+    let web = allowsWeb(top);
+    let media = url;
+    if (playlist.includes('#EXT-X-STREAM-INF')) {
+      media = hlsEntries(playlist, url)[0];
+      if (!media) return { dead: 'no playlist' };
+      const res = await askStream(media);
+      playlist = await res.text();
+      if (!res.ok || !playlist.startsWith('#EXTM3U')) return { dead: 'no playlist' };
+      web &&= allowsWeb(res);
+    }
+    if (playlist.includes('#EXT-X-ENDLIST')) {
+      await sleep(WAKE_MS);
+      playlist = await (await askStream(media)).text();
+      if (playlist.includes('#EXT-X-ENDLIST')) return { dead: 'a recording' };
+    }
+    const newest = hlsEntries(playlist, media).at(-1);
+    if (!newest) return { dead: 'no segments' };
+    const segment = await askStream(newest);
+    if (!segment.ok || !looksLikeMedia(new Uint8Array(await segment.arrayBuffer()))) return { dead: 'segments gone' };
+    web &&= allowsWeb(segment);
+
+    const target = Number(hlsTag(playlist, 'EXT-X-TARGETDURATION')) || 6;
+    await sleep(Math.min(target * 1.5, 30) * 1000);
+    const again = await (await askStream(media)).text();
+    if (again.includes('#EXT-X-ENDLIST')) return { dead: 'a recording' };
+    const moved =
+      hlsEntries(again, media).at(-1) !== newest || hlsTag(again, 'EXT-X-MEDIA-SEQUENCE') !== hlsTag(playlist, 'EXT-X-MEDIA-SEQUENCE');
+    return moved ? { web } : { dead: 'frozen' };
   } catch {
-    return null;
+    return { dead: 'no answer' };
   }
+}
+
+/** `fn` over every item, at most `limit` at a time, results in item order. */
+async function mapLimit(items, limit, fn) {
+  const results = new Array(items.length);
+  let next = 0;
+  const worker = async () => {
+    while (next < items.length) {
+      const i = next++;
+      results[i] = await fn(items[i]);
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(limit, items.length) }, worker));
+  return results;
 }
 
 const tidy = (text) => text.replace(/\s+/g, ' ').trim();
@@ -432,10 +513,18 @@ const found = [
   ...(await pakuanCameras()),
 ].filter((c) => !handPickedUrls.has(c.player ?? c.url) && !handPickedIds.has(c.id));
 // A camera with no playlist was already found live by its source.
-const probed = await Promise.all(found.map((c) => (c.url ? probe(c.url) : { web: false })));
+const probed = await mapLimit(found, PROBE_CONCURRENCY, (c) => (c.url ? probe(c.url, { shallow: Boolean(c.player) }) : { web: false }));
+const dead = {};
+found.forEach((c, i) => {
+  const why = probed[i].dead;
+  if (why) (dead[c.source] ??= {})[why] = (dead[c.source][why] ?? 0) + 1;
+});
+for (const [source, why] of Object.entries(dead)) {
+  console.warn(`${source}: left out ${Object.entries(why).map(([w, n]) => `${n} ${w}`).join(', ')}`);
+}
 
 // Two cameras on one road can share a segment name; number them so each row is distinct.
-const live = found.flatMap((c, i) => (probed[i] ? [{ ...c, web: probed[i].web }] : []));
+const live = found.flatMap((c, i) => (probed[i].dead ? [] : [{ ...c, web: probed[i].web }]));
 const seenNames = new Map();
 const cameras = [];
 const usedIds = new Set();
