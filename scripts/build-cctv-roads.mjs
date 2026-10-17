@@ -33,6 +33,18 @@ const BINA_MARGA_PAGE = 'https://binamarga.pu.go.id/cctv-non-tol/';
 const SIPANTAU_PAGE = 'https://sipantau.dpuprkotang.info/';
 const SIPANTAU_API = 'https://api.dpuprkotang.info/nuxt/posduga';
 const SIPANTAU_PLAYER = 'https://cctv.dpuprkotang.info/';
+const PAKUAN_PAGE = 'https://www.youtube.com/@PakuanNetwork';
+// Pakuan Network's live titles, each to the place it shows; null for a camera outside Jabodetabek.
+// A live whose title matches none is reported and left out until it is added here.
+const PAKUAN_PLACES = [
+  [/Gunung Mas.*Arah Puncak/i, { area: 'Jalur Puncak', name: 'Agrowisata Gunung Mas · arah Puncak Pass' }],
+  [/Gunung Mas.*Arah Gadog/i, { area: 'Jalur Puncak', name: 'Agrowisata Gunung Mas · arah Gadog' }],
+  [/Polsek Cisarua/i, { area: 'Jalur Puncak', name: 'Depan Polsek Cisarua' }],
+  [/Simpang Gadog/i, { area: 'Jalur Puncak', name: 'Simpang Gadog' }],
+  [/Baranangsiang/i, { area: 'Kota Bogor', name: 'Baranangsiang' }],
+  [/Katulampa/i, { area: 'Kota Bogor', name: 'Bendung Katulampa' }],
+  [/Parungkuda/i, null],
+];
 // Some owners only answer CORS when the request names an origin, as a browser's does.
 const WEB_ORIGIN = 'https://kaskitaserver.tail8f4ed4.ts.net';
 const USER_AGENT = 'rutekita-data/1 (https://github.com/juansah27/rutekita-data)';
@@ -356,6 +368,52 @@ async function sipantauCameras() {
   return cameras;
 }
 
+/** The page's `ytInitialData`, YouTube's own description of what the page shows. */
+function youtubeData(html, url) {
+  const json = html.match(/var ytInitialData = (\{.*?\});<\/script>/s)?.[1];
+  if (!json) throw new Error(`${url} no longer carries ytInitialData; cctv/v1.json was left unchanged`);
+  return JSON.parse(json);
+}
+
+/**
+ * Pakuan Network streams Bogor's roads on YouTube. Its Live tab lists the current and past streams;
+ * a stream is taken when it is live now and its owner lets other apps embed it, under the place its
+ * title names. A stream that restarts gets a new video, so each build finds the current one. YouTube
+ * gives no positions.
+ */
+async function pakuanCameras() {
+  const listUrl = `${PAKUAN_PAGE}/streams`;
+  const videos = [];
+  (function walk(node) {
+    if (!node || typeof node !== 'object') return;
+    const lockup = node.lockupViewModel;
+    if (lockup?.contentType === 'LOCKUP_CONTENT_TYPE_VIDEO') {
+      videos.push({ id: lockup.contentId, title: lockup.metadata?.lockupMetadataViewModel?.title?.content ?? '' });
+    }
+    Object.values(node).forEach(walk);
+  })(youtubeData(await get(listUrl), listUrl));
+  if (videos.length === 0) throw new Error(`${listUrl} no longer lists its streams; cctv/v1.json was left unchanged`);
+  const cameras = [];
+  const taken = new Set();
+  for (const { id, title } of videos) {
+    const match = PAKUAN_PLACES.find(([pattern]) => pattern.test(title));
+    if (!match) console.warn(`Pakuan Network stream "${title}" names no known place; left out`);
+    const place = match?.[1];
+    if (!place || taken.has(place.name) || !/^[\w-]{11}$/.test(id)) continue;
+    const watch = await get(`https://www.youtube.com/watch?v=${id}`);
+    if (!watch.includes('"isLiveNow":true') || !watch.includes('"playableInEmbed":true')) continue;
+    taken.add(place.name);
+    cameras.push({
+      id: `pakuan-${place.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`,
+      source: 'pakuan',
+      ...place,
+      player: `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&playsinline=1`,
+      page: `https://www.youtube.com/watch?v=${id}`,
+    });
+  }
+  return cameras;
+}
+
 // A Windows checkout may have CRLF line ends; work on LF and write LF.
 const catalogText = (await readFile(CATALOG, 'utf8')).replace(/\r\n/g, '\n');
 const catalog = JSON.parse(catalogText);
@@ -371,8 +429,10 @@ const found = [
   ...(await tangerangKabCameras()),
   ...(await binaMargaCameras()),
   ...(await sipantauCameras()),
+  ...(await pakuanCameras()),
 ].filter((c) => !handPickedUrls.has(c.player ?? c.url) && !handPickedIds.has(c.id));
-const probed = await Promise.all(found.map((c) => probe(c.url)));
+// A camera with no playlist was already found live by its source.
+const probed = await Promise.all(found.map((c) => (c.url ? probe(c.url) : { web: false })));
 
 // Two cameras on one road can share a segment name; number them so each row is distinct.
 const live = found.flatMap((c, i) => (probed[i] ? [{ ...c, web: probed[i].web }] : []));
@@ -394,7 +454,7 @@ for (const c of live) {
     kind: 'road',
     area: c.area,
     name: n > 1 ? `${c.name} · ${n}` : c.name,
-    // A camera with a player page plays there; its playlist only showed that it is up.
+    // A camera with a player page plays there; a playlist only showed that it is up.
     play: c.player ? { type: 'page', url: c.player } : { type: 'hls', url: c.url, web: c.web },
     page: c.page,
     ...(placed ? { lat: Number(c.lat.toFixed(6)), lon: Number(c.lon.toFixed(6)) } : {}),
@@ -435,6 +495,7 @@ const BUILT_SOURCES = {
   'tangerang-kab': { name: 'ATCS Dishub Kabupaten Tangerang', owner: 'Dinas Perhubungan Kabupaten Tangerang', page: TANGERANG_KAB_PAGE },
   binamarga: { name: 'CCTV Jalan Non Tol · Bina Marga Kementerian PU', owner: 'Direktorat Jenderal Bina Marga, Kementerian PU', page: BINA_MARGA_PAGE },
   'tangerang-kota': { name: 'SIPANTAU · DPUPR Kota Tangerang', owner: 'Dinas Pekerjaan Umum dan Penataan Ruang Kota Tangerang', page: SIPANTAU_PAGE },
+  pakuan: { name: 'Pakuan Network · YouTube', owner: 'Pakuan Network, with cameras by Cemerlang CCTV and Padjajaran CCTV', page: PAKUAN_PAGE },
 };
 const generated = (key) => key.startsWith('tol-') || key in BUILT_SOURCES;
 // The hand-picked cameras' lines as written, blank lines included; built cameras are dropped.
