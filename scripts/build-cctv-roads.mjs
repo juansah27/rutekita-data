@@ -1,7 +1,8 @@
-// Adds the road cameras to cctv/v1.json: toll-road cameras listed by BPJT Kementerian PU and the
-// Pemprov Banten cameras, inside Jabodetabek.
+// Adds the road cameras to cctv/v1.json: toll-road cameras listed by BPJT Kementerian PU, the
+// Pemprov Banten cameras and the Dishub Depok city cameras, inside Jabodetabek.
 //   node scripts/build-cctv-roads.mjs --stations ../rutekita/assets/data/krl.json,../rutekita/assets/data/rail.json
-// Every camera of the sources built here is replaced; the hand-picked station cameras are kept.
+// Every road camera is replaced; the hand-picked station and street cameras are kept, and a road
+// camera whose stream is already hand-picked is left out.
 // Only cameras whose stream answers with a playlist right now are written, so run it again later
 // to pick up cameras that were offline.
 //
@@ -20,6 +21,7 @@ if (!stationsArg) {
 const CATALOG = new URL('../cctv/v1.json', import.meta.url);
 const BPJT_PAGE = 'https://bpjt.pu.go.id/cctv/';
 const BANTEN_PAGE = 'https://cctv.bantenprov.go.id';
+const DEPOK_PAGE = 'https://dishub.depok.go.id/cctv';
 // Some owners only answer CORS when the request names an origin, as a browser's does.
 const WEB_ORIGIN = 'https://kaskitaserver.tail8f4ed4.ts.net';
 const USER_AGENT = 'rutekita-data/1 (https://github.com/juansah27/rutekita-data)';
@@ -165,7 +167,44 @@ async function bantenCameras() {
     }));
 }
 
-const found = [...(await bpjtCameras()), ...(await bantenCameras())];
+/** "PASAR PUCUNG 1" → "Pasar Pucung 1"; short abbreviations such as SP and JPO stay as written. */
+function cityName(name) {
+  const text = tidy(name);
+  if (text !== text.toUpperCase()) return text;
+  const keep = (w) => w.length <= 2 || !/[AEIOU]/.test(w) || !/[A-Z]/.test(w);
+  return text
+    .split(' ')
+    .map((w) => (keep(w) ? w : w.charAt(0) + w.slice(1).toLowerCase()))
+    .join(' ');
+}
+
+/** Dishub Depok's map page carries every camera as `dataCCTV`; a stream is named by its camera's IP without the dots. */
+async function depokCameras() {
+  const match = (await get(DEPOK_PAGE)).match(/\[\{"exists"[\s\S]*?\}\]/);
+  if (!match) throw new Error('Dishub Depok page no longer carries its camera list');
+  return JSON.parse(match[0])
+    .map((c) => {
+      const stream = String(c.ip).replace(/\./g, '');
+      return {
+        id: `depok-${stream}`,
+        source: 'depok',
+        area: 'Kota Depok',
+        name: cityName(c.nama_cctv),
+        url: `https://dishub.depok.go.id/vi/${stream}.m3u8`,
+        page: DEPOK_PAGE,
+        lat: Number(c.latitude),
+        lon: Number(c.longitude),
+      };
+    })
+    .filter((c) => inJabodetabek(c.lat, c.lon));
+}
+
+// A Windows checkout may have CRLF line ends; work on LF and write LF.
+const catalogText = (await readFile(CATALOG, 'utf8')).replace(/\r\n/g, '\n');
+const catalog = JSON.parse(catalogText);
+const handPickedUrls = new Set(catalog.cameras.filter((c) => c.kind !== 'road').map((c) => c.play?.url));
+
+const found = [...(await bpjtCameras()), ...(await bantenCameras()), ...(await depokCameras())].filter((c) => !handPickedUrls.has(c.url));
 const probed = await Promise.all(found.map((c) => probe(c.url)));
 
 // Two cameras on one road can share a segment name; number them so each row is distinct.
@@ -211,7 +250,7 @@ function oneLine(value) {
 function format(catalog, handPicked) {
   const built = [];
   let area = null;
-  for (const c of catalog.cameras.filter((c) => generated(c.source))) {
+  for (const c of catalog.cameras.filter((c) => c.kind === 'road')) {
     if (built.length && c.area !== area) built[built.length - 1] += '\n';
     area = c.area;
     built.push(`    ${oneLine(c)}`);
@@ -222,15 +261,13 @@ function format(catalog, handPicked) {
   return `${head},\n  "cameras": [\n${lines.join('\n')}\n  ]\n}\n`;
 }
 
+// Sources with nothing but built cameras; they are written again from the cameras found.
 const generated = (key) => key.startsWith('tol-') || key === 'banten';
-// A Windows checkout may have CRLF line ends; work on LF and write LF.
-const catalogText = (await readFile(CATALOG, 'utf8')).replace(/\r\n/g, '\n');
-const catalog = JSON.parse(catalogText);
 // The hand-picked cameras' lines as written, blank lines included; built cameras are dropped.
 const handPicked = catalogText
   .slice(catalogText.indexOf('"cameras": [\n') + '"cameras": [\n'.length, catalogText.lastIndexOf('\n  ]'))
   .split('\n')
-  .filter((l) => !/"source": "(tol-[^"]*|banten)"/.test(l))
+  .filter((l) => !/"kind": "road"/.test(l))
   .join('\n')
   .trimEnd()
   .replace(/,$/, '')
@@ -245,7 +282,7 @@ for (const c of cameras) {
   }
 }
 catalog.sources = sources;
-catalog.cameras = [...catalog.cameras.filter((c) => !generated(c.source)), ...cameras];
+catalog.cameras = [...catalog.cameras.filter((c) => c.kind !== 'road'), ...cameras];
 catalog.updatedAt = new Date().toISOString().slice(0, 10);
 await writeFile(CATALOG, format(catalog, handPicked));
 
