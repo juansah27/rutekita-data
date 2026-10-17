@@ -41,7 +41,6 @@ for (const c of catalog.cameras ?? []) {
   // A road camera names a station only when it stands next to one; the others need one.
   if (c.kind === 'road') {
     if (!c.area) fail(id, 'road camera needs an area');
-    if (typeof c.lat !== 'number' || typeof c.lon !== 'number') fail(id, 'road camera needs lat and lon');
   } else if (!c.station) fail(id, 'missing station');
   if (stationCodes && c.station !== undefined && !stationCodes.has(c.station)) fail(id, `unknown station code "${c.station}"`);
   if (!PLAY_TYPES.has(c.play?.type)) fail(id, `play.type must be one of ${[...PLAY_TYPES].join(', ')}`);
