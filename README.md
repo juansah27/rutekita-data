@@ -10,8 +10,8 @@ road cameras.
 - **Links only.** Video plays straight from each camera owner's server. Nothing here stores,
   records or re-streams video.
 - **Official sources only:** DJKA Kemenhub, Pemprov DKI Jakarta, Pemkot Bekasi, Pemkot Bogor,
-  Dishub Kota Depok, Dishub Kabupaten Tangerang, Bina Marga Kementerian PU (national roads), the
-  toll-road operators as listed by BPJT Kementerian PU, and Pemprov Banten.
+  Dishub Kota Depok, Dishub Kabupaten Tangerang, DPUPR Kota Tangerang (SIPANTAU river posts and
+  floodgates), Bina Marga Kementerian PU (national roads), the toll-road operators as listed by BPJT Kementerian PU, and Pemprov Banten.
   Each camera names its source and links its owner's page (`page`) for attribution. A toll camera's
   owner is its operator (badan usaha jalan tol); its page is BPJT's CCTV page.
 - Camera owners who want a camera removed: open an issue and it will be taken out.
@@ -22,7 +22,7 @@ road cameras.
 |---|---|
 | `station` | RuteKita station code, e.g. `MRI` (Manggarai) or `mrt:bundaran-hi`. Optional for `road` cameras: set only when one stands within 400 m of a station |
 | `kind` | `station` = inside the station; `street` = public road next to it; `road` = a toll road or city road, not tied to a station |
-| `area` | `road` only: the toll road or region the camera watches, e.g. `Tol JORR S`; the app groups road cameras by it |
+| `area` | `road` only: the toll road or region the camera watches, e.g. `Tol JORR S` or `Pintu Air Kota Tangerang`; the app groups road cameras by it |
 | `play.type` | `hls` = an `.m3u8` stream for the app's video player; `page` = the owner's player page, opened in a web view |
 | `play.web` | `hls` only: `true` when the stream allows playback from other websites (CORS `*`). When `false`, the web version links to `page` instead |
 | `lat`, `lon` | Where the owner publishes the camera's position, always both or neither. A `road` camera without them is listed under its `area` but has no marker on the map: positions are never guessed |
@@ -36,10 +36,12 @@ apps from before position-less road cameras skip only those.
 Every `road` camera is built, not hand-written. The builder reads BPJT's CCTV page
 (https://bpjt.pu.go.id/cctv/), the Pemprov Banten list (https://cctv.bantenprov.go.id), Bina
 Marga's national-road map (https://binamarga.pu.go.id/cctv-non-tol/), and the city lists of Dishub
-Depok, Dishub Kabupaten Tangerang, Pemprov DKI and Pemkot Bekasi. It keeps the cameras inside
+Depok, Dishub Kabupaten Tangerang, Pemprov DKI and Pemkot Bekasi, and the river posts of SIPANTAU
+(https://sipantau.dpuprkotang.info/). It keeps the cameras inside
 Jabodetabek whose stream answers right now, skips streams already hand-picked as station or street
 cameras, and replaces every `road` camera in `cctv/v1.json`; the hand-picked cameras stay as
-written. DKI and Bekasi publish no positions, so their cameras have none. Pemkot Bogor's city list
+written. DKI and Bekasi publish no positions, so their cameras have none. SIPANTAU cameras play in
+the owner's player page (`page`); their stream's playlist is only asked to see that they are up. Pemkot Bogor's city list
 is not built yet: its server did not answer on 2026-10-17. Run it again to pick up cameras that were
 offline (as of 2026-10-17 Jasa Marga's and BSD's streams answer empty or 404, also on BPJT's own
 page). An operator BPJT names that is not yet in `TOLL_OPERATORS` is reported and left out until
