@@ -46,16 +46,19 @@ for (const c of catalog.cameras ?? []) {
   if ((c.lat === undefined) !== (c.lon === undefined)) fail(id, 'lat and lon go together');
 }
 
+// Some owners only answer CORS when the request names an origin, as a browser's does.
+const WEB_ORIGIN = 'https://kaskitaserver.tail8f4ed4.ts.net';
+
 if (live) {
   const results = await Promise.all(
     catalog.cameras.map(async (c) => {
       try {
-        const res = await fetch(c.play.url, { signal: AbortSignal.timeout(15000) });
+        const res = await fetch(c.play.url, { headers: { origin: WEB_ORIGIN }, signal: AbortSignal.timeout(15000) });
         const type = res.headers.get('content-type') ?? '';
         const body = await res.text();
         const ok = res.ok && (c.play.type === 'page' ? type.includes('html') : body.startsWith('#EXTM3U'));
         const cors = res.headers.get('access-control-allow-origin');
-        if (c.play.type === 'hls' && c.play.web && cors !== '*') fail(c.id, `web: true but CORS is "${cors}"`);
+        if (c.play.type === 'hls' && c.play.web && cors !== '*' && cors !== WEB_ORIGIN) fail(c.id, `web: true but CORS is "${cors}"`);
         return `${ok ? 'ok     ' : 'OFFLINE'} ${c.id}${ok ? '' : ` (${res.status} ${type})`}`;
       } catch (e) {
         return `OFFLINE ${c.id} (${e.name})`;
