@@ -30,6 +30,9 @@ const BEKASI_PAGE = 'https://bekasikota.go.id/cctv';
 const BEKASI_STREAMS = 'https://eofficev2.bekasikota.go.id/backupcctv/m3/';
 const TANGERANG_KAB_PAGE = 'https://cctv-dishub.tangerangkab.go.id/';
 const BINA_MARGA_PAGE = 'https://binamarga.pu.go.id/cctv-non-tol/';
+const SIPANTAU_PAGE = 'https://sipantau.dpuprkotang.info/';
+const SIPANTAU_API = 'https://api.dpuprkotang.info/nuxt/posduga';
+const SIPANTAU_PLAYER = 'https://cctv.dpuprkotang.info/';
 // Some owners only answer CORS when the request names an origin, as a browser's does.
 const WEB_ORIGIN = 'https://kaskitaserver.tail8f4ed4.ts.net';
 const USER_AGENT = 'rutekita-data/1 (https://github.com/juansah27/rutekita-data)';
@@ -321,6 +324,38 @@ async function binaMargaCameras() {
   return cameras;
 }
 
+/**
+ * SIPANTAU (DPUPR Kota Tangerang) watches its river posts and floodgates. Each post's detail names its
+ * camera's stream on the go2rtc server behind the site's player; the app shows that player page, and
+ * the stream's playlist only tells the builder whether the camera is up. Only the post's name, stream
+ * and position are read. "ANGKE - DUREN VILLA" → "Angke · Duren Villa".
+ */
+async function sipantauCameras() {
+  const posts = JSON.parse(await get(SIPANTAU_API)).data?.lokasi;
+  if (!Array.isArray(posts) || posts.length === 0) throw new Error('SIPANTAU no longer lists its posts');
+  const cameras = [];
+  for (const { id } of posts) {
+    const post = JSON.parse(await get(`${SIPANTAU_API}/${encodeURIComponent(id)}`)).data?.lokasi;
+    if (!post?.cctv_live || typeof post.cctv_hls !== 'string') continue;
+    const player = new URL(post.cctv_hls);
+    const stream = player.searchParams.get('src');
+    const [lat, lon] = [Number(post.lat), Number(post.long)];
+    if (player.origin + '/' !== SIPANTAU_PLAYER || !stream || !inJabodetabek(lat, lon)) continue;
+    cameras.push({
+      id: `sipantau-${stream.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`,
+      source: 'tangerang-kota',
+      area: 'Pintu Air Kota Tangerang',
+      name: post.nama.split(/\s+-\s+/).map(streetName).join(' · '),
+      url: `${SIPANTAU_PLAYER}api/stream.m3u8?src=${encodeURIComponent(stream)}`,
+      player: `${SIPANTAU_PLAYER}stream.html?src=${encodeURIComponent(stream)}`,
+      page: SIPANTAU_PAGE,
+      lat,
+      lon,
+    });
+  }
+  return cameras;
+}
+
 // A Windows checkout may have CRLF line ends; work on LF and write LF.
 const catalogText = (await readFile(CATALOG, 'utf8')).replace(/\r\n/g, '\n');
 const catalog = JSON.parse(catalogText);
@@ -335,7 +370,8 @@ const found = [
   ...(await bekasiCameras()),
   ...(await tangerangKabCameras()),
   ...(await binaMargaCameras()),
-].filter((c) => !handPickedUrls.has(c.url) && !handPickedIds.has(c.id));
+  ...(await sipantauCameras()),
+].filter((c) => !handPickedUrls.has(c.player ?? c.url) && !handPickedIds.has(c.id));
 const probed = await Promise.all(found.map((c) => probe(c.url)));
 
 // Two cameras on one road can share a segment name; number them so each row is distinct.
@@ -358,7 +394,8 @@ for (const c of live) {
     kind: 'road',
     area: c.area,
     name: n > 1 ? `${c.name} · ${n}` : c.name,
-    play: { type: 'hls', url: c.url, web: c.web },
+    // A camera with a player page plays there; its playlist only showed that it is up.
+    play: c.player ? { type: 'page', url: c.player } : { type: 'hls', url: c.url, web: c.web },
     page: c.page,
     ...(placed ? { lat: Number(c.lat.toFixed(6)), lon: Number(c.lon.toFixed(6)) } : {}),
   });
@@ -397,6 +434,7 @@ const BUILT_SOURCES = {
   banten: { name: 'Sistem Pemantauan CCTV · Pemprov Banten', owner: 'Diskominfo Provinsi Banten', page: BANTEN_PAGE },
   'tangerang-kab': { name: 'ATCS Dishub Kabupaten Tangerang', owner: 'Dinas Perhubungan Kabupaten Tangerang', page: TANGERANG_KAB_PAGE },
   binamarga: { name: 'CCTV Jalan Non Tol · Bina Marga Kementerian PU', owner: 'Direktorat Jenderal Bina Marga, Kementerian PU', page: BINA_MARGA_PAGE },
+  'tangerang-kota': { name: 'SIPANTAU · DPUPR Kota Tangerang', owner: 'Dinas Pekerjaan Umum dan Penataan Ruang Kota Tangerang', page: SIPANTAU_PAGE },
 };
 const generated = (key) => key.startsWith('tol-') || key in BUILT_SOURCES;
 // The hand-picked cameras' lines as written, blank lines included; built cameras are dropped.
