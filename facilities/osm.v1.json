@@ -1,0 +1,589 @@
+{
+ "version": 1,
+ "updatedAt": "2026-10-17",
+ "osmTimestamp": "2026-10-17T04:37:34Z",
+ "source": {
+  "name": "OpenStreetMap",
+  "attribution": "© OpenStreetMap contributors",
+  "licence": "ODbL-1.0",
+  "licenceUrl": "https://opendatacommons.org/licenses/odbl/1-0/",
+  "page": "https://www.openstreetmap.org/copyright"
+ },
+ "stations": {
+  "BKS": {
+   "exits": [
+    {
+     "osm": "node/11145431502",
+     "name": "Pintu Masuk Selatan Stasiun Bekasi"
+    },
+    {
+     "osm": "node/11145431503",
+     "name": "Pintu Masuk Utara Stasiun Bekasi"
+    },
+    {
+     "osm": "node/14119783944"
+    }
+   ],
+   "lifts": [
+    {
+     "osm": "node/13456380944"
+    }
+   ],
+   "parkingCar": [
+    {
+     "osm": "way/339850178"
+    }
+   ],
+   "parkingMotor": [
+    {
+     "osm": "way/1210901053"
+    }
+   ]
+  },
+  "BKST": {
+   "exits": [
+    {
+     "osm": "node/13782258618"
+    },
+    {
+     "osm": "node/13782258619"
+    },
+    {
+     "osm": "node/14148752114"
+    }
+   ],
+   "lifts": [
+    {
+     "osm": "node/14148752112"
+    }
+   ]
+  },
+  "BOI": {
+   "exits": [
+    {
+     "osm": "node/10651339653"
+    },
+    {
+     "osm": "node/10651339654"
+    }
+   ],
+   "toilets": [
+    {
+     "osm": "node/10651339669"
+    },
+    {
+     "osm": "node/10651339670"
+    }
+   ]
+  },
+  "BOO": {
+   "exits": [
+    {
+     "osm": "node/13984604828",
+     "name": "Pintu Timur Stasiun Bogor"
+    }
+   ],
+   "parkingCar": [
+    {
+     "osm": "way/718765631"
+    }
+   ]
+  },
+  "CIT": {
+   "wheelchair": {
+    "value": "yes",
+    "osm": "node/316744738"
+   }
+  },
+  "CKI": {
+   "toilets": [
+    {
+     "osm": "node/6249961689"
+    }
+   ]
+  },
+  "CLT": {
+   "musholla": [
+    {
+     "osm": "way/1304987668"
+    }
+   ]
+  },
+  "CSK": {
+   "exits": [
+    {
+     "osm": "node/5578957517"
+    },
+    {
+     "osm": "node/7249140962"
+    }
+   ],
+   "parkingCar": [
+    {
+     "osm": "way/776905414"
+    }
+   ]
+  },
+  "CTA": {
+   "wheelchair": {
+    "value": "yes",
+    "osm": "node/318841469"
+   }
+  },
+  "CUK": {
+   "exits": [
+    {
+     "osm": "node/10102084801"
+    },
+    {
+     "osm": "node/10102084804"
+    },
+    {
+     "osm": "node/10102084805"
+    }
+   ]
+  },
+  "CW": {
+   "exits": [
+    {
+     "osm": "node/11365102486"
+    },
+    {
+     "osm": "node/1993475615"
+    }
+   ],
+   "lifts": [
+    {
+     "osm": "node/11365102467"
+    }
+   ],
+   "toilets": [
+    {
+     "osm": "node/13985703577"
+    }
+   ],
+   "musholla": [
+    {
+     "osm": "node/13985703578"
+    }
+   ],
+   "escalators": [
+    {
+     "osm": "way/1225528659"
+    },
+    {
+     "osm": "way/1228093209"
+    }
+   ]
+  },
+  "DP": {
+   "toilets": [
+    {
+     "osm": "node/6215571885"
+    }
+   ],
+   "pickup": [
+    {
+     "osm": "way/309940482",
+     "name": "Stasiun Depok Lama Order Grab"
+    }
+   ]
+  },
+  "DPB": {
+   "toilets": [
+    {
+     "osm": "node/4992176759"
+    }
+   ],
+   "pickup": [
+    {
+     "osm": "node/12662481185",
+     "name": "Shelter Ojek Online Sta. Depok Baru"
+    }
+   ],
+   "exits": [
+    {
+     "osm": "node/13141328298"
+    }
+   ]
+  },
+  "DRN": {
+   "exits": [
+    {
+     "osm": "node/8213948746"
+    },
+    {
+     "osm": "node/8213948753"
+    }
+   ],
+   "parkingCar": [
+    {
+     "osm": "node/8582462517"
+    }
+   ]
+  },
+  "JAKK": {
+   "wheelchair": {
+    "value": "yes",
+    "osm": "node/5036305391"
+   },
+   "exits": [
+    {
+     "osm": "node/10185753951"
+    },
+    {
+     "osm": "node/11452307309"
+    },
+    {
+     "osm": "node/6797409836"
+    },
+    {
+     "osm": "node/6797409838"
+    }
+   ],
+   "musholla": [
+    {
+     "osm": "node/7564490582"
+    }
+   ],
+   "toilets": [
+    {
+     "osm": "node/12467065347"
+    }
+   ],
+   "parkingCar": [
+    {
+     "osm": "way/1266806042"
+    }
+   ]
+  },
+  "JMU": {
+   "exits": [
+    {
+     "osm": "node/10788569044"
+    }
+   ],
+   "parkingMotor": [
+    {
+     "osm": "way/1279017851"
+    }
+   ]
+  },
+  "JNG": {
+   "exits": [
+    {
+     "osm": "node/11502026084"
+    }
+   ]
+  },
+  "JTK": {
+   "exits": [
+    {
+     "osm": "node/13508156963"
+    }
+   ],
+   "escalators": [
+    {
+     "osm": "way/1472140690"
+    }
+   ],
+   "parkingMotor": [
+    {
+     "osm": "way/1472140701"
+    }
+   ]
+  },
+  "JUA": {
+   "toilets": [
+    {
+     "osm": "node/6252027186"
+    }
+   ],
+   "exits": [
+    {
+     "osm": "node/11446709129"
+    }
+   ]
+  },
+  "KBY": {
+   "exits": [
+    {
+     "osm": "node/12878243089"
+    },
+    {
+     "osm": "node/9201422060"
+    }
+   ]
+  },
+  "KLD": {
+   "musholla": [
+    {
+     "osm": "node/9747971568"
+    },
+    {
+     "osm": "way/1427442573"
+    }
+   ]
+  },
+  "KLDB": {
+   "exits": [
+    {
+     "osm": "node/10117417500"
+    }
+   ]
+  },
+  "KRI": {
+   "wheelchair": {
+    "value": "yes",
+    "osm": "node/316743611"
+   },
+   "exits": [
+    {
+     "osm": "node/11145402840",
+     "name": "Pintu Masuk Belakang Statiun Kranji"
+    },
+    {
+     "osm": "node/11145418621",
+     "name": "Pintu Masuk Utama Statiun Kranji"
+    }
+   ]
+  },
+  "MGB": {
+   "wheelchair": {
+    "value": "limited",
+    "osm": "node/4976561246"
+   }
+  },
+  "MJ": {
+   "pickup": [
+    {
+     "osm": "node/13343860382",
+     "name": "Grab dan Maxim Shelter Pasar Stasiun Maja"
+    }
+   ]
+  },
+  "MRI": {
+   "wheelchair": {
+    "value": "limited",
+    "osm": "node/4815286700"
+   },
+   "toilets": [
+    {
+     "osm": "node/6249775609"
+    }
+   ],
+   "exits": [
+    {
+     "osm": "node/9398103262"
+    },
+    {
+     "osm": "node/9398103267"
+    },
+    {
+     "osm": "node/9398103343"
+    }
+   ]
+  },
+  "PDJ": {
+   "wheelchair": {
+    "value": "yes",
+    "osm": "node/318718577"
+   }
+  },
+  "PLM": {
+   "exits": [
+    {
+     "osm": "node/6115544731"
+    }
+   ]
+  },
+  "POC": {
+   "toilets": [
+    {
+     "osm": "node/4969602262"
+    }
+   ]
+  },
+  "PSE": {
+   "toilets": [
+    {
+     "osm": "node/6249962525"
+    }
+   ]
+  },
+  "RU": {
+   "pickup": [
+    {
+     "osm": "way/696798849",
+     "name": "Jalan Ojol Stasiun Rawa Buntu"
+    }
+   ]
+  },
+  "SDM": {
+   "parkingMotor": [
+    {
+     "osm": "node/13428229900"
+    }
+   ],
+   "parkingCar": [
+    {
+     "osm": "way/219127032"
+    },
+    {
+     "osm": "way/458249735"
+    }
+   ]
+  },
+  "SRP": {
+   "wheelchair": {
+    "value": "no",
+    "osm": "node/4152468605"
+   }
+  },
+  "SUD": {
+   "toilets": [
+    {
+     "osm": "node/6274294692"
+    }
+   ],
+   "exits": [
+    {
+     "osm": "node/11161430039",
+     "wheelchair": "yes"
+    },
+    {
+     "osm": "node/11739285542"
+    },
+    {
+     "osm": "node/7034494220"
+    },
+    {
+     "osm": "node/7034494221"
+    },
+    {
+     "osm": "node/7034494222"
+    }
+   ]
+  },
+  "SUDB": {
+   "exits": [
+    {
+     "osm": "node/12304294672",
+     "ref": "A2"
+    },
+    {
+     "osm": "node/12761855431",
+     "ref": "C"
+    },
+    {
+     "osm": "node/14140442650"
+    }
+   ],
+   "toilets": [
+    {
+     "osm": "node/14140086914"
+    }
+   ],
+   "parkingCar": [
+    {
+     "osm": "way/1554283719"
+    },
+    {
+     "osm": "way/1554283720"
+    }
+   ]
+  },
+  "TB": {
+   "wheelchair": {
+    "value": "limited",
+    "osm": "node/9201422030"
+   },
+   "exits": [
+    {
+     "osm": "node/14149871762"
+    },
+    {
+     "osm": "node/14149871769"
+    }
+   ]
+  },
+  "TEJ": {
+   "parkingMotor": [
+    {
+     "osm": "way/1234018661"
+    }
+   ]
+  },
+  "THB": {
+   "toilets": [
+    {
+     "osm": "node/5998660778"
+    }
+   ]
+  },
+  "TKO": {
+   "exits": [
+    {
+     "osm": "node/10653462634"
+    }
+   ]
+  },
+  "TLM": {
+   "lifts": [
+    {
+     "osm": "node/14150200040"
+    },
+    {
+     "osm": "node/14150200055"
+    }
+   ],
+   "exits": [
+    {
+     "osm": "node/14150200070",
+     "ref": "A"
+    }
+   ],
+   "escalators": [
+    {
+     "osm": "way/1555174856"
+    },
+    {
+     "osm": "way/1555174861"
+    },
+    {
+     "osm": "way/1555174863"
+    }
+   ]
+  },
+  "TNG": {
+   "pickup": [
+    {
+     "osm": "node/10656534124",
+     "name": "Shelter Maxim Stasiun Tangerang"
+    },
+    {
+     "osm": "node/14251472601",
+     "name": "Gojek Stasiun Tangerang"
+    }
+   ]
+  },
+  "TPK": {
+   "toilets": [
+    {
+     "osm": "node/6197909085"
+    }
+   ],
+   "parkingMotor": [
+    {
+     "osm": "node/6197980485"
+    }
+   ]
+  },
+  "UI": {
+   "wheelchair": {
+    "value": "yes",
+    "osm": "node/2372928209"
+   }
+  }
+ }
+}

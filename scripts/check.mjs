@@ -1,4 +1,4 @@
-// Validates cctv/v1.json. Run before every commit:
+// Validates cctv/v1.json and facilities/*.v1.json. Run before every commit:
 //   node scripts/check.mjs                      shape only
 //   node scripts/check.mjs --live               also request every stream
 //   node scripts/check.mjs --stations krl.json  also check station codes against RuteKita data
@@ -46,6 +46,37 @@ for (const c of catalog.cameras ?? []) {
   if ((c.lat === undefined) !== (c.lon === undefined)) fail(id, 'lat and lon go together');
 }
 
+// Station facilities: two files, one per source, because their licences differ.
+const OSM_LISTS = new Set(['exits', 'lifts', 'escalators', 'toilets', 'musholla', 'parkingCar', 'parkingMotor', 'pickup']);
+const WIKI_FACILITIES = new Set(['toilet', 'musholla', 'lift', 'escalator', 'accessible', 'parking', 'dropoff']);
+const ACCESS = new Set(['yes', 'limited', 'no']);
+const isOsmRef = (r) => typeof r === 'string' && /^(node|way|relation)\/\d+$/.test(r);
+const facilityCounts = [];
+for (const file of ['osm', 'wikipedia']) {
+  const data = JSON.parse(await readFile(new URL(`../facilities/${file}.v1.json`, import.meta.url), 'utf8'));
+  const where = `facilities/${file}`;
+  if (data.version !== 1) fail(where, `version ${data.version}, expected 1`);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(data.updatedAt ?? '')) fail(where, 'updatedAt must be YYYY-MM-DD');
+  const src = data.source ?? {};
+  if (!src.name || !src.attribution || !src.licence || !isHttps(src.licenceUrl) || !isHttps(src.page)) fail(where, 'source needs name, attribution, licence and https licenceUrl/page');
+  for (const [code, e] of Object.entries(data.stations ?? {})) {
+    const id = `${where} ${code}`;
+    if (stationCodes && !stationCodes.has(code)) fail(id, 'unknown station code');
+    if (file === 'osm') {
+      for (const [key, v] of Object.entries(e)) {
+        if (key === 'wheelchair') {
+          if (!ACCESS.has(v?.value) || !isOsmRef(v?.osm)) fail(id, 'wheelchair needs value yes|limited|no and an osm ref');
+        } else if (!OSM_LISTS.has(key)) fail(id, `unknown list "${key}"`);
+        else if (!Array.isArray(v) || v.length === 0 || !v.every((item) => isOsmRef(item.osm))) fail(id, `${key} must be a non-empty list of items with an osm ref`);
+      }
+    } else {
+      if (!e.article || !Number.isInteger(e.revision)) fail(id, 'needs article and revision');
+      if (!Array.isArray(e.facilities) || e.facilities.length === 0 || !e.facilities.every((f) => WIKI_FACILITIES.has(f))) fail(id, 'facilities must be a non-empty list of known keys');
+    }
+  }
+  facilityCounts.push(`${Object.keys(data.stations ?? {}).length} stations in ${where}`);
+}
+
 // Some owners only answer CORS when the request names an origin, as a browser's does.
 const WEB_ORIGIN = 'https://kaskitaserver.tail8f4ed4.ts.net';
 
@@ -69,6 +100,6 @@ if (live) {
   // Cameras go offline for a while; report them but do not fail the run.
 }
 
-console.log(`${catalog.cameras.length} cameras, ${Object.keys(catalog.sources).length} sources, ${errors.length} errors`);
+console.log(`${catalog.cameras.length} cameras, ${Object.keys(catalog.sources).length} sources, ${facilityCounts.join(', ')}, ${errors.length} errors`);
 for (const e of errors) console.log('  ' + e);
 process.exit(errors.length ? 1 : 0);

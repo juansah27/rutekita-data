@@ -26,7 +26,45 @@ Public CCTV cameras at or near KRL Jabodetabek stations.
 Bump `version` (and the file name) only for a change older apps cannot read. Adding cameras or
 sources is not such a change.
 
-### Checking
+## `facilities/`
+
+What each KRL station has: exits, lifts, escalators, step-free access, toilets, musholla, parking and
+ojol pick-up points. Built only from sources that allow reuse, by `scripts/build-facilities.mjs`.
+Nothing is added by hand: a facility a source does not record is simply absent, and the app shows
+"belum ada data" rather than a guess. To fix or add something, edit OpenStreetMap or the Wikipedia
+article and rebuild.
+
+The two sources stay in separate files because their licences cannot be merged into one database.
+
+| File | Source | Licence | Holds |
+|---|---|---|---|
+| `osm.v1.json` | OpenStreetMap, via Overpass | [ODbL 1.0](https://opendatacommons.org/licenses/odbl/1-0/), © OpenStreetMap contributors | exits (name, ref and street only where OSM has them), lifts, escalators, toilets, musholla, car and motorcycle parking, pick-up points, the station's `wheelchair` tag |
+| `wikipedia.v1.json` | Facility icons in each article's infobox, Wikipedia bahasa Indonesia | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.id), Kontributor Wikipedia | toilet, musholla, lift, escalator, accessible, parking, drop-off zone, plus the article title and revision they came from |
+
+`osm.v1.json` is a derived database of OpenStreetMap and is offered under the ODbL;
+`wikipedia.v1.json` is offered under CC BY-SA 4.0. Anyone showing them must credit the source the
+same way.
+
+OSM features count for a station when they lie on or within 15 m of the station's outline in OSM,
+or when their own name names the station ("Shelter Ojek Online Sta. Depok Baru"). MRT/LRT features
+and non-public entrances are left out. Every item keeps its OSM id (`node/123`) so it can be checked.
+
+Not used: KAI Commuter's own pages (no reuse terms published, and the site blocks automated
+access), Gojek/Grab pick-up lists (not open), and government open data (no station facility
+dataset found as of 2026-10).
+
+### Rebuilding
+
+```bash
+node scripts/build-facilities.mjs --stations ../rutekita/assets/data/krl.json --cache .cache
+```
+
+`--cache` keeps the raw Overpass and Wikipedia answers, so a rebuild from the same cache gives
+the same files.
+
+## Checking
+
+Checks the CCTV catalog and both facility files; `--live` also requests every camera stream.
 
 ```bash
 node scripts/check.mjs --live --stations ../rutekita/assets/data/krl.json

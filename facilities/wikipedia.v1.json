@@ -1,0 +1,824 @@
+{
+ "version": 1,
+ "updatedAt": "2026-10-17",
+ "source": {
+  "name": "Wikipedia bahasa Indonesia",
+  "attribution": "Kontributor Wikipedia",
+  "licence": "CC BY-SA 4.0",
+  "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/deed.id",
+  "page": "https://id.wikipedia.org/"
+ },
+ "stations": {
+  "AC": {
+   "article": "Stasiun Ancol",
+   "revision": 29968135,
+   "facilities": [
+    "accessible",
+    "musholla",
+    "toilet"
+   ]
+  },
+  "AK": {
+   "article": "Stasiun Angke",
+   "revision": 29724156,
+   "facilities": [
+    "musholla",
+    "toilet"
+   ]
+  },
+  "BJD": {
+   "article": "Stasiun Bojonggede",
+   "revision": 30008894,
+   "facilities": [
+    "accessible",
+    "lift",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "BKS": {
+   "article": "Stasiun Bekasi",
+   "revision": 30029757,
+   "facilities": [
+    "accessible",
+    "escalator",
+    "lift",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "BKST": {
+   "article": "Stasiun Bekasi Timur",
+   "revision": 29923805,
+   "facilities": [
+    "accessible",
+    "lift",
+    "toilet"
+   ]
+  },
+  "BOI": {
+   "article": "Stasiun Bojong Indah",
+   "revision": 30010956,
+   "facilities": [
+    "accessible",
+    "musholla",
+    "toilet"
+   ]
+  },
+  "BOO": {
+   "article": "Stasiun Bogor",
+   "revision": 30000501,
+   "facilities": [
+    "escalator",
+    "lift",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "BPR": {
+   "article": "Stasiun Batu Ceper",
+   "revision": 29728539,
+   "facilities": [
+    "escalator",
+    "musholla",
+    "toilet"
+   ]
+  },
+  "BUA": {
+   "article": "Stasiun Buaran",
+   "revision": 29724418,
+   "facilities": [
+    "accessible",
+    "lift",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "CBN": {
+   "article": "Stasiun Cibinong",
+   "revision": 29527845,
+   "facilities": [
+    "accessible",
+    "dropoff",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "CIT": {
+   "article": "Stasiun Cibitung",
+   "revision": 29923800,
+   "facilities": [
+    "accessible",
+    "lift",
+    "musholla",
+    "toilet"
+   ]
+  },
+  "CKI": {
+   "article": "Stasiun Cikini",
+   "revision": 29918745,
+   "facilities": [
+    "accessible",
+    "escalator",
+    "lift",
+    "musholla",
+    "toilet"
+   ]
+  },
+  "CKR": {
+   "article": "Stasiun Cikarang",
+   "revision": 30029982,
+   "facilities": [
+    "accessible",
+    "escalator",
+    "lift",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "CSK": {
+   "article": "Stasiun Cisauk",
+   "revision": 30056916,
+   "facilities": [
+    "escalator",
+    "lift",
+    "musholla",
+    "toilet"
+   ]
+  },
+  "CTA": {
+   "article": "Stasiun Citayam",
+   "revision": 30046334,
+   "facilities": [
+    "accessible",
+    "lift",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "CUK": {
+   "article": "Stasiun Cakung",
+   "revision": 29917585,
+   "facilities": [
+    "escalator",
+    "lift",
+    "musholla",
+    "toilet"
+   ]
+  },
+  "CW": {
+   "article": "Stasiun Cawang",
+   "revision": 29763911,
+   "facilities": [
+    "accessible",
+    "escalator",
+    "lift",
+    "musholla",
+    "toilet"
+   ]
+  },
+  "DAR": {
+   "article": "Stasiun Daru",
+   "revision": 29532948,
+   "facilities": [
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "DP": {
+   "article": "Stasiun Depok",
+   "revision": 29529332,
+   "facilities": [
+    "accessible",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "DPB": {
+   "article": "Stasiun Depok Baru",
+   "revision": 30008897,
+   "facilities": [
+    "accessible",
+    "lift",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "DRN": {
+   "article": "Stasiun Duren Kalibata",
+   "revision": 29728433,
+   "facilities": [
+    "accessible",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "DU": {
+   "article": "Stasiun Duri",
+   "revision": 29916808,
+   "facilities": [
+    "accessible",
+    "dropoff",
+    "escalator",
+    "lift",
+    "musholla",
+    "toilet"
+   ]
+  },
+  "GDD": {
+   "article": "Stasiun Gondangdia",
+   "revision": 29515473,
+   "facilities": [
+    "escalator",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "GRG": {
+   "article": "Stasiun Grogol",
+   "revision": 29724508,
+   "facilities": [
+    "accessible",
+    "musholla",
+    "toilet"
+   ]
+  },
+  "GST": {
+   "article": "Stasiun Gang Sentiong",
+   "revision": 29724247,
+   "facilities": [
+    "accessible",
+    "toilet"
+   ]
+  },
+  "JAKK": {
+   "article": "Stasiun Jakarta Kota",
+   "revision": 30057750,
+   "facilities": [
+    "accessible",
+    "dropoff",
+    "escalator",
+    "musholla",
+    "toilet"
+   ]
+  },
+  "JAY": {
+   "article": "Stasiun Jayakarta",
+   "revision": 30007628,
+   "facilities": [
+    "accessible",
+    "escalator",
+    "musholla",
+    "toilet"
+   ]
+  },
+  "JMU": {
+   "article": "Stasiun Jurangmangu",
+   "revision": 30017289,
+   "facilities": [
+    "accessible",
+    "escalator",
+    "lift",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "JNG": {
+   "article": "Stasiun Jatinegara",
+   "revision": 30028327,
+   "facilities": [
+    "escalator",
+    "lift",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "JTK": {
+   "article": "Stasiun Jatake",
+   "revision": 29532940,
+   "facilities": [
+    "accessible",
+    "dropoff",
+    "escalator",
+    "lift",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "JUA": {
+   "article": "Stasiun Juanda",
+   "revision": 29838484,
+   "facilities": [
+    "accessible",
+    "dropoff",
+    "escalator",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "KAT": {
+   "article": "Stasiun Karet",
+   "revision": 29943552,
+   "facilities": [
+    "accessible",
+    "musholla",
+    "toilet"
+   ]
+  },
+  "KBY": {
+   "article": "Stasiun Kebayoran",
+   "revision": 30022140,
+   "facilities": [
+    "accessible",
+    "escalator",
+    "lift",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "KDS": {
+   "article": "Stasiun Kalideres",
+   "revision": 29724497,
+   "facilities": [
+    "accessible",
+    "musholla",
+    "toilet"
+   ]
+  },
+  "KLD": {
+   "article": "Stasiun Klender",
+   "revision": 29844236,
+   "facilities": [
+    "accessible",
+    "escalator",
+    "lift",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "KLDB": {
+   "article": "Stasiun Klender Baru",
+   "revision": 29724421,
+   "facilities": [
+    "accessible",
+    "dropoff",
+    "escalator",
+    "lift",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "KMO": {
+   "article": "Stasiun Kemayoran",
+   "revision": 29728675,
+   "facilities": [
+    "accessible",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "KMT": {
+   "article": "Stasiun Kramat",
+   "revision": 29724223,
+   "facilities": [
+    "accessible",
+    "musholla",
+    "toilet"
+   ]
+  },
+  "KPB": {
+   "article": "Stasiun Kampung Bandan",
+   "revision": 29968193,
+   "facilities": [
+    "accessible",
+    "musholla",
+    "toilet"
+   ]
+  },
+  "KRI": {
+   "article": "Stasiun Kranji",
+   "revision": 29724431,
+   "facilities": [
+    "accessible",
+    "escalator",
+    "lift",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "LNA": {
+   "article": "Stasiun Lenteng Agung",
+   "revision": 29706831,
+   "facilities": [
+    "accessible",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "MGB": {
+   "article": "Stasiun Mangga Besar",
+   "revision": 29515460,
+   "facilities": [
+    "escalator",
+    "musholla",
+    "toilet"
+   ]
+  },
+  "MJ": {
+   "article": "Stasiun Maja",
+   "revision": 29851131,
+   "facilities": [
+    "lift",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "MRI": {
+   "article": "Stasiun Manggarai",
+   "revision": 30070430,
+   "facilities": [
+    "dropoff",
+    "escalator",
+    "lift",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "MTR": {
+   "article": "Stasiun Matraman",
+   "revision": 29728649,
+   "facilities": [
+    "dropoff",
+    "escalator",
+    "lift",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "NMO": {
+   "article": "Stasiun Nambo",
+   "revision": 29527844,
+   "facilities": [
+    "accessible",
+    "dropoff",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "PDJ": {
+   "article": "Stasiun Pondok Ranji",
+   "revision": 30016654,
+   "facilities": [
+    "accessible",
+    "dropoff",
+    "escalator",
+    "lift",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "PDRG": {
+   "article": "Stasiun Pondok Rajeg",
+   "revision": 29527846,
+   "facilities": [
+    "accessible",
+    "dropoff",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "PI": {
+   "article": "Stasiun Poris",
+   "revision": 29724490,
+   "facilities": [
+    "accessible",
+    "musholla",
+    "toilet"
+   ]
+  },
+  "PLM": {
+   "article": "Stasiun Palmerah",
+   "revision": 30010960,
+   "facilities": [
+    "escalator",
+    "lift",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "POC": {
+   "article": "Stasiun Pondok Cina",
+   "revision": 29515499,
+   "facilities": [
+    "accessible",
+    "dropoff",
+    "escalator",
+    "lift",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "POK": {
+   "article": "Stasiun Pondok Jati",
+   "revision": 29724216,
+   "facilities": [
+    "accessible",
+    "musholla",
+    "toilet"
+   ]
+  },
+  "PRP": {
+   "article": "Stasiun Parung Panjang",
+   "revision": 30015832,
+   "facilities": [
+    "lift",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "PSE": {
+   "article": "Stasiun Pasar Senen",
+   "revision": 30028827,
+   "facilities": [
+    "dropoff",
+    "escalator",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "PSG": {
+   "article": "Stasiun Pesing",
+   "revision": 29724503,
+   "facilities": [
+    "musholla",
+    "toilet"
+   ]
+  },
+  "PSM": {
+   "article": "Stasiun Pasar Minggu",
+   "revision": 29863466,
+   "facilities": [
+    "accessible",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "PSMB": {
+   "article": "Stasiun Pasar Minggu Baru",
+   "revision": 29515489,
+   "facilities": [
+    "accessible",
+    "lift",
+    "musholla",
+    "toilet"
+   ]
+  },
+  "RJW": {
+   "article": "Stasiun Rajawali",
+   "revision": 29728661,
+   "facilities": [
+    "accessible",
+    "musholla",
+    "toilet"
+   ]
+  },
+  "RK": {
+   "article": "Stasiun Rangkasbitung",
+   "revision": 29916805,
+   "facilities": [
+    "escalator",
+    "lift",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "RU": {
+   "article": "Stasiun Rawa Buntu",
+   "revision": 29970455,
+   "facilities": [
+    "accessible",
+    "dropoff",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "RW": {
+   "article": "Stasiun Rawa Buaya",
+   "revision": 29739389,
+   "facilities": [
+    "accessible",
+    "musholla",
+    "toilet"
+   ]
+  },
+  "SDM": {
+   "article": "Stasiun Sudimara",
+   "revision": 29968765,
+   "facilities": [
+    "accessible",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "SUD": {
+   "article": "Stasiun Sudirman",
+   "revision": 29883404,
+   "facilities": [
+    "escalator",
+    "musholla",
+    "toilet"
+   ]
+  },
+  "SUDB": {
+   "article": "Stasiun BNI City",
+   "revision": 29916811,
+   "facilities": [
+    "accessible",
+    "dropoff",
+    "escalator",
+    "lift",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "SW": {
+   "article": "Stasiun Sawah Besar",
+   "revision": 29515461,
+   "facilities": [
+    "escalator",
+    "musholla",
+    "toilet"
+   ]
+  },
+  "TB": {
+   "article": "Stasiun Tambun",
+   "revision": 30041031,
+   "facilities": [
+    "accessible",
+    "lift",
+    "parking"
+   ]
+  },
+  "TEB": {
+   "article": "Stasiun Tebet",
+   "revision": 30007631,
+   "facilities": [
+    "accessible",
+    "dropoff",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "TEJ": {
+   "article": "Stasiun Tenjo",
+   "revision": 29725228,
+   "facilities": [
+    "accessible",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "TGS": {
+   "article": "Stasiun Tigaraksa",
+   "revision": 29725444,
+   "facilities": [
+    "accessible",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "THB": {
+   "article": "Stasiun Tanah Abang",
+   "revision": 29916806,
+   "facilities": [
+    "accessible",
+    "escalator",
+    "lift",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "THI": {
+   "article": "Stasiun Tanah Tinggi",
+   "revision": 29698472,
+   "facilities": [
+    "accessible",
+    "musholla",
+    "toilet"
+   ]
+  },
+  "TKO": {
+   "article": "Stasiun Taman Kota",
+   "revision": 29724502,
+   "facilities": [
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "TLM": {
+   "article": "Stasiun Metland Telagamurni",
+   "revision": 29923803,
+   "facilities": [
+    "accessible",
+    "dropoff",
+    "escalator",
+    "lift",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "TNG": {
+   "article": "Stasiun Tangerang",
+   "revision": 29698470,
+   "facilities": [
+    "accessible",
+    "musholla",
+    "toilet"
+   ]
+  },
+  "TNT": {
+   "article": "Stasiun Tanjung Barat",
+   "revision": 30039315,
+   "facilities": [
+    "accessible",
+    "escalator",
+    "lift",
+    "musholla",
+    "parking",
+    "toilet"
+   ]
+  },
+  "TPK": {
+   "article": "Stasiun Tanjung Priok",
+   "revision": 29964746,
+   "facilities": [
+    "accessible",
+    "musholla",
+    "toilet"
+   ]
+  },
+  "UI": {
+   "article": "Stasiun Universitas Indonesia",
+   "revision": 30016658,
+   "facilities": [
+    "accessible",
+    "dropoff",
+    "musholla",
+    "toilet"
+   ]
+  },
+  "UP": {
+   "article": "Stasiun Universitas Pancasila",
+   "revision": 29715692,
+   "facilities": [
+    "accessible",
+    "lift",
+    "musholla",
+    "toilet"
+   ]
+  }
+ }
+}
