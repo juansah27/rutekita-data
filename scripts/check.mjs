@@ -81,6 +81,36 @@ for (const file of ['osm', 'wikipedia']) {
   facilityCounts.push(`${Object.keys(data.stations ?? {}).length} stations in ${where}`);
 }
 
+// Parking near boarding points: one list of OSM features, each kept once however many stops share it.
+const PARKING_KINDS = new Set(['car', 'motor', 'bicycle', 'park_ride']);
+const PARKING_TAGS = new Set(['name', 'capacity', 'fee', 'charge', 'opening_hours', 'operator', 'access', 'covered', 'parking', 'building', 'motorcycle', 'park_ride']);
+{
+  const where = 'facilities/parking';
+  const data = JSON.parse(await readFile(new URL('../facilities/parking.v1.json', import.meta.url), 'utf8'));
+  if (data.version !== 1) fail(where, `version ${data.version}, expected 1`);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(data.updatedAt ?? '')) fail(where, 'updatedAt must be YYYY-MM-DD');
+  const src = data.source ?? {};
+  if (!src.name || !src.attribution || !src.licence || !isHttps(src.licenceUrl) || !isHttps(src.page)) fail(where, 'source needs name, attribution, licence and https licenceUrl/page');
+  if (!Number.isFinite(data.radius) || data.radius <= 0) fail(where, 'radius must be a positive number of metres');
+  if (!Array.isArray(data.parking) || data.parking.length === 0) fail(where, 'parking must be a non-empty list');
+  const seen = new Set();
+  for (const p of data.parking ?? []) {
+    const id = `${where} ${p.osm}`;
+    if (!isOsmRef(p.osm)) fail(id, 'needs an osm ref');
+    if (seen.has(p.osm)) fail(id, 'listed twice');
+    seen.add(p.osm);
+    if (!PARKING_KINDS.has(p.kind)) fail(id, `kind must be one of ${[...PARKING_KINDS].join(', ')}`);
+    if (!(Math.abs(p.lat + 6.4) < 1 && Math.abs(p.lon - 106.75) < 1)) fail(id, 'lat/lon outside the Jabodetabek area');
+    if (p.access === 'private' || p.access === 'no') fail(id, 'not public');
+    for (const [k, v] of Object.entries(p)) {
+      if (['osm', 'kind', 'lat', 'lon'].includes(k)) continue;
+      if (!PARKING_TAGS.has(k)) fail(id, `unknown tag "${k}"`);
+      else if (typeof v !== 'string' || !v.trim()) fail(id, `${k} must be non-empty text`);
+    }
+  }
+  facilityCounts.push(`${seen.size} parking features in ${where}`);
+}
+
 // Some owners only answer CORS when the request names an origin, as a browser's does.
 const WEB_ORIGIN = 'https://kaskitaserver.tail8f4ed4.ts.net';
 

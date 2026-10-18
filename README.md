@@ -75,15 +75,36 @@ The two sources stay in separate files because their licences cannot be merged i
 | File | Source | Licence | Holds |
 |---|---|---|---|
 | `osm.v1.json` | OpenStreetMap, via Overpass | [ODbL 1.0](https://opendatacommons.org/licenses/odbl/1-0/), © OpenStreetMap contributors | exits (name, ref and street only where OSM has them), lifts, escalators, toilets, musholla, car and motorcycle parking, pick-up points, the station's `wheelchair` tag |
+| `parking.v1.json` | OpenStreetMap, via Overpass | [ODbL 1.0](https://opendatacommons.org/licenses/odbl/1-0/), © OpenStreetMap contributors | car, motorcycle, bicycle and park-and-ride parking within 300 m of any boarding point, with the tags listed below |
 | `wikipedia.v1.json` | Facility icons in each article's infobox, Wikipedia bahasa Indonesia | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.id), Kontributor Wikipedia | toilet, musholla, lift, escalator, accessible, parking, drop-off zone, plus the article title and revision they came from |
 
-`osm.v1.json` is a derived database of OpenStreetMap and is offered under the ODbL;
+`osm.v1.json` and `parking.v1.json` are derived databases of OpenStreetMap and are offered under the ODbL;
 `wikipedia.v1.json` is offered under CC BY-SA 4.0. Anyone showing them must credit the source the
 same way.
 
 OSM features count for a station when they lie on or within 15 m of the station's outline in OSM,
 or when their own name names the station ("Shelter Ojek Online Sta. Depok Baru"). MRT/LRT features
 and non-public entrances are left out. Every item keeps its OSM id (`node/123`) so it can be checked.
+
+### `parking.v1.json`
+
+Parking a rider can use after riding a motorbike, bicycle or car to the stop: every OSM
+`amenity=parking`, `amenity=motorcycle_parking`, `amenity=bicycle_parking` and `park_ride=*`
+feature within **300 m in a straight line** (not walking distance along streets) of any boarding
+point RuteKita knows: KRL stations, MRT and LRT stations, the KA Lokal / intercity stations, and
+every TransJakarta halte and bus stop. The app has no airport-rail stations yet, so none are covered.
+
+- One flat list, `parking`. A lot shared by several nearby stops is listed once; the app measures
+  the distance from whichever stop the rider opened. `radius` is the 300 m the list was cut at.
+- Each item: `osm` (`node/123`, `way/456`), `kind` (`car`, `motor`, `bicycle` or `park_ride`), `lat`/`lon`
+  (a way's or relation's centre), and only the tags the feature has among `name`, `capacity`,
+  `fee`, `charge`, `opening_hours`, `operator`, `access`, `covered`, `parking`, `building`,
+  `motorcycle` and `park_ride`. A missing tag is missing in OSM; nothing is guessed.
+- `kind` is `park_ride` whenever `park_ride` is set and not `no`; else `bicycle` or `motor` by amenity;
+  an `amenity=parking` with `motorcar=no` counts as motorcycle parking only when it says
+  `motorcycle=yes|designated`.
+- Left out: `access=private`, `access=no` and `access=employees`. `customers`, `permit` and the like are
+  kept with their `access` tag so the app can say so.
 
 Not used: KAI Commuter's own pages (no reuse terms published, and the site blocks automated
 access), Gojek/Grab pick-up lists (not open), and government open data (no station facility
@@ -92,15 +113,18 @@ dataset found as of 2026-10).
 ### Rebuilding
 
 ```bash
-node scripts/build-facilities.mjs --stations ../rutekita/assets/data/krl.json --cache .cache
+node scripts/build-facilities.mjs --stations ../rutekita/assets/data/krl.json \
+  --stops ../rutekita/assets/data/rail.json,../rutekita/assets/data/intercity.json,../rutekita/assets/data/tj.json \
+  --cache .cache
 ```
 
-`--cache` keeps the raw Overpass and Wikipedia answers, so a rebuild from the same cache gives
+Add `--parking-only` to rebuild `parking.v1.json` alone. Without `--stops`, the parking list covers
+the KRL stations only. `--cache` keeps the raw Overpass and Wikipedia answers, so a rebuild from the same cache gives
 the same files.
 
 ## Checking
 
-Checks the CCTV catalog and both facility files; `--live` also requests every camera stream.
+Checks the CCTV catalog and the facility files; `--live` also requests every camera stream.
 
 ```bash
 node scripts/check.mjs --live --stations ../rutekita/assets/data/krl.json,../rutekita/assets/data/rail.json

@@ -1,10 +1,16 @@
-// Builds facilities/osm.v1.json and facilities/wikipedia.v1.json, the station facilities RuteKita shows.
+// Builds facilities/osm.v1.json and facilities/wikipedia.v1.json, the station facilities RuteKita shows,
+// and facilities/parking.v1.json, the parking near every boarding point.
 //   node scripts/build-facilities.mjs --stations ../rutekita/assets/data/krl.json [--cache DIR]
+//     [--stops rail.json,intercity.json,tj.json] [--parking-only]
 // --cache keeps the raw Overpass and Wikipedia answers in DIR and reuses them, so a run can be repeated
 // on exactly the same input. Only what the sources say is written; nothing is filled in by hand.
+// --stops adds boarding points for parking.v1.json besides the --stations ones: station lists
+// ({ stations: [{ code, lat, lon }] }) or the TransJakarta stop list ({ stops: [[id, name, lon, lat]] }).
+// --parking-only rebuilds parking.v1.json alone and leaves the other two files as they are.
 //
-// The two files stay separate because their licences cannot be merged into one database:
+// The OSM files stay apart from Wikipedia's because their licences cannot be merged into one database:
 //   osm.v1.json        OpenStreetMap, ODbL 1.0     exits, lifts, escalators, toilets, musholla, parking, pick-up points
+//   parking.v1.json    OpenStreetMap, ODbL 1.0     car, motorcycle, bicycle and park-and-ride parking near any stop
 //   wikipedia.v1.json  Wikipedia, CC BY-SA 4.0     the facility list in each station article's infobox
 
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
@@ -14,8 +20,10 @@ const args = process.argv.slice(2);
 const arg = (name) => (args.includes(name) ? args[args.indexOf(name) + 1] : null);
 const stationsPath = arg('--stations');
 const cacheDir = arg('--cache');
+const stopsPaths = arg('--stops')?.split(',') ?? [];
+const parkingOnly = args.includes('--parking-only');
 if (!stationsPath) {
-  console.error('usage: node scripts/build-facilities.mjs --stations <krl.json> [--cache DIR]');
+  console.error('usage: node scripts/build-facilities.mjs --stations <krl.json> [--cache DIR] [--stops a.json,b.json] [--parking-only]');
   process.exit(2);
 }
 
@@ -68,6 +76,134 @@ async function overpass(query) {
   throw new Error('every Overpass server failed');
 }
 
+const RAD = Math.PI / 180;
+/** Metres east and north of `origin`; fine at station scale. */
+const local = (p, origin) => [
+  (p.lon - origin.lon) * RAD * Math.cos(origin.lat * RAD) * 6371000,
+  (p.lat - origin.lat) * RAD * 6371000,
+];
+const ref = (e) => `${e.type}/${e.id}`;
+const position = (e) => e.center ?? { lat: e.lat, lon: e.lon };
+const OSM_SOURCE = {
+  name: 'OpenStreetMap',
+  attribution: '© OpenStreetMap contributors',
+  licence: 'ODbL-1.0',
+  licenceUrl: 'https://opendatacommons.org/licenses/odbl/1-0/',
+  page: 'https://www.openstreetmap.org/copyright',
+};
+const root = new URL('../facilities/', import.meta.url);
+await mkdir(root, { recursive: true });
+
+// ------------------------------------------------------------------ Parking near every boarding point
+
+// Every place a rider boards: KRL stations (--stations) plus the --stops files. A station listed by two
+// files (in both krl.json and intercity.json) counts once.
+const boarding = new Map();
+for (const path of [stationsPath, ...stopsPaths]) {
+  const data = JSON.parse(await readFile(path, 'utf8'));
+  const group = path.replace(/^.*[\\/]/, '').replace(/\.json$/, '');
+  for (const s of data.stations ?? []) if (!boarding.has(`station:${s.code}`)) boarding.set(`station:${s.code}`, { group, lat: s.lat, lon: s.lon });
+  for (const [id, , lon, lat] of data.stops ?? []) boarding.set(`tj:${id}`, { group, lat, lon });
+}
+const stops = [...boarding.values()].filter((s) => Number.isFinite(s.lat) && Number.isFinite(s.lon));
+
+/** Parking counts for a stop when it lies within this many metres of it, measured in a straight line. */
+const PARKING_RADIUS = 300;
+const MARGIN = 0.005; // degrees, a little over PARKING_RADIUS
+const bbox = [
+  Math.min(...stops.map((s) => s.lat)) - MARGIN,
+  Math.min(...stops.map((s) => s.lon)) - MARGIN,
+  Math.max(...stops.map((s) => s.lat)) + MARGIN,
+  Math.max(...stops.map((s) => s.lon)) + MARGIN,
+].map((v) => v.toFixed(3));
+const PARKING_BBOX = `(${bbox.join(',')})`;
+const parkingRaw = await cached('osm-parking.json', () =>
+  overpass(`[out:json][timeout:240];
+(
+  nwr[amenity~"^(parking|motorcycle_parking|bicycle_parking)$"]${PARKING_BBOX};
+  nwr[park_ride][park_ride!=no]${PARKING_BBOX};
+);
+out tags center;`),
+);
+
+// Stops bucketed on a grid of about PARKING_RADIUS, so each feature is measured against nearby stops only.
+const CELL = 0.003;
+const cellOf = (p) => [Math.floor(p.lat / CELL), Math.floor(p.lon / CELL)];
+const grid = new Map();
+stops.forEach((s, i) => {
+  const key = cellOf(s).join(',');
+  if (!grid.has(key)) grid.set(key, []);
+  grid.get(key).push(i);
+});
+/** Indexes of the stops within PARKING_RADIUS of `pos`. */
+function stopsNear(pos) {
+  const near = [];
+  const [ci, cj] = cellOf(pos);
+  for (let di = -1; di <= 1; di++) {
+    for (let dj = -1; dj <= 1; dj++) {
+      for (const i of grid.get(`${ci + di},${cj + dj}`) ?? []) if (Math.hypot(...local(pos, stops[i])) <= PARKING_RADIUS) near.push(i);
+    }
+  }
+  return near;
+}
+
+const NOT_PUBLIC_PARKING = new Set(['private', 'no', 'employees']);
+/** car | motor | bicycle | park_ride, or null when the feature is not parking the public can use. */
+function parkingKind(t) {
+  if (NOT_PUBLIC_PARKING.has(t.access)) return null;
+  if (t.park_ride && t.park_ride !== 'no') return 'park_ride';
+  if (t.amenity === 'bicycle_parking') return 'bicycle';
+  if (t.amenity === 'motorcycle_parking') return 'motor';
+  if (t.amenity === 'parking') return t.motorcar === 'no' ? (['yes', 'designated'].includes(t.motorcycle) ? 'motor' : null) : 'car';
+  return null;
+}
+// Only these tags are copied, and only when the feature has them; a missing one stays missing.
+const PARKING_TAGS = ['capacity', 'fee', 'charge', 'opening_hours', 'operator', 'access', 'covered', 'parking', 'building', 'motorcycle', 'park_ride'];
+const round = (v) => Math.round(v * 1e5) / 1e5;
+
+const parking = [];
+const kindStops = { car: new Set(), motor: new Set(), bicycle: new Set(), park_ride: new Set() };
+const anyStops = new Set();
+for (const e of parkingRaw.elements) {
+  const t = e.tags ?? {};
+  const kind = parkingKind(t);
+  const pos = position(e);
+  if (!kind || pos.lat === undefined) continue;
+  // Parking shared by several nearby stops is listed once; the app measures it from whichever stop is open.
+  const near = stopsNear(pos);
+  if (near.length === 0) continue;
+  for (const i of near) {
+    kindStops[kind].add(i);
+    anyStops.add(i);
+  }
+  const item = { osm: ref(e), kind, lat: round(pos.lat), lon: round(pos.lon) };
+  if (t.name?.trim()) item.name = t.name.trim();
+  for (const k of PARKING_TAGS) if (t[k]?.trim()) item[k] = t[k].trim();
+  parking.push(item);
+}
+parking.sort((a, b) => a.osm.localeCompare(b.osm, 'en', { numeric: true }));
+
+await writeFile(
+  new URL('parking.v1.json', root),
+  JSON.stringify({
+    version: 1,
+    updatedAt: today,
+    osmTimestamp: parkingRaw.osm3s?.timestamp_osm_base ?? null,
+    source: OSM_SOURCE,
+    // Straight-line metres from the stop, not walking distance along streets.
+    radius: PARKING_RADIUS,
+    parking,
+  }) + '\n',
+);
+
+const groups = [...new Set(stops.map((s) => s.group))];
+const coverage = (set) =>
+  groups.map((g) => `${g} ${stops.filter((s, i) => s.group === g && set.has(i)).length}/${stops.filter((s) => s.group === g).length}`).join(', ');
+console.log(`Parking: ${parking.length} features near ${anyStops.size}/${stops.length} stops`);
+for (const [kind, set] of Object.entries(kindStops)) console.log(`  ${kind}: ${parking.filter((p) => p.kind === kind).length} features; stops with one: ${coverage(set)}`);
+console.log(`  any: ${coverage(anyStops)}`);
+if (parkingOnly) process.exit(0);
+
 // ------------------------------------------------------------------ OpenStreetMap
 
 const STATIONS_SET = `nwr[railway~"^(station|halt)$"][train!=no]${BBOX}->.st;`;
@@ -95,12 +231,6 @@ const areas = await cached('osm-areas.json', () =>
 out tags geom;`),
 );
 
-const RAD = Math.PI / 180;
-/** Metres east and north of `origin`; fine at station scale. */
-const local = (p, origin) => [
-  (p.lon - origin.lon) * RAD * Math.cos(origin.lat * RAD) * 6371000,
-  (p.lat - origin.lat) * RAD * 6371000,
-];
 function insideRing([x, y], ring) {
   let inside = false;
   for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
@@ -166,8 +296,6 @@ function kind(t) {
   return null;
 }
 
-const ref = (e) => `${e.type}/${e.id}`;
-const position = (e) => e.center ?? { lat: e.lat, lon: e.lon };
 /** A feature belongs to a station when it is on or within this many metres of the station outline. */
 const OUTLINE_MARGIN = 15;
 const osmStations = {};
@@ -217,13 +345,7 @@ const osmOut = {
   version: 1,
   updatedAt: today,
   osmTimestamp: features.osm3s?.timestamp_osm_base ?? null,
-  source: {
-    name: 'OpenStreetMap',
-    attribution: '© OpenStreetMap contributors',
-    licence: 'ODbL-1.0',
-    licenceUrl: 'https://opendatacommons.org/licenses/odbl/1-0/',
-    page: 'https://www.openstreetmap.org/copyright',
-  },
+  source: OSM_SOURCE,
   stations: osmStations,
 };
 
@@ -302,8 +424,6 @@ const wikiOut = {
   stations: wikiStations,
 };
 
-const root = new URL('../facilities/', import.meta.url);
-await mkdir(root, { recursive: true });
 await writeFile(new URL('osm.v1.json', root), JSON.stringify(osmOut, null, 1) + '\n');
 await writeFile(new URL('wikipedia.v1.json', root), JSON.stringify(wikiOut, null, 1) + '\n');
 
