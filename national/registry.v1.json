@@ -145,8 +145,8 @@
       "timezone": "Asia/Jakarta",
       "pack": {
         "kind": "remote",
-        "url": "https://juansah27.github.io/rutekita-data/national/packs/bandung-raya/69afe360c5b5f9ca3bfee61ca419998bb3b1e53a4552947f8c809e91a416b28b.json",
-        "version": "69afe360c5b5f9ca3bfee61ca419998bb3b1e53a4552947f8c809e91a416b28b",
+        "url": "https://juansah27.github.io/rutekita-data/national/packs/bandung-raya/d090f83c38b6cd261da4b5c575b6a05f3e3518cae18c5783e4a86f8388b06693.json",
+        "version": "d090f83c38b6cd261da4b5c575b6a05f3e3518cae18c5783e4a86f8388b06693",
         "builtAt": "2026-10-21",
         "staleAfterDays": 60
       },
@@ -180,12 +180,13 @@
         },
         {
           "id": "kcic-whoosh",
-          "name": "Whoosh high-speed rail (Halim-Karawang-Padalarang-Tegalluar) and KA Feeder",
-          "url": "https://ticket.kcic.co.id/",
-          "licence": "No licence stated; the research notes say the publisher's permission is needed and none is recorded",
-          "attribution": "KCIC",
-          "redistribution": "unknown",
-          "retrieved": "2026-10-20"
+          "name": "PT KCIC, Jadwal Keberangkatan Whoosh dan Jadwal Integrasi Whoosh dan KA Feeder (images marked Update 120326), transcribed by hand to data/national/sources/whoosh-2026-03-12.json",
+          "url": "https://kcic.co.id/proyek/tiketwhoosh/",
+          "licence": "© PT KCIC, all rights reserved; no open licence",
+          "attribution": "Jadwal: KCIC (update 12 Maret 2026)",
+          "redistribution": "with_permission",
+          "permissionRef": "Owner's statement 2026-10-17 that all operator data permissions are held",
+          "retrieved": "2026-10-21"
         },
         {
           "id": "osm",
@@ -253,26 +254,30 @@
       ],
       "modes": {
         "commuter_rail": {
-          "status": "integration_in_progress",
+          "status": "validated",
           "operators": ["KAI Commuter", "KAI (KA Feeder Padalarang-Bandung)"],
-          "sourceIds": ["djka-gapeka-2025", "kci-bandung-raya-garut"],
+          "sourceIds": ["djka-gapeka-2025", "kci-bandung-raya-garut", "kcic-whoosh"],
           "missing": [
+            "Only KA Feeder Padalarang-Bandung is in the pack, from KCIC's Whoosh integration timetable; Commuter Line Bandung Raya and Garut are not.",
             "The Gapeka 2025 PDF predates the extension of Commuter Line Bandung Raya to Cicalengka on 2026-02-01 (KP-DJKA 154/2025, known from news only), so its Bandung Raya tables may be out of date; the newer decree has not been found.",
             "The Gapeka PDF has no station coordinates; they have to come from OpenStreetMap nodes.",
             "Fares are not in the Gapeka PDF; news reports Rp4,000 to Rp5,000 for Padalarang-Cicalengka.",
             "DJKA states no licence for the Gapeka PDF, so shipping its timetable rests on the owner's permission statement, which is not itemised per operator."
           ],
-          "note": "Jadwal belum ditampilkan karena ada perubahan perjalanan per Februari 2026; cek aplikasi operator."
+          "note": "Baru KA Feeder Padalarang–Bandung (jadwal integrasi KCIC). Commuter Line Bandung Raya belum ditampilkan karena ada perubahan perjalanan per Februari 2026; cek aplikasi operator."
         },
         "high_speed_rail": {
-          "status": "access_pending",
+          "status": "validated",
           "operators": ["KCIC"],
-          "sourceIds": ["djka-gapeka-kcjb-2025", "kcic-whoosh"],
+          "sourceIds": ["kcic-whoosh", "djka-gapeka-kcjb-2025", "osm"],
           "missing": [
-            "The Gapeka PDF for the Jakarta-Bandung high-speed train (KP-DJKA 2/2025) is not in hand. The PDF was never opened: the DJKA host resets connections from automated tools, so the owner has to download it in a browser.",
-            "www.kcic.co.id returned 530 and tickets are sold in a single-page app; ask KCIC for stations, timetable and fare bands. Fares are dynamic."
+            "Fares are dynamic and sold per seat class in KCIC's ticket app; none are in the pack.",
+            "The pack has no track shape: the map draws the line straight between stations.",
+            "Halim and Karawang lie outside the region's box; they are in the pack because every Whoosh trip also serves Padalarang and Tegalluar.",
+            "The KCIC images are a timetable, not live positions; KCIC's next \"Update\" replaces data/national/sources/whoosh-*.json, which scripts/national/whoosh-gtfs.ts turns into GTFS.",
+            "Cross-check against the Gapeka PDF KP-DJKA 2/2025 is still open: the DJKA host resets connections from automated tools, so the owner has to download it in a browser."
           ],
-          "note": "Jadwal dan tarif Whoosh belum tersedia; menunggu data dari operator."
+          "note": "Jadwal Whoosh dan KA Feeder dari KCIC (update 12 Maret 2026). Tarif dinamis, cek aplikasi Whoosh."
         },
         "city_bus": {
           "status": "published",
