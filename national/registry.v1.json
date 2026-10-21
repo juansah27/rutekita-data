@@ -322,8 +322,8 @@
       "timezone": "Asia/Jakarta",
       "pack": {
         "kind": "remote",
-        "url": "https://juansah27.github.io/rutekita-data/national/packs/jogja-solo/4f50cb70ac32ff9cd031069f740ad0e02bcf5caae503f1eda25afcbd23e79567.json",
-        "version": "4f50cb70ac32ff9cd031069f740ad0e02bcf5caae503f1eda25afcbd23e79567",
+        "url": "https://juansah27.github.io/rutekita-data/national/packs/jogja-solo/1bceff293898c1a8c4d0f0c2ad39598b1eb7e0658a70c23ca09dcae9f21ce4af.json",
+        "version": "1bceff293898c1a8c4d0f0c2ad39598b1eb7e0658a70c23ca09dcae9f21ce4af",
         "builtAt": "2026-10-21",
         "staleAfterDays": 120
       },
@@ -412,7 +412,7 @@
             "The 13-stop station list and the flat Rp8,000 fare come from news; the operator site (commuterline.id) is behind Cloudflare and was not read.",
             "DJKA states no licence for the Gapeka PDF, so shipping its timetable rests on the owner's permission statement, which is not itemised per operator."
           ],
-          "note": "Jadwal dari Gapeka 2025, tanpa kereta fakultatif (mis. 06:00 dari Tugu); cek aplikasi operator."
+          "note": "Jadwal dari Gapeka 2025. Kereta fakultatif ikut tampil dengan label dan tidak selalu jalan; pastikan ke aplikasi operator."
         },
         "airport_rail": {
           "status": "published",
@@ -423,7 +423,7 @@
             "KAI Commuter is reported (Bisnis, 2026-03-12) to take over the YIA airport train in 2026, so the operator and timetable may change.",
             "Fares are not in the Gapeka PDF; the figure of 50 YIA trips a day is from news."
           ],
-          "note": "Jadwal dari Gapeka 2025, tanpa kereta fakultatif (mis. Xpress 06:00); cek aplikasi operator."
+          "note": "Jadwal dari Gapeka 2025. Kereta fakultatif ikut tampil dengan label dan tidak selalu jalan; pastikan ke aplikasi operator."
         },
         "brt": {
           "status": "source_verified",
