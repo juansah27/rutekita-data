@@ -1,0 +1,22 @@
+{
+  "sha256": "a16aa5fda898f840adaea350e462fab94ccafbc9a257fabd03816bb5f50b3e11",
+  "region": "purwokerto",
+  "checkedOn": "2026-10-21",
+  "ok": true,
+  "base": {
+    "file": "b18c5ae92d88eb44547385523a7af138f5d84e7c70c33938fd830097e10dfcd6.json",
+    "sha256": "b18c5ae92d88eb44547385523a7af138f5d84e7c70c33938fd830097e10dfcd6"
+  },
+  "fareSources": [
+    "fares-trans-jateng-2025.json",
+    "fares-trans-semarang-2025.json",
+    "fares-suroboyo-bus-2023.json"
+  ],
+  "counts": {
+    "fares": 1,
+    "added": 1
+  },
+  "errors": [],
+  "warnings": [],
+  "notes": []
+}

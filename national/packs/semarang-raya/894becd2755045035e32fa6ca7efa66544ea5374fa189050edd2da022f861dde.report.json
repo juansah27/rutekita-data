@@ -1,0 +1,30 @@
+{
+  "sha256": "894becd2755045035e32fa6ca7efa66544ea5374fa189050edd2da022f861dde",
+  "region": "semarang-raya",
+  "checkedOn": "2026-10-21",
+  "ok": true,
+  "base": {
+    "file": "semarang-raya.json",
+    "sha256": "98558738758e826f28ac401fd33f485f53737f6a22e4322d6e93f954708bdc61"
+  },
+  "fareSources": [
+    "fares-trans-jateng-2025.json",
+    "fares-trans-semarang-2025.json",
+    "fares-suroboyo-bus-2023.json"
+  ],
+  "counts": {
+    "fares": 5,
+    "added": 5
+  },
+  "errors": [],
+  "warnings": [
+    {
+      "code": "route_no_fare",
+      "message": "Route \"F4A\" (osm-r18571522) has no known fare",
+      "ids": [
+        "osm-r18571522"
+      ]
+    }
+  ],
+  "notes": []
+}
