@@ -1,0 +1,206 @@
+{
+  "sha256": "6869a8637a02c4e7d42cb6956ffc26918de39afb7582d7a4d65dff74f75d6539",
+  "region": "malang-raya",
+  "checkedOn": "2026-10-21",
+  "ok": true,
+  "counts": {
+    "routes": 2,
+    "stops": 35,
+    "patterns": 12,
+    "trips": 12,
+    "frequencies": 0
+  },
+  "errors": [],
+  "warnings": [
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Bangil\" (BG) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "BG"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Blitar\" (BL) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "BL"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Gedangan\" (GDG) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "GDG"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Garum\" (GRM) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "GRM"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Kediri\" (KD) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "KD"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Kras\" (KRS) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "KRS"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Kertosono\" (KTS) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "KTS"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Ngadiluwih\" (NDL) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "NDL"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Ngujang\" (NJG) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "NJG"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Ngunut\" (NT) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "NT"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Papar\" (PPR) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "PPR"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Porong\" (PR) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "PR"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Purwoasri\" (PWA) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "PWA"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Rejotangan\" (RJ) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "RJ"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Surabaya Kota\" (SB) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "SB"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Sumbergempol\" (SBL) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "SBL"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Sidoarjo\" (SDA) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "SDA"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Surabaya Gubeng\" (SGU) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "SGU"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Tulungagung\" (TA) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "TA"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Tanggulangin\" (TGA) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "TGA"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Wonokromo\" (WO) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "WO"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Waru\" (WR) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "WR"
+      ]
+    },
+    {
+      "code": "route_no_fare",
+      "message": "Route \"Dhoho\" (kci-dhoho) has no known fare",
+      "ids": [
+        "kci-dhoho"
+      ]
+    },
+    {
+      "code": "route_no_fare",
+      "message": "Route \"Penataran\" (kci-penataran) has no known fare",
+      "ids": [
+        "kci-penataran"
+      ]
+    }
+  ],
+  "notes": [
+    {
+      "code": "pattern_outside_region",
+      "message": "These patterns have fewer than two stops in the region's box and were left out (--regional-only)",
+      "ids": [
+        "kci-dhoho:0:10",
+        "kci-dhoho:0:11",
+        "kci-dhoho:0:12",
+        "kci-dhoho:0:13",
+        "kci-dhoho:0:2",
+        "kci-dhoho:0:8",
+        "kci-dhoho:0:9",
+        "kci-penataran:0:1",
+        "kci-penataran:0:2",
+        "kci-penataran:0:3",
+        "kci-penataran:0:4",
+        "kci-penataran:0:5",
+        "kci-penataran:0:6",
+        "kci-penataran:0:7"
+      ]
+    }
+  ]
+}

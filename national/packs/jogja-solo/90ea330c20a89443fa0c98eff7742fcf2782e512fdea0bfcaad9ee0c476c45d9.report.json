@@ -1,0 +1,114 @@
+{
+  "sha256": "90ea330c20a89443fa0c98eff7742fcf2782e512fdea0bfcaad9ee0c476c45d9",
+  "region": "jogja-solo",
+  "checkedOn": "2026-10-21",
+  "ok": true,
+  "base": {
+    "file": "768aaf57d35e104f540a642c4c04d6b8dc04af01f1793df673de463d993131ef.json",
+    "sha256": "768aaf57d35e104f540a642c4c04d6b8dc04af01f1793df673de463d993131ef"
+  },
+  "fareSources": [
+    "fares-trans-jateng-2025.json",
+    "fares-trans-semarang-2025.json",
+    "fares-suroboyo-bus-2023.json"
+  ],
+  "counts": {
+    "fares": 3,
+    "added": 3
+  },
+  "errors": [],
+  "warnings": [
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Geneng\" (GG) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "GG"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Magetan\" (MAG) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "MAG"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Madiun\" (MN) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "MN"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Ngawi\" (NGW) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "NGW"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Walikukun\" (WK) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "WK"
+      ]
+    },
+    {
+      "code": "route_no_shape",
+      "message": "Route \"Bandara SMO\" (bandara-smo) has no line on the map (no shape)",
+      "ids": [
+        "bandara-smo"
+      ]
+    },
+    {
+      "code": "route_no_fare",
+      "message": "Route \"Bandara SMO\" (bandara-smo) has no known fare",
+      "ids": [
+        "bandara-smo"
+      ]
+    },
+    {
+      "code": "route_no_shape",
+      "message": "Route \"Bandara YIA\" (bandara-yia) has no line on the map (no shape)",
+      "ids": [
+        "bandara-yia"
+      ]
+    },
+    {
+      "code": "route_no_fare",
+      "message": "Route \"Bandara YIA\" (bandara-yia) has no known fare",
+      "ids": [
+        "bandara-yia"
+      ]
+    },
+    {
+      "code": "route_no_shape",
+      "message": "Route \"Prameks Kutoarjo\" (commuter-line-prameks-kutoarjo) has no line on the map (no shape)",
+      "ids": [
+        "commuter-line-prameks-kutoarjo"
+      ]
+    },
+    {
+      "code": "route_no_fare",
+      "message": "Route \"Prameks Kutoarjo\" (commuter-line-prameks-kutoarjo) has no known fare",
+      "ids": [
+        "commuter-line-prameks-kutoarjo"
+      ]
+    },
+    {
+      "code": "route_no_shape",
+      "message": "Route \"Yogyakarta\" (commuter-line-yogyakarta) has no line on the map (no shape)",
+      "ids": [
+        "commuter-line-yogyakarta"
+      ]
+    },
+    {
+      "code": "route_no_fare",
+      "message": "Route \"Yogyakarta\" (commuter-line-yogyakarta) has no known fare",
+      "ids": [
+        "commuter-line-yogyakarta"
+      ]
+    }
+  ],
+  "notes": []
+}

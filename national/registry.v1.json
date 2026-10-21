@@ -336,8 +336,8 @@
       "timezone": "Asia/Jakarta",
       "pack": {
         "kind": "remote",
-        "url": "https://juansah27.github.io/rutekita-data/national/packs/jogja-solo/1bceff293898c1a8c4d0f0c2ad39598b1eb7e0658a70c23ca09dcae9f21ce4af.json",
-        "version": "1bceff293898c1a8c4d0f0c2ad39598b1eb7e0658a70c23ca09dcae9f21ce4af",
+        "url": "https://juansah27.github.io/rutekita-data/national/packs/jogja-solo/90ea330c20a89443fa0c98eff7742fcf2782e512fdea0bfcaad9ee0c476c45d9.json",
+        "version": "90ea330c20a89443fa0c98eff7742fcf2782e512fdea0bfcaad9ee0c476c45d9",
         "builtAt": "2026-10-21",
         "staleAfterDays": 120
       },
@@ -380,13 +380,13 @@
         },
         {
           "id": "jateng-opendata-trans-jateng-halte",
-          "name": "Portal Data Jawa Tengah - Jumlah Halte Pelayanan Trans Jateng (Tahun 2024), stop list with coordinates",
+          "name": "Portal Data Jawa Tengah - Jumlah Halte Pelayanan Trans Jateng (Tahun 2024), stop list with coordinates; the Solo-Sragen, Solo-Wonogiri and Magelang-Purworejo rows are in data/national/sources/trans-jateng-jogja-solo-2024.json",
           "url": "https://data.jatengprov.go.id/dataset/aa1-jumlah-halte-pelayanan-trans-jateng/resource/4a98f18a-dd95-4ebd-9b80-16be5d111e4c",
           "licence": "Creative Commons Attribution (portal label 'cc-by'; version not stated)",
           "licenceUrl": "https://creativecommons.org/licenses/by/4.0/",
           "attribution": "Credit Dinas Perhubungan Provinsi Jawa Tengah / Portal Data Jawa Tengah",
           "redistribution": "allowed",
-          "retrieved": "2026-10-20"
+          "retrieved": "2026-10-21"
         },
         {
           "id": "solo-dishub-batik-solo-trans",
@@ -414,6 +414,25 @@
           "attribution": "Cite Pemerintah Kota Surakarta",
           "redistribution": "unknown",
           "retrieved": "2026-10-20"
+        },
+        {
+          "id": "osm-jogja-solo-roads",
+          "name": "OpenStreetMap roads within 500 m of the Trans Jateng S1, S2 and P1 halte (route lines routed along them)",
+          "url": "https://www.openstreetmap.org/copyright",
+          "licence": "ODbL 1.0",
+          "licenceUrl": "https://opendatacommons.org/licenses/odbl/1-0/",
+          "attribution": "© OpenStreetMap contributors",
+          "redistribution": "allowed",
+          "retrieved": "2026-10-21"
+        },
+        {
+          "id": "fares-trans-jateng-2025",
+          "name": "Keputusan Gubernur Jawa Tengah Nomor 100.3.3.1/124 Tahun 2025 tentang tarif BRT Trans Jateng (JDIH Provinsi Jawa Tengah); transcribed to data/national/sources/fares-trans-jateng-2025.json",
+          "url": "https://jdih.jatengprov.go.id/produk_hukum/kepgub/sk_100.3.3.1-124_th_2025.pdf",
+          "licence": "Peraturan perundang-undangan; not protected by copyright (UU 28/2014 Pasal 42)",
+          "attribution": "Tarif: Keputusan Gubernur Jawa Tengah 100.3.3.1/124/2025",
+          "redistribution": "allowed",
+          "retrieved": "2026-10-21"
         }
       ],
       "modes": {
@@ -440,26 +459,29 @@
           "note": "Jadwal dari Gapeka 2025. Kereta fakultatif ikut tampil dengan label dan tidak selalu jalan; pastikan ke aplikasi operator."
         },
         "brt": {
-          "status": "source_verified",
+          "status": "validated",
           "operators": ["Trans Jogja (Dishub DIY)", "Batik Solo Trans (Dishub Surakarta)", "Trans Jateng"],
           "sourceIds": [
             "jogja-dishub-diy-trans-jogja",
             "jateng-opendata-trans-jateng-halte",
+            "osm-jogja-solo-roads",
+            "fares-trans-jateng-2025",
             "solo-dishub-batik-solo-trans",
             "jogjaprov-data-portal",
             "solodata-portal"
           ],
           "missing": [
-            "Trans Jogja: the official page has a 20-line route table and a PDF map but no stop coordinates or shapes; the Google My Maps layer has no stated licence, so do not copy it. Ask Dishub DIY and Kominfo DIY for the halte shapefile.",
-            "Batik Solo Trans has no stop list, and which corridors run in 2026 is unconfirmed (corridors 1, 5 and 6 uncertain); ask Dishub Kota Surakarta.",
-            "Trans Jateng gives CC-BY stop coordinates for Solo-Wonogiri and Solo-Sragen, but no shapes or timetables, and part of those stops lie outside this box.",
+            "Trans Jateng S1 (Solo-Sumberlawang), S2 (Solo-Wonogiri) and P1 (Borobudur-Kutoarjo): stops and their order are the Portal Data Jawa Tengah halte rows (2024). Rows that repeat another row's coordinates under another name were left out; the source file lists them. Lines are routed along OpenStreetMap roads between the stops (src/national/roads.ts), not published by the operator.",
+            "No timetables or headways: every route is shown without a schedule. Fare: Rp5.000 umum, Rp1.000 for pelajar, veteran, buruh, lansia and penyandang disabilitas, from Kepgub Jateng 100.3.3.1/124/2025 (data/national/sources/fares-trans-jateng-2025.json).",
+            "Trans Jogja is not in the pack: the official page has a 20-line route table and a PDF map but no stop coordinates or shapes, the Google My Maps layer has no stated licence, and the OpenStreetMap relations list their stops out of order and in broken pieces. Ask Dishub DIY and Kominfo DIY for the halte shapefile.",
+            "Batik Solo Trans is not in the pack: it has no stop list, its OpenStreetMap relations have the same faults, and which corridors run in 2026 is unconfirmed (corridors 1, 5 and 6 uncertain); ask Dishub Kota Surakarta.",
             "data.jogjaprov.go.id and solodata.surakarta.go.id did not answer from the research machine; try again from the build environment."
           ],
-          "note": "Data rute dan halte belum lengkap; menunggu data dari operator."
+          "note": "Trans Jateng S1, S2 dan P1 dengan tarif resmi; belum ada jadwal, garis digambar mengikuti jalan di peta. Trans Jogja dan Batik Solo Trans belum tersedia."
         }
       },
       "missing": [
-        "The box covers DI Yogyakarta, Kota Surakarta, Klaten, Karanganyar, Boyolali, Sukoharjo and Kutoarjo (west end of the Prameks line). Wonogiri and Sragen, where two Trans Jateng corridors from Solo end, are not in it.",
+        "The box covers DI Yogyakarta, Kota Surakarta, Klaten, Karanganyar, Boyolali, Sukoharjo and Kutoarjo (west end of the Prameks line). Wonogiri and Sragen are not among them, but the Trans Jateng ends at Terminal Wonogiri Kota and Terminal Sumberlawang lie inside the box.",
         "The box is the union of OpenStreetMap boundary relations R5615250, R5616105, R17701298, R9687063, R9687060, R9687053, R9687052, R9687061, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
       ]
     },
@@ -472,8 +494,8 @@
       "timezone": "Asia/Jakarta",
       "pack": {
         "kind": "remote",
-        "url": "https://juansah27.github.io/rutekita-data/national/packs/semarang-raya/98558738758e826f28ac401fd33f485f53737f6a22e4322d6e93f954708bdc61.json",
-        "version": "98558738758e826f28ac401fd33f485f53737f6a22e4322d6e93f954708bdc61",
+        "url": "https://juansah27.github.io/rutekita-data/national/packs/semarang-raya/894becd2755045035e32fa6ca7efa66544ea5374fa189050edd2da022f861dde.json",
+        "version": "894becd2755045035e32fa6ca7efa66544ea5374fa189050edd2da022f861dde",
         "builtAt": "2026-10-21",
         "staleAfterDays": 60
       },
@@ -534,6 +556,24 @@
           "attribution": "Cite Diskominfo Kota Semarang",
           "redistribution": "unknown",
           "retrieved": "2026-10-20"
+        },
+        {
+          "id": "fares-trans-jateng-2025",
+          "name": "Keputusan Gubernur Jawa Tengah Nomor 100.3.3.1/124 Tahun 2025 tentang tarif BRT Trans Jateng (JDIH Provinsi Jawa Tengah); transcribed to data/national/sources/fares-trans-jateng-2025.json",
+          "url": "https://jdih.jatengprov.go.id/produk_hukum/kepgub/sk_100.3.3.1-124_th_2025.pdf",
+          "licence": "Peraturan perundang-undangan; not protected by copyright (UU 28/2014 Pasal 42)",
+          "attribution": "Tarif: Keputusan Gubernur Jawa Tengah 100.3.3.1/124/2025",
+          "redistribution": "allowed",
+          "retrieved": "2026-10-21"
+        },
+        {
+          "id": "fares-trans-semarang-2025",
+          "name": "Peraturan Wali Kota Semarang Nomor 50 Tahun 2025 tentang tarif BRT Trans Semarang (JDIH BPK); transcribed to data/national/sources/fares-trans-semarang-2025.json",
+          "url": "https://peraturan.bpk.go.id/Details/331440",
+          "licence": "Peraturan perundang-undangan; not protected by copyright (UU 28/2014 Pasal 42)",
+          "attribution": "Tarif: Peraturan Wali Kota Semarang 50/2025",
+          "redistribution": "allowed",
+          "retrieved": "2026-10-21"
         }
       ],
       "modes": {
@@ -546,17 +586,19 @@
             "osm-semarang-roads",
             "trans-semarang-official-site-app",
             "semarang-ppid-brt-route-article",
-            "semarang-satudata-portal"
+            "semarang-satudata-portal",
+            "fares-trans-jateng-2025",
+            "fares-trans-semarang-2025"
           ],
           "missing": [
             "Trans Jateng K2 (Semarang-Kendal) and K3 (Semarang-Grobogan): stops and their order are the Portal Data Jawa Tengah halte rows (2024). Six rows listed after the corridor runs were put between their nearest neighbours on the run, and four same-name pairs within 15 m were made one stop. Lines are routed along OpenStreetMap roads between the stops (src/national/roads.ts), not published by the operator.",
             "Trans Jateng K1 (Bawen-Tawang) comes from OpenStreetMap, which has its stops in order; 89 of the 93 K1 rows of the portal list lie within 100 m of an OSM stop. The portal row \"Halte Pramuka\" has coordinates in Magelang.",
             "Trans Semarang: only Koridor 1 and 2 are mapped in OpenStreetMap; the other corridors are not in the pack. Trans Semarang publishes no stop list, API or GTFS; ask BLU Trans Semarang or Dishub Kota Semarang.",
             "OSM relations left out on purpose: S1 Tirtonadi-Sumberlawang (Solo, another region), the UNNES campus shuttle, and OSM's K2 and K3 (the portal list replaces them).",
-            "No timetables or headways: every route is shown without a schedule. Fares are not included; follow up with the Trans Jateng tariff decree (Kepgub Jateng 100.3.3.1/124/2025) and Trans Semarang's tariff.",
+            "No timetables or headways: every route is shown without a schedule. Fares: Trans Jateng K1-K3 Rp5.000 umum (Kepgub Jateng 100.3.3.1/124/2025); Trans Semarang Koridor 1 and 2 Rp3.500 non-tunai, Rp4.000 tunai (Perwali Semarang 50/2025); see data/national/sources/fares-trans-jateng-2025.json and fares-trans-semarang-2025.json.",
             "opendata.semarangkota.go.id returned 502; the city portal catalogue was not searched."
           ],
-          "note": "Trans Jateng K1, K2, K3 dan Trans Semarang Koridor 1 dan 2. Belum ada jadwal dan tarif; garis K2 dan K3 digambar mengikuti jalan di peta."
+          "note": "Trans Jateng K1, K2, K3 dan Trans Semarang Koridor 1 dan 2, dengan tarif resmi. Belum ada jadwal; garis K2 dan K3 digambar mengikuti jalan di peta."
         },
         "feeder": {
           "status": "validated",
@@ -564,7 +606,7 @@
           "sourceIds": ["osm-semarang-bus-routes", "semarang-ppid-brt-route-article"],
           "missing": [
             "Only feeder F4A (to UNNES) is mapped in OpenStreetMap; the other Trans Semarang feeders, listed in a PPID article without stops or coordinates, are not in the pack.",
-            "No timetables, headways or fares."
+            "No timetables or headways. No fare: Perwali Semarang 50/2025 sets the BRT Trans Semarang fare and does not mention feeders."
           ],
           "note": "Baru feeder F4A; feeder lain menyusul."
         }
@@ -583,8 +625,8 @@
       "timezone": "Asia/Jakarta",
       "pack": {
         "kind": "remote",
-        "url": "https://juansah27.github.io/rutekita-data/national/packs/surabaya-raya/479011c22adc2ecae4908e4a6c2978b7328db1ea203fd0f463e4f6aa75fb3426.json",
-        "version": "479011c22adc2ecae4908e4a6c2978b7328db1ea203fd0f463e4f6aa75fb3426",
+        "url": "https://juansah27.github.io/rutekita-data/national/packs/surabaya-raya/c7f4eb5de40e98a077b1fc88a3d78f0d5c76cd4a0aa91fce16e179c93175e275.json",
+        "version": "c7f4eb5de40e98a077b1fc88a3d78f0d5c76cd4a0aa91fce16e179c93175e275",
         "builtAt": "2026-10-21",
         "staleAfterDays": 60
       },
@@ -663,6 +705,15 @@
           "attribution": "Cite Pemerintah Kota Surabaya (Satu Data Surabaya)",
           "redistribution": "unknown",
           "retrieved": "2026-10-20"
+        },
+        {
+          "id": "fares-suroboyo-bus-2023",
+          "name": "Peraturan Wali Kota Surabaya Nomor 22 Tahun 2023 tentang tarif dan kontribusi sampah layanan BLUD UPTD Pengelolaan Transportasi Umum (JDIH Kota Surabaya); transcribed to data/national/sources/fares-suroboyo-bus-2023.json",
+          "url": "https://jdih.surabaya.go.id/uploads/peraturan/2023perwali3578022.pdf",
+          "licence": "Peraturan perundang-undangan; not protected by copyright (UU 28/2014 Pasal 42)",
+          "attribution": "Tarif: Peraturan Wali Kota Surabaya 22/2023",
+          "redistribution": "allowed",
+          "retrieved": "2026-10-21"
         }
       ],
       "modes": {
@@ -693,17 +744,27 @@
         },
         "city_bus": {
           "status": "validated",
-          "operators": ["Suroboyo Bus (Dishub)", "Trans Jatim (Dishub Jatim)", "Trans Semanggi Suroboyo (Teman Bus / DAMRI)"],
-          "sourceIds": ["osm-surabaya-bus-routes", "surabaya-gobis-dishub", "surabaya-opendata-portal"],
+          "operators": [
+            "Suroboyo Bus (Dishub)",
+            "Trans Jatim (Dishub Jatim)",
+            "Trans Semanggi Suroboyo (Teman Bus / DAMRI)"
+          ],
+          "sourceIds": [
+            "osm-surabaya-bus-routes",
+            "surabaya-gobis-dishub",
+            "surabaya-opendata-portal",
+            "fares-suroboyo-bus-2023"
+          ],
           "missing": [
             "The pack (OpenStreetMap, 2026-10-21) has 7 routes: Suroboyo Bus R1, 2, 4 and 5, and Trans Jatim K1-K3, which OSM tags route=bus, so they show as Bus kota. Lines 2 and 5 list only their two terminals as stops in OSM.",
+            "Fares: Suroboyo Bus R1, 2, 4 and 5 Rp5.000 umum, Rp2.500 pelajar and mahasiswa, free for lansia, veteran, balita and penyandang disabilitas (Perwali Surabaya 22/2023, data/national/sources/fares-suroboyo-bus-2023.json). Trans Jatim K1-K3 have no fare in the pack.",
             "Left out because OSM lists no stops for them: Bus Tumpuk (line 3, one stop), Angkot lines A-G (old relations of ways only) and the Bagong Malang-Jombang buses. No stops were invented.",
             "Trans Semanggi Suroboyo and Wira-Wiri have no OSM relations. A community file (github.com/ausartal/surabaya-bus-tracking: 16 routes, 927 stops) has no data licence; ask its author or Dishub Kota Surabaya.",
             "No stop coordinates from the city; the GOBIS app claims live positions but has no API. Ask Dishub Kota Surabaya.",
             "Wira-Wiri could not be found in any source reached; Trans Semanggi corridor 3 electric buses were paused in January 2025 and replaced by diesel (news).",
             "The city open-data portal says its data is free for research and app development but names no licence."
           ],
-          "note": "Baru 7 rute dari OpenStreetMap (Suroboyo Bus dan Trans Jatim); belum ada jadwal resmi dan rute lain belum ada."
+          "note": "Baru 7 rute dari OpenStreetMap (Suroboyo Bus dengan tarif resmi, dan Trans Jatim); belum ada jadwal resmi dan rute lain belum ada."
         }
       },
       "missing": [
@@ -718,6 +779,13 @@
       "bbox": [112.2874, -8.464, 112.9565, -7.7238],
       "centre": [112.634, -7.9771],
       "timezone": "Asia/Jakarta",
+      "pack": {
+        "kind": "remote",
+        "url": "https://juansah27.github.io/rutekita-data/national/packs/malang-raya/6869a8637a02c4e7d42cb6956ffc26918de39afb7582d7a4d65dff74f75d6539.json",
+        "version": "6869a8637a02c4e7d42cb6956ffc26918de39afb7582d7a4d65dff74f75d6539",
+        "builtAt": "2026-10-21",
+        "staleAfterDays": 60
+      },
       "sources": [
         {
           "id": "djka-gapeka-2025",
@@ -754,18 +822,41 @@
           "attribution": "Cite Pemerintah Kota Malang",
           "redistribution": "unknown",
           "retrieved": "2026-10-20"
+        },
+        {
+          "id": "kci-wilayah8-2026-05",
+          "name": "KAI Commuter, Jadwal Commuter Line Wilayah 8 Surabaya - Update 1 Mei 2026 (PDF); Dhoho, Penataran, Supas, Jenggala, Arjonegoro and Blorasura tables transcribed to data/national/sources/kci-<line>-2026-05.json",
+          "url": "https://www.kci.id/files/download/documents/Jadwal%20Commuter%20Line%20Wilayah%208%20Surabaya%20-%20Update%201%20Mei%202026.pdf",
+          "licence": "© PT Kereta Commuter Indonesia, all rights reserved; no open licence",
+          "attribution": "Jadwal: KAI Commuter (update 1 Mei 2026)",
+          "redistribution": "with_permission",
+          "permissionRef": "Owner's statement 2026-10-17 that all operator data permissions are held",
+          "retrieved": "2026-10-21"
+        },
+        {
+          "id": "osm-rail-jatim",
+          "name": "OpenStreetMap railway stations and railway=rail track network of East Java (station positions; track lines routed along the rails)",
+          "url": "https://www.openstreetmap.org/copyright",
+          "licence": "ODbL 1.0",
+          "licenceUrl": "https://opendatacommons.org/licenses/odbl/1-0/",
+          "attribution": "© OpenStreetMap contributors",
+          "redistribution": "allowed",
+          "retrieved": "2026-10-21"
         }
       ],
       "modes": {
         "commuter_rail": {
-          "status": "integration_in_progress",
+          "status": "validated",
           "operators": ["KAI Commuter"],
-          "sourceIds": ["djka-gapeka-2025", "kci-surabaya-wilayah-8"],
+          "sourceIds": ["kci-wilayah8-2026-05", "osm-rail-jatim", "kci-surabaya-wilayah-8", "djka-gapeka-2025"],
           "missing": [
-            "Penataran (Surabaya-Malang-Blitar) is the local train taken from the Gapeka PDF for this region; Tumapel, named in news, was not checked. The Gapeka PDF has no station coordinates; they have to come from OpenStreetMap nodes.",
-            "DJKA states no licence for the Gapeka PDF, so shipping its timetable rests on the owner's permission statement, which is not itemised per operator."
+            "Penataran and Dhoho come from the KAI Commuter Wilayah 8 timetable (update 1 Mei 2026), the same transcription as Surabaya Raya: a misplaced cell is possible until KCI publishes data. Only the trains that call at two or more stations in the box are in the pack (scripts/national/build-pack.ts --regional-only); they keep their calls outside it (Surabaya, Kertosono, Kediri, Blitar).",
+            "Tumapel, named in news, is not in this edition.",
+            "The KCI PDF prints no day-of-week rules; services are taken as daily from 2026-05-01, the edition's date.",
+            "Fares are not in the PDF.",
+            "Track lines are routed along OpenStreetMap railway=rail ways between calls (src/national/rail.ts), not published by KCI."
           ],
-          "note": "Jadwal kereta dari Gapeka 2025; cek ulang di aplikasi operator sebelum berangkat."
+          "note": "Commuter Line Penataran dan Dhoho dari jadwal KAI Commuter (update 1 Mei 2026). Tarif belum dimasukkan."
         },
         "brt": {
           "status": "researched",
@@ -799,6 +890,13 @@
       "bbox": [108.8913, -7.6639, 109.5846, -7.1611],
       "centre": [109.2409, -7.4279],
       "timezone": "Asia/Jakarta",
+      "pack": {
+        "kind": "remote",
+        "url": "https://juansah27.github.io/rutekita-data/national/packs/purwokerto/a16aa5fda898f840adaea350e462fab94ccafbc9a257fabd03816bb5f50b3e11.json",
+        "version": "a16aa5fda898f840adaea350e462fab94ccafbc9a257fabd03816bb5f50b3e11",
+        "builtAt": "2026-10-21",
+        "staleAfterDays": 60
+      },
       "sources": [
         {
           "id": "trans-banyumas-teman-bus",
@@ -811,25 +909,50 @@
         },
         {
           "id": "jateng-opendata-trans-jateng-halte",
-          "name": "Portal Data Jawa Tengah - Jumlah Halte Pelayanan Trans Jateng (Tahun 2024), stop list with coordinates",
+          "name": "Portal Data Jawa Tengah - Jumlah Halte Pelayanan Trans Jateng (Tahun 2024), stop list with coordinates; the Purwokerto-Purbalingga rows are in data/national/sources/trans-jateng-purwokerto-2024.json",
           "url": "https://data.jatengprov.go.id/dataset/aa1-jumlah-halte-pelayanan-trans-jateng/resource/4a98f18a-dd95-4ebd-9b80-16be5d111e4c",
           "licence": "Creative Commons Attribution (portal label 'cc-by'; version not stated)",
           "licenceUrl": "https://creativecommons.org/licenses/by/4.0/",
           "attribution": "Credit Dinas Perhubungan Provinsi Jawa Tengah / Portal Data Jawa Tengah",
           "redistribution": "allowed",
-          "retrieved": "2026-10-20"
+          "retrieved": "2026-10-21"
+        },
+        {
+          "id": "osm-purwokerto-roads",
+          "name": "OpenStreetMap roads within 500 m of the Trans Jateng B1 halte (route lines routed along them)",
+          "url": "https://www.openstreetmap.org/copyright",
+          "licence": "ODbL 1.0",
+          "licenceUrl": "https://opendatacommons.org/licenses/odbl/1-0/",
+          "attribution": "© OpenStreetMap contributors",
+          "redistribution": "allowed",
+          "retrieved": "2026-10-21"
+        },
+        {
+          "id": "fares-trans-jateng-2025",
+          "name": "Keputusan Gubernur Jawa Tengah Nomor 100.3.3.1/124 Tahun 2025 tentang tarif BRT Trans Jateng (JDIH Provinsi Jawa Tengah); transcribed to data/national/sources/fares-trans-jateng-2025.json",
+          "url": "https://jdih.jatengprov.go.id/produk_hukum/kepgub/sk_100.3.3.1-124_th_2025.pdf",
+          "licence": "Peraturan perundang-undangan; not protected by copyright (UU 28/2014 Pasal 42)",
+          "attribution": "Tarif: Keputusan Gubernur Jawa Tengah 100.3.3.1/124/2025",
+          "redistribution": "allowed",
+          "retrieved": "2026-10-21"
         }
       ],
       "modes": {
         "brt": {
-          "status": "source_verified",
+          "status": "validated",
           "operators": ["Trans Banyumas (Teman Bus BTS)", "Trans Jateng"],
-          "sourceIds": ["trans-banyumas-teman-bus", "jateng-opendata-trans-jateng-halte"],
+          "sourceIds": [
+            "trans-banyumas-teman-bus",
+            "jateng-opendata-trans-jateng-halte",
+            "osm-purwokerto-roads",
+            "fares-trans-jateng-2025"
+          ],
           "missing": [
-            "Trans Jateng stop rows tagged Purwokerto-Purbalingga have coordinates under CC-BY but no shapes or timetables.",
+            "Trans Jateng B1 (Purwokerto-Purbalingga-Bukateja): stops and their order are the Portal Data Jawa Tengah halte rows (2024). In Purwokerto town the order of SMKN 2, Pasar Wage 1 and Pasar Pon is a best fit, not a published order. Lines are routed along OpenStreetMap roads between the stops (src/national/roads.ts), not published by the operator.",
+            "No timetables or headways: every route is shown without a schedule. Fare: Rp5.000 umum, Rp1.000 for pelajar, veteran, buruh, lansia and penyandang disabilitas, from Kepgub Jateng 100.3.3.1/124/2025 (data/national/sources/fares-trans-jateng-2025.json).",
             "Trans Banyumas (koridor 1 Pasar Pon - Terminal Ajibarang, 2 Stasiun Notog - Terminal Baturraden, 3A and 3B Bulupitu - Kebondalem) is known from news only; a Kota Lama corridor planned for 2026-01-01 is unconfirmed, and no official Banyumas dataset was found."
           ],
-          "note": "Data rute dan halte belum lengkap; menunggu data dari operator."
+          "note": "Trans Jateng B1 dengan tarif resmi; belum ada jadwal, garis digambar mengikuti jalan di peta. Trans Banyumas belum tersedia."
         }
       },
       "missing": [
