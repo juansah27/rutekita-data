@@ -1019,6 +1019,13 @@
       "bbox": [105.9217, -6.2197, 106.2534, -5.8757],
       "centre": [106.1518, -6.117],
       "timezone": "Asia/Jakarta",
+      "pack": {
+        "kind": "remote",
+        "url": "https://juansah27.github.io/rutekita-data/national/packs/serang/ba67512b1ac2e9a5db31eecb4f775488e826668e18a0093b664a677ff623e4dc.json",
+        "version": "ba67512b1ac2e9a5db31eecb4f775488e826668e18a0093b664a677ff623e4dc",
+        "builtAt": "2026-10-21",
+        "staleAfterDays": 120
+      },
       "sources": [
         {
           "id": "djka-gapeka-2025",
@@ -1046,18 +1053,32 @@
           "attribution": "ASDP",
           "redistribution": "unknown",
           "retrieved": "2026-10-20"
+        },
+        {
+          "id": "osm-rail-banten",
+          "name": "OpenStreetMap railway stations and railway=rail track network around the Merak line (station positions; track lines routed along the rails)",
+          "url": "https://www.openstreetmap.org/copyright",
+          "licence": "ODbL 1.0",
+          "licenceUrl": "https://opendatacommons.org/licenses/odbl/1-0/",
+          "attribution": "© OpenStreetMap contributors",
+          "redistribution": "allowed",
+          "retrieved": "2026-10-21"
         }
       ],
       "modes": {
         "commuter_rail": {
-          "status": "source_verified",
+          "status": "validated",
           "operators": ["KAI Commuter"],
-          "sourceIds": ["djka-gapeka-2025"],
+          "sourceIds": ["djka-gapeka-2025", "osm-rail-banten"],
           "missing": [
-            "Commuter Line Merak (KA 311-324) is already in the bundled intercity.json, parsed from the same Gapeka PDF; it is not yet part of a Serang pack.",
-            "Station coordinates come from OpenStreetMap nodes already in the repo."
+            "Commuter Line Merak (KA 311-324, 14 trips a day) is read from the Gapeka 2025 text by scripts/national/build-gapeka.ts and every trip is checked against the printed times. No newer official timetable was found on 2026-10-21: KCI publishes no Merak PDF and kci.id only has a station search. A news list from January 2026 has the first Merak departure five minutes later than the Gapeka (05:10, not 05:05), so times may have shifted since.",
+            "Catang, Jambu Baru and Rangkasbitung lie outside the box (Kabupaten Serang and Lebak); they are in the pack because every trip that calls there also serves the region.",
+            "The Gapeka gives no holiday calendar: every trip is taken as daily from 2025-02-01. Temporary changes (Lebaran 2026: trains turned at Cilegon, 13-20 March) are not in the pack.",
+            "Fares are not in the Gapeka and no official fare table was found.",
+            "Track lines are routed along OpenStreetMap railway=rail ways between calls (src/national/rail.ts), not published by KCI.",
+            "The same trains are in the bundled intercity.json, where the Jabodetabek planner rides them as KA Lokal; the pack adds the map line, the route card and the timetable in Serang."
           ],
-          "note": "Jadwal Commuter Line Merak dari Gapeka 2025; cek ulang di aplikasi operator sebelum berangkat."
+          "note": "Jadwal Commuter Line Merak dari Gapeka 2025; jam bisa sudah bergeser, cek ulang di aplikasi operator sebelum berangkat. Tarif belum dimasukkan."
         },
         "city_bus": {
           "status": "researched",
@@ -1341,7 +1362,7 @@
           "sourceIds": ["pekanbaru-trans-metro-pekanbaru", "osm-pekanbaru-bbox-count"],
           "missing": [
             "Pemko page of 2026-01-20: 33 buses on 8 corridors, with 16 electric buses and 16 feeders planned for 2026 under BTS.",
-            "OpenStreetMap has 19 bus relations and 60 bus stops, the best OpenStreetMap base outside Java, but their quality was not audited.",
+            "Audit 2026-10-21 (scripts/national/build-osm.ts): the 19 relations are ten lines (Trans Metro Pekanbaru 1, 1A, 2, 3, 4A, 4B, 4C, 8A and Oplet AMAN OA1, OA2), but only Rute 1 Pandau-Ramayana STC lists its stops (29), and only in one direction; the other relations list ways only. A pack of one one-way line would misstate the network, so none is published. Mapping the stops on the other relations in OpenStreetMap, or an operator stop list, would make a pack possible.",
             "No GTFS or stop coordinates from the operator; ask Dishub Pekanbaru or Hubdat."
           ],
           "note": "Data rute dan halte belum lengkap; menunggu data dari operator."
