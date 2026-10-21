@@ -470,16 +470,43 @@
       "bbox": [109.9226, -7.497, 111.2469, -6.7061],
       "centre": [110.4229, -6.9904],
       "timezone": "Asia/Jakarta",
+      "pack": {
+        "kind": "remote",
+        "url": "https://juansah27.github.io/rutekita-data/national/packs/semarang-raya/98558738758e826f28ac401fd33f485f53737f6a22e4322d6e93f954708bdc61.json",
+        "version": "98558738758e826f28ac401fd33f485f53737f6a22e4322d6e93f954708bdc61",
+        "builtAt": "2026-10-21",
+        "staleAfterDays": 60
+      },
       "sources": [
         {
           "id": "jateng-opendata-trans-jateng-halte",
-          "name": "Portal Data Jawa Tengah - Jumlah Halte Pelayanan Trans Jateng (Tahun 2024), stop list with coordinates",
+          "name": "Portal Data Jawa Tengah - Jumlah Halte Pelayanan Trans Jateng (Tahun 2024), stop list with coordinates; the Semarang-Kendal and Semarang-Grobogan rows are in data/national/sources/trans-jateng-kedungsepur-2024.json",
           "url": "https://data.jatengprov.go.id/dataset/aa1-jumlah-halte-pelayanan-trans-jateng/resource/4a98f18a-dd95-4ebd-9b80-16be5d111e4c",
           "licence": "Creative Commons Attribution (portal label 'cc-by'; version not stated)",
           "licenceUrl": "https://creativecommons.org/licenses/by/4.0/",
           "attribution": "Credit Dinas Perhubungan Provinsi Jawa Tengah / Portal Data Jawa Tengah",
           "redistribution": "allowed",
-          "retrieved": "2026-10-20"
+          "retrieved": "2026-10-21"
+        },
+        {
+          "id": "osm-semarang-bus-routes",
+          "name": "OpenStreetMap bus route relations around Semarang (Trans Jateng K1, Trans Semarang Koridor 1 and 2, feeder F4A)",
+          "url": "https://overpass-api.de/api/interpreter",
+          "licence": "ODbL 1.0",
+          "licenceUrl": "https://opendatacommons.org/licenses/odbl/1-0/",
+          "attribution": "© OpenStreetMap contributors",
+          "redistribution": "allowed",
+          "retrieved": "2026-10-21"
+        },
+        {
+          "id": "osm-semarang-roads",
+          "name": "OpenStreetMap roads within 500 m of the Trans Jateng K2 and K3 halte (route lines routed along them)",
+          "url": "https://www.openstreetmap.org/copyright",
+          "licence": "ODbL 1.0",
+          "licenceUrl": "https://opendatacommons.org/licenses/odbl/1-0/",
+          "attribution": "© OpenStreetMap contributors",
+          "redistribution": "allowed",
+          "retrieved": "2026-10-21"
         },
         {
           "id": "trans-semarang-official-site-app",
@@ -511,28 +538,35 @@
       ],
       "modes": {
         "brt": {
-          "status": "source_verified",
+          "status": "validated",
           "operators": ["Trans Semarang (BLU UPTD)", "Trans Jateng"],
           "sourceIds": [
             "jateng-opendata-trans-jateng-halte",
+            "osm-semarang-bus-routes",
+            "osm-semarang-roads",
             "trans-semarang-official-site-app",
             "semarang-ppid-brt-route-article",
             "semarang-satudata-portal"
           ],
           "missing": [
-            "Trans Jateng stops have coordinates under CC-BY (corridors Semarang-Bawen, Semarang-Kendal, Semarang-Grobogan) but no shapes or timetables.",
-            "Trans Semarang has no published stop coordinates, API or GTFS, only an app and a PPID article on its routes (updated 2025-01-14); ask BLU Trans Semarang or Dishub Kota Semarang.",
-            "OpenStreetMap routes for Semarang were not counted (Overpass failed during the research), so there is no source for shapes yet.",
+            "Trans Jateng K2 (Semarang-Kendal) and K3 (Semarang-Grobogan): stops and their order are the Portal Data Jawa Tengah halte rows (2024). Six rows listed after the corridor runs were put between their nearest neighbours on the run, and four same-name pairs within 15 m were made one stop. Lines are routed along OpenStreetMap roads between the stops (src/national/roads.ts), not published by the operator.",
+            "Trans Jateng K1 (Bawen-Tawang) comes from OpenStreetMap, which has its stops in order; 89 of the 93 K1 rows of the portal list lie within 100 m of an OSM stop. The portal row \"Halte Pramuka\" has coordinates in Magelang.",
+            "Trans Semarang: only Koridor 1 and 2 are mapped in OpenStreetMap; the other corridors are not in the pack. Trans Semarang publishes no stop list, API or GTFS; ask BLU Trans Semarang or Dishub Kota Semarang.",
+            "OSM relations left out on purpose: S1 Tirtonadi-Sumberlawang (Solo, another region), the UNNES campus shuttle, and OSM's K2 and K3 (the portal list replaces them).",
+            "No timetables or headways: every route is shown without a schedule. Fares are not included; follow up with the Trans Jateng tariff decree (Kepgub Jateng 100.3.3.1/124/2025) and Trans Semarang's tariff.",
             "opendata.semarangkota.go.id returned 502; the city portal catalogue was not searched."
           ],
-          "note": "Halte dan jalur Trans Semarang belum tersedia di aplikasi; menunggu data dari operator."
+          "note": "Trans Jateng K1, K2, K3 dan Trans Semarang Koridor 1 dan 2. Belum ada jadwal dan tarif; garis K2 dan K3 digambar mengikuti jalan di peta."
         },
         "feeder": {
-          "status": "researched",
+          "status": "validated",
           "operators": ["Trans Semarang feeders (BLU UPTD)"],
-          "sourceIds": ["semarang-ppid-brt-route-article"],
-          "missing": ["Feeder routes appear only in a PPID article whose body is not machine-readable; no stops or coordinates."],
-          "note": "Data rute bus pengumpan masih dikumpulkan."
+          "sourceIds": ["osm-semarang-bus-routes", "semarang-ppid-brt-route-article"],
+          "missing": [
+            "Only feeder F4A (to UNNES) is mapped in OpenStreetMap; the other Trans Semarang feeders, listed in a PPID article without stops or coordinates, are not in the pack.",
+            "No timetables, headways or fares."
+          ],
+          "note": "Baru feeder F4A; feeder lain menyusul."
         }
       },
       "missing": [
