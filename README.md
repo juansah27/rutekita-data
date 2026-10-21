@@ -129,3 +129,29 @@ Checks the CCTV catalog and the facility files; `--live` also requests every cam
 ```bash
 node scripts/check.mjs --live --stations ../rutekita/assets/data/krl.json,../rutekita/assets/data/rail.json
 ```
+
+## `national/`
+
+Public transport outside Jabodetabek, which the app downloads one region at a time. The files are
+built and checked in the [rutekita](https://github.com/juansah27/rutekita) repository
+(`scripts/national/`, see `docs/national/`). They are copied here unchanged.
+
+- **`registry.v1.json`:** every region the app knows, with a status for each mode and the sources
+  behind it. A region whose data can be downloaded has a `pack` with its URL, its sha256 `version`,
+  its build date and how many days it stays fresh.
+- **`packs/<region>/<sha256>.json`:** the region's routes, stops, patterns and, where there is one,
+  the official timetable. The file is named by the sha256 of its bytes, and the app refuses a pack
+  whose bytes do not match. A new build gets a new name, so an old one is never overwritten; rolling
+  back means pointing the registry at the old file again.
+
+| Region | Pack | Source | Licence |
+|---|---|---|---|
+| `jogja-solo` | Commuter Line Yogyakarta and Prameks, KA Bandara YIA and Adi Soemarmo | Gapeka 2025, DJKA Kemenhub; station positions © OpenStreetMap contributors | Timetable used with permission; positions ODbL-1.0 |
+| `bandung-raya` | City buses and angkot: routes and stops, no timetable | © OpenStreetMap contributors | ODbL-1.0 |
+
+The packs built from OpenStreetMap are derived databases under the
+[Open Database License](https://opendatacommons.org/licenses/odbl/1-0/): anyone may use them, as long
+as they credit "© OpenStreetMap contributors" and share changes under the same licence.
+
+Gapeka trains marked fakultatif (they run on days the Gapeka does not name) are left out, and the
+packs have no live positions.
