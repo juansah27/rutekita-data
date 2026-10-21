@@ -1,0 +1,1975 @@
+{
+  "version": 1,
+  "updatedAt": "2026-10-21",
+  "regions": [
+    {
+      "id": "jabodetabek",
+      "name": "Jabodetabek",
+      "provinces": ["DKI Jakarta", "Jawa Barat", "Banten"],
+      "bbox": [106.15, -6.85, 107.35, -5.95],
+      "centre": [106.85, -6.21],
+      "timezone": "Asia/Jakarta",
+      "pack": { "kind": "builtin" },
+      "sources": [
+        {
+          "id": "kci-timetable",
+          "name": "KAI Commuter timetable: Jadwal Commuter Line Jabodetabek, update Mei 2026",
+          "url": "https://kci.id/files/download/documents/Jadwal%20Commuter%20Line%20Jabodetabek%20-%20Update%20Mei%202026.pdf",
+          "licence": "Public PDF; no licence or terms found",
+          "attribution": "jadwal KCI (Mei 2026)",
+          "redistribution": "with_permission",
+          "permissionRef": "Owner's statement 2026-10-17 that every operator data permission is held; not yet itemised per operator"
+        },
+        {
+          "id": "mrt-jakarta",
+          "name": "MRT Jakarta departures per station",
+          "url": "https://jakartamrt.co.id/jadwal-keberangkatan",
+          "licence": "Written permission from the operator, 2026-10-17; no special attribution terms",
+          "attribution": "jadwal MRT Jakarta",
+          "redistribution": "with_permission",
+          "permissionRef": "Noted in scripts/build_rail.py; the letter is not in the repo",
+          "retrieved": "2026-10-17"
+        },
+        {
+          "id": "lrt-jakarta",
+          "name": "LRT Jakarta departures per station",
+          "url": "https://lrtjakarta.co.id/schedule",
+          "licence": "Written permission from the operator, 2026-10-17; no special attribution terms",
+          "attribution": "jadwal LRT Jakarta",
+          "redistribution": "with_permission",
+          "permissionRef": "Noted in scripts/build_rail.py; the letter is not in the repo",
+          "retrieved": "2026-10-17"
+        },
+        {
+          "id": "lrt-jabodebek",
+          "name": "LRT Jabodebek departures per station",
+          "url": "https://lrtjabodebek.kai.id/jadwal-keberangkatan",
+          "licence": "Written permission from the operator, 2026-10-17; no special attribution terms",
+          "attribution": "jadwal LRT Jabodebek",
+          "redistribution": "with_permission",
+          "permissionRef": "Noted in scripts/build_rail.py; the letter is not in the repo",
+          "retrieved": "2026-10-17"
+        },
+        {
+          "id": "transjakarta-gtfs",
+          "name": "Transjakarta GTFS feed",
+          "url": "https://gtfs.transjakarta.co.id/files/file_gtfs.zip",
+          "licence": "Written permission from PT Transportasi Jakarta, received 2026-10-17; special terms from the reply not recorded",
+          "attribution": "data GTFS Transjakarta",
+          "redistribution": "with_permission",
+          "permissionRef": "docs/surat-izin-gtfs-transjakarta.md",
+          "retrieved": "2026-10-18"
+        },
+        {
+          "id": "djka-gapeka-2025",
+          "name": "Gapeka 2025 for Java, DJKA Kemenhub (KP-DJKA 224/2024)",
+          "url": "https://djka.kemenhub.go.id/regulasi",
+          "licence": "Published regulation PDF; no licence or terms found",
+          "attribution": "Jadwal: Gapeka 2025, DJKA Kemenhub",
+          "redistribution": "with_permission",
+          "permissionRef": "Owner's statement 2026-10-17 that the intercity timetable permission is held; credit wording approved by the owner 2026-10-17"
+        },
+        {
+          "id": "osm",
+          "name": "OpenStreetMap: stations and track geometry",
+          "url": "https://www.openstreetmap.org/copyright",
+          "licence": "ODbL-1.0",
+          "licenceUrl": "https://opendatacommons.org/licenses/odbl/1-0/",
+          "attribution": "© OpenStreetMap contributors",
+          "redistribution": "allowed"
+        }
+      ],
+      "modes": {
+        "commuter_rail": {
+          "status": "published",
+          "operators": ["KAI Commuter"],
+          "sourceIds": ["kci-timetable", "osm"],
+          "missing": ["Holiday timetables are missing: the bundled calendar knows only weekday and weekend."],
+          "note": "Jadwal khusus hari libur belum tersedia; hanya jadwal hari kerja dan akhir pekan."
+        },
+        "mrt": {
+          "status": "published",
+          "operators": ["MRT Jakarta"],
+          "sourceIds": ["mrt-jakarta", "osm"],
+          "missing": ["The operator publishes departures per station, not per train, so trains are rebuilt from them."],
+          "note": "Jadwal disusun dari jam berangkat tiap stasiun, jadi posisi kereta di peta hanya perkiraan."
+        },
+        "lrt": {
+          "status": "published",
+          "operators": ["LRT Jakarta", "LRT Jabodebek"],
+          "sourceIds": ["lrt-jakarta", "lrt-jabodebek", "osm"],
+          "missing": ["The operators publish departures per station, not per train, so trains are rebuilt from them."],
+          "note": "Jadwal disusun dari jam berangkat tiap stasiun, jadi posisi kereta di peta hanya perkiraan."
+        },
+        "brt": {
+          "status": "published",
+          "operators": ["Transjakarta"],
+          "sourceIds": ["transjakarta-gtfs"],
+          "missing": ["Live bus positions are missing: the buses on the map are simulated from headways and labelled so."],
+          "note": "Posisi bus di peta hanya simulasi dari jarak antar bus, bukan posisi sebenarnya."
+        },
+        "city_bus": {
+          "status": "published",
+          "operators": ["Transjakarta"],
+          "sourceIds": ["transjakarta-gtfs"],
+          "missing": ["Live bus positions are missing: the buses on the map are simulated from headways and labelled so."],
+          "note": "Posisi bus di peta hanya simulasi dari jarak antar bus, bukan posisi sebenarnya."
+        },
+        "feeder": {
+          "status": "published",
+          "operators": ["Transjakarta"],
+          "sourceIds": ["transjakarta-gtfs"],
+          "missing": ["Live bus positions are missing: the buses on the map are simulated from headways and labelled so."],
+          "note": "Posisi bus di peta hanya simulasi dari jarak antar bus, bukan posisi sebenarnya."
+        },
+        "intercity_rail": {
+          "status": "published",
+          "operators": ["KAI"],
+          "sourceIds": ["djka-gapeka-2025"],
+          "missing": ["Only trains that call at stations the app has, plus a few extra ones."],
+          "note": "Hanya kereta jarak jauh yang berhenti di stasiun Jabodetabek yang ada di aplikasi."
+        }
+      },
+      "missing": [
+        "Buses and angkot of operators other than Transjakarta are not in the app.",
+        "The journey planner allows at most one Transjakarta bus at each end of a train ride; there are no bus-to-bus transfers.",
+        "Two bundled timetable sources (KAI Commuter, DJKA Gapeka 2025) state no licence, so their redistribution is marked unknown."
+      ]
+    },
+    {
+      "id": "bandung-raya",
+      "name": "Bandung Raya",
+      "provinces": ["Jawa Barat"],
+      "bbox": [107.1819, -7.3098, 107.974, -6.6885],
+      "centre": [107.6071, -6.9218],
+      "timezone": "Asia/Jakarta",
+      "pack": {
+        "kind": "remote",
+        "url": "https://juansah27.github.io/rutekita-data/national/packs/bandung-raya/69afe360c5b5f9ca3bfee61ca419998bb3b1e53a4552947f8c809e91a416b28b.json",
+        "version": "69afe360c5b5f9ca3bfee61ca419998bb3b1e53a4552947f8c809e91a416b28b",
+        "builtAt": "2026-10-21",
+        "staleAfterDays": 60
+      },
+      "sources": [
+        {
+          "id": "djka-gapeka-2025",
+          "name": "Gapeka 2025 for Java, DJKA Kemenhub (KP-DJKA 224/2024)",
+          "url": "https://djka.kemenhub.go.id/regulasi",
+          "licence": "Published regulation PDF; no licence or terms found",
+          "attribution": "Jadwal: Gapeka 2025, DJKA Kemenhub",
+          "redistribution": "with_permission",
+          "permissionRef": "Owner's statement 2026-10-17 that the intercity timetable permission is held; credit wording approved by the owner 2026-10-17"
+        },
+        {
+          "id": "kci-bandung-raya-garut",
+          "name": "Commuter Line Bandung Raya (Padalarang-Cicalengka) and Commuter Line Garut",
+          "url": "https://finance.detik.com/infrastruktur/d-8334899/ka-commuter-line-bandung-rute-padalarang-cicalengka-operasi-tarif-rp-5-000",
+          "licence": "No licence stated; the research notes say the publisher's permission is needed and none is recorded",
+          "attribution": "Gapeka 2025, DJKA Kemenhub; KAI Commuter",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "djka-gapeka-kcjb-2025",
+          "name": "Gapeka KA Kecepatan Tinggi Jakarta-Bandung (Whoosh), KP-DJKA 2/2025",
+          "url": "https://djka.kemenhub.go.id/uploads/202501/KP-DJKA%202%20Tahun%202025_GAPEKA%20KA%20KECEPATAN%20TINGGI%20JAKARTA%20-%20BANDUNG.pdf",
+          "licence": "Not stated (official Kemenhub decree published as PDF)",
+          "attribution": "Jadwal: Gapeka 2025, DJKA Kemenhub",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "kcic-whoosh",
+          "name": "Whoosh high-speed rail (Halim-Karawang-Padalarang-Tegalluar) and KA Feeder",
+          "url": "https://ticket.kcic.co.id/",
+          "licence": "No licence stated; the research notes say the publisher's permission is needed and none is recorded",
+          "attribution": "KCIC",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "osm",
+          "name": "OpenStreetMap: stations and track geometry",
+          "url": "https://www.openstreetmap.org/copyright",
+          "licence": "ODbL-1.0",
+          "licenceUrl": "https://opendatacommons.org/licenses/odbl/1-0/",
+          "attribution": "© OpenStreetMap contributors",
+          "redistribution": "allowed"
+        },
+        {
+          "id": "bandung-opendata-halte-umum",
+          "name": "Open Data Kota Bandung - Lokasi Halte Transportasi Umum di Kota Bandung (dataset 5367)",
+          "url": "https://opendata.bandung.go.id/api/bigdata/dinas_perhubungan/lokasi_halte_transportasi_umum_di_kota_bandung_jawa_b",
+          "licence": "No licence statement found on the portal pages inspected",
+          "attribution": "Cite the publisher (Dishub) and portal; confirm in writing",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "bandung-opendata-tmb-jurusan-rute",
+          "name": "Open Data Kota Bandung - Jumlah Armada Trans Metro Bandung Berdasarkan Jurusan (dataset 6054) + related TMB datasets 5357/5359",
+          "url": "https://opendata.bandung.go.id/api/bigdata/dinas_perhubungan/jumlah_armada_trans_metro_bandung_berdasarkan_jurus_2",
+          "licence": "No licence statement found on the portal pages inspected",
+          "attribution": "Cite the publisher (Dishub) and portal; confirm in writing",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "jabar-opendata-damri-bandung-rute",
+          "name": "Open Data Jabar - Rute Bus Damri Kota Bandung",
+          "url": "https://data.jabarprov.go.id/dataset/rute-bus-damri-kota-bandung-2",
+          "licence": "No licence statement found on the portal pages inspected",
+          "attribution": "Cite the publisher (Dishub) and portal; confirm in writing",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "trans-metro-bandung-dishub-bandung",
+          "name": "Dishub Kota Bandung site (Trans Metro Bandung, Bandros, bus sekolah)",
+          "url": "https://dishub.bandung.go.id/",
+          "licence": "No licence stated",
+          "attribution": "Cite Dinas Perhubungan Kota Bandung",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "metro-jabar-trans-operator",
+          "name": "Metro Jabar Trans (ex Trans Metro Pasundan) - Pemprov Jabar BRT Bandung Raya",
+          "url": "https://dishub.jabarprov.go.id/",
+          "licence": "No licence stated",
+          "attribution": "Cite Dinas Perhubungan Provinsi Jawa Barat; operated by Perum DAMRI and Big Bird (per news)",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "bandung-opendata-angkot-trayek",
+          "name": "Open Data Kota Bandung - Jumlah Armada dan Trayek Angkutan Kota Bandung (dataset 6048)",
+          "url": "https://opendata.bandung.go.id/api/bigdata/dinas_perhubungan/jumlah_armada_dan_trayek_angkutan_kota_bandung_3",
+          "licence": "No licence statement found on the portal pages inspected",
+          "attribution": "Cite the publisher (Dishub) and portal; confirm in writing",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "modes": {
+        "commuter_rail": {
+          "status": "integration_in_progress",
+          "operators": ["KAI Commuter", "KAI (KA Feeder Padalarang-Bandung)"],
+          "sourceIds": ["djka-gapeka-2025", "kci-bandung-raya-garut"],
+          "missing": [
+            "The Gapeka 2025 PDF predates the extension of Commuter Line Bandung Raya to Cicalengka on 2026-02-01 (KP-DJKA 154/2025, known from news only), so its Bandung Raya tables may be out of date; the newer decree has not been found.",
+            "The Gapeka PDF has no station coordinates; they have to come from OpenStreetMap nodes.",
+            "Fares are not in the Gapeka PDF; news reports Rp4,000 to Rp5,000 for Padalarang-Cicalengka.",
+            "DJKA states no licence for the Gapeka PDF, so shipping its timetable rests on the owner's permission statement, which is not itemised per operator."
+          ],
+          "note": "Jadwal belum ditampilkan karena ada perubahan perjalanan per Februari 2026; cek aplikasi operator."
+        },
+        "high_speed_rail": {
+          "status": "access_pending",
+          "operators": ["KCIC"],
+          "sourceIds": ["djka-gapeka-kcjb-2025", "kcic-whoosh"],
+          "missing": [
+            "The Gapeka PDF for the Jakarta-Bandung high-speed train (KP-DJKA 2/2025) is not in hand. The PDF was never opened: the DJKA host resets connections from automated tools, so the owner has to download it in a browser.",
+            "www.kcic.co.id returned 530 and tickets are sold in a single-page app; ask KCIC for stations, timetable and fare bands. Fares are dynamic."
+          ],
+          "note": "Jadwal dan tarif Whoosh belum tersedia; menunggu data dari operator."
+        },
+        "city_bus": {
+          "status": "published",
+          "operators": ["Trans Metro Bandung", "Metro Jabar Trans", "DAMRI"],
+          "sourceIds": [
+            "osm",
+            "bandung-opendata-halte-umum",
+            "bandung-opendata-tmb-jurusan-rute",
+            "jabar-opendata-damri-bandung-rute",
+            "trans-metro-bandung-dishub-bandung",
+            "metro-jabar-trans-operator"
+          ],
+          "missing": [
+            "OpenStreetMap has 271 bus and angkot relations in Bandung Raya, 211 of them without an operator tag, so lines must be matched to operators by hand.",
+            "The Bandung open-data portal lists 744 stop names with street and location text but no coordinates; ask Dishub Kota Bandung or Diskominfo for coordinates.",
+            "No official timetable: routes show as \"belum ada jadwal resmi\" until one is obtained.",
+            "The Bandung and Jabar portals state no licence; get one in writing (for example CC-BY) before shipping data from them.",
+            "No official Metro Jabar Trans page was reached (dishub.jabarprov.go.id returned 403 to our fetch tool); its corridors and those of Trans Metro Bandung are from news."
+          ],
+          "note": "Belum ada jadwal resmi; rute dan halte masih dikumpulkan dan belum lengkap."
+        },
+        "angkot": {
+          "status": "published",
+          "operators": ["Angkot Kota Bandung"],
+          "sourceIds": ["osm", "bandung-opendata-angkot-trayek"],
+          "missing": [
+            "OpenStreetMap has 86 Angkot Kota Bandung relations; angkot of Kabupaten Bandung, Cimahi and Kabupaten Bandung Barat were not counted separately.",
+            "Angkot have no timetable, so only the line and its stops can be shown.",
+            "The portal trayek table gives length and fleet size per line but no coordinates; use it only to cross-check the OpenStreetMap relations."
+          ],
+          "note": "Angkot tidak punya jadwal; yang bisa ditampilkan hanya rute dan halte, itu pun belum lengkap."
+        }
+      },
+      "missing": [
+        "Jatinangor (Kabupaten Sumedang) has no boundary relation of its own in the data used; it lies inside the Kabupaten Bandung box, so the box still covers it.",
+        "Garut town is in the box only for the Commuter Line Garut; the rest of Kabupaten Garut is not.",
+        "Bandros tourist bus and bus sekolah appear in the research but were not examined.",
+        "The box is the union of OpenStreetMap boundary relations R13290062, R14935961, R14935959, R14935960, R18182716, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "jogja-solo",
+      "name": "Yogyakarta dan Solo Raya",
+      "provinces": ["DI Yogyakarta", "Jawa Tengah"],
+      "bbox": [109.8769, -8.416, 111.1945, -7.1391],
+      "centre": [110.3647, -7.8013],
+      "timezone": "Asia/Jakarta",
+      "pack": {
+        "kind": "remote",
+        "url": "https://juansah27.github.io/rutekita-data/national/packs/jogja-solo/4f50cb70ac32ff9cd031069f740ad0e02bcf5caae503f1eda25afcbd23e79567.json",
+        "version": "4f50cb70ac32ff9cd031069f740ad0e02bcf5caae503f1eda25afcbd23e79567",
+        "builtAt": "2026-10-21",
+        "staleAfterDays": 120
+      },
+      "sources": [
+        {
+          "id": "djka-gapeka-2025",
+          "name": "Gapeka 2025 for Java, DJKA Kemenhub (KP-DJKA 224/2024)",
+          "url": "https://djka.kemenhub.go.id/regulasi",
+          "licence": "Published regulation PDF; no licence or terms found",
+          "attribution": "Jadwal: Gapeka 2025, DJKA Kemenhub",
+          "redistribution": "with_permission",
+          "permissionRef": "Owner's statement 2026-10-17 that the intercity timetable permission is held; credit wording approved by the owner 2026-10-17"
+        },
+        {
+          "id": "kci-yogyakarta-solo-krl",
+          "name": "KRL Commuter Line Yogyakarta-Solo (Palur)",
+          "url": "https://www.metrotvnews.com/read/b1oCOn1L-jadwal-krl-jogjasolo-rabu-17-juni-2026-lengkap-semua-stasiun",
+          "licence": "No licence stated; the research notes say the publisher's permission is needed and none is recorded",
+          "attribution": "KAI Commuter",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "airport-rail-yia-adisoemarmo",
+          "name": "KA Bandara YIA (Yogyakarta) and KA Bandara Adi Soemarmo (Solo)",
+          "url": "https://ekonomi.bisnis.com/read/20260312/98/1959827/kai-commuter-berencana-ambil-alih-operasional-ka-bandara-yia-dan-medan",
+          "licence": "No licence stated; the research notes say the publisher's permission is needed and none is recorded",
+          "attribution": "KAI",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "jogja-dishub-diy-trans-jogja",
+          "name": "Dishub DIY - Data Trans Jogja page (20 jalur, PDF map, My Maps, apps)",
+          "url": "https://dishub.jogjaprov.go.id/trans-jogja",
+          "licence": "No licence stated",
+          "attribution": "Cite Dinas Perhubungan Daerah Istimewa Yogyakarta",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "jateng-opendata-trans-jateng-halte",
+          "name": "Portal Data Jawa Tengah - Jumlah Halte Pelayanan Trans Jateng (Tahun 2024), stop list with coordinates",
+          "url": "https://data.jatengprov.go.id/dataset/aa1-jumlah-halte-pelayanan-trans-jateng/resource/4a98f18a-dd95-4ebd-9b80-16be5d111e4c",
+          "licence": "Creative Commons Attribution (portal label 'cc-by'; version not stated)",
+          "licenceUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "attribution": "Credit Dinas Perhubungan Provinsi Jawa Tengah / Portal Data Jawa Tengah",
+          "redistribution": "allowed",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "solo-dishub-batik-solo-trans",
+          "name": "Dishub Surakarta - Batik Solo Trans infographics (operations 2026, fares, route map)",
+          "url": "https://dishub.surakarta.go.id/",
+          "licence": "No licence stated",
+          "attribution": "Cite Dinas Perhubungan Kota Surakarta",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "jogjaprov-data-portal",
+          "name": "Satu Data DIY / Open Data DIY (data.jogjaprov.go.id) and Geoportal DIY (gis.jogjaprov.go.id)",
+          "url": "https://data.jogjaprov.go.id/",
+          "licence": "No licence stated",
+          "attribution": "Cite Pemerintah Daerah DIY (Kominfo DIY)",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "solodata-portal",
+          "name": "Solo Data (solodata.surakarta.go.id)",
+          "url": "https://solodata.surakarta.go.id",
+          "licence": "No licence stated",
+          "attribution": "Cite Pemerintah Kota Surakarta",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "modes": {
+        "commuter_rail": {
+          "status": "published",
+          "operators": ["KAI Commuter"],
+          "sourceIds": ["djka-gapeka-2025", "kci-yogyakarta-solo-krl"],
+          "missing": [
+            "Commuter Line Yogyakarta (KRL Yogyakarta-Palur) and Prameks Kutoarjo are in the Gapeka PDF. The Gapeka PDF has no station coordinates; they have to come from OpenStreetMap nodes.",
+            "The 13-stop station list and the flat Rp8,000 fare come from news; the operator site (commuterline.id) is behind Cloudflare and was not read.",
+            "DJKA states no licence for the Gapeka PDF, so shipping its timetable rests on the owner's permission statement, which is not itemised per operator."
+          ],
+          "note": "Jadwal dari Gapeka 2025, tanpa kereta fakultatif (mis. 06:00 dari Tugu); cek aplikasi operator."
+        },
+        "airport_rail": {
+          "status": "published",
+          "operators": ["KAI Bandara"],
+          "sourceIds": ["djka-gapeka-2025", "airport-rail-yia-adisoemarmo"],
+          "missing": [
+            "Bandara YIA and Bandara Adi Soemarmo trains are in the Gapeka PDF. The Gapeka PDF has no station coordinates; they have to come from OpenStreetMap nodes.",
+            "KAI Commuter is reported (Bisnis, 2026-03-12) to take over the YIA airport train in 2026, so the operator and timetable may change.",
+            "Fares are not in the Gapeka PDF; the figure of 50 YIA trips a day is from news."
+          ],
+          "note": "Jadwal dari Gapeka 2025, tanpa kereta fakultatif (mis. Xpress 06:00); cek aplikasi operator."
+        },
+        "brt": {
+          "status": "source_verified",
+          "operators": ["Trans Jogja (Dishub DIY)", "Batik Solo Trans (Dishub Surakarta)", "Trans Jateng"],
+          "sourceIds": [
+            "jogja-dishub-diy-trans-jogja",
+            "jateng-opendata-trans-jateng-halte",
+            "solo-dishub-batik-solo-trans",
+            "jogjaprov-data-portal",
+            "solodata-portal"
+          ],
+          "missing": [
+            "Trans Jogja: the official page has a 20-line route table and a PDF map but no stop coordinates or shapes; the Google My Maps layer has no stated licence, so do not copy it. Ask Dishub DIY and Kominfo DIY for the halte shapefile.",
+            "Batik Solo Trans has no stop list, and which corridors run in 2026 is unconfirmed (corridors 1, 5 and 6 uncertain); ask Dishub Kota Surakarta.",
+            "Trans Jateng gives CC-BY stop coordinates for Solo-Wonogiri and Solo-Sragen, but no shapes or timetables, and part of those stops lie outside this box.",
+            "data.jogjaprov.go.id and solodata.surakarta.go.id did not answer from the research machine; try again from the build environment."
+          ],
+          "note": "Data rute dan halte belum lengkap; menunggu data dari operator."
+        }
+      },
+      "missing": [
+        "The box covers DI Yogyakarta, Kota Surakarta, Klaten, Karanganyar, Boyolali, Sukoharjo and Kutoarjo (west end of the Prameks line). Wonogiri and Sragen, where two Trans Jateng corridors from Solo end, are not in it.",
+        "The box is the union of OpenStreetMap boundary relations R5615250, R5616105, R17701298, R9687063, R9687060, R9687053, R9687052, R9687061, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "semarang-raya",
+      "name": "Semarang Raya",
+      "provinces": ["Jawa Tengah"],
+      "bbox": [109.9226, -7.497, 111.2469, -6.7061],
+      "centre": [110.4229, -6.9904],
+      "timezone": "Asia/Jakarta",
+      "sources": [
+        {
+          "id": "jateng-opendata-trans-jateng-halte",
+          "name": "Portal Data Jawa Tengah - Jumlah Halte Pelayanan Trans Jateng (Tahun 2024), stop list with coordinates",
+          "url": "https://data.jatengprov.go.id/dataset/aa1-jumlah-halte-pelayanan-trans-jateng/resource/4a98f18a-dd95-4ebd-9b80-16be5d111e4c",
+          "licence": "Creative Commons Attribution (portal label 'cc-by'; version not stated)",
+          "licenceUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "attribution": "Credit Dinas Perhubungan Provinsi Jawa Tengah / Portal Data Jawa Tengah",
+          "redistribution": "allowed",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "trans-semarang-official-site-app",
+          "name": "Trans Semarang official site and apps (BRT + feeder, BLU UPTD under Dishub Kota Semarang)",
+          "url": "https://transsemarang.semarangkota.go.id/",
+          "licence": "No licence stated",
+          "attribution": "Cite Pemerintah Kota Semarang / Dinas Perhubungan Kota Semarang (Trans Semarang)",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "semarang-ppid-brt-route-article",
+          "name": "PPID Kota Semarang - Rute BRT Trans Semarang dan Feeder di Kota Semarang",
+          "url": "https://ppid.semarangkota.go.id/kb/jalur-rute-brt-trans-semarang-dan-feeder-di-kota-semarang/",
+          "licence": "Public information (PPID); no licence stated",
+          "attribution": "Cite PPID Kota Semarang",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "semarang-satudata-portal",
+          "name": "Portal Satu Data Indonesia Tingkat Kota Semarang (data.semarangkota.go.id)",
+          "url": "https://data.semarangkota.go.id/",
+          "licence": "No licence stated",
+          "attribution": "Cite Diskominfo Kota Semarang",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "modes": {
+        "brt": {
+          "status": "source_verified",
+          "operators": ["Trans Semarang (BLU UPTD)", "Trans Jateng"],
+          "sourceIds": [
+            "jateng-opendata-trans-jateng-halte",
+            "trans-semarang-official-site-app",
+            "semarang-ppid-brt-route-article",
+            "semarang-satudata-portal"
+          ],
+          "missing": [
+            "Trans Jateng stops have coordinates under CC-BY (corridors Semarang-Bawen, Semarang-Kendal, Semarang-Grobogan) but no shapes or timetables.",
+            "Trans Semarang has no published stop coordinates, API or GTFS, only an app and a PPID article on its routes (updated 2025-01-14); ask BLU Trans Semarang or Dishub Kota Semarang.",
+            "OpenStreetMap routes for Semarang were not counted (Overpass failed during the research), so there is no source for shapes yet.",
+            "opendata.semarangkota.go.id returned 502; the city portal catalogue was not searched."
+          ],
+          "note": "Halte dan jalur Trans Semarang belum tersedia di aplikasi; menunggu data dari operator."
+        },
+        "feeder": {
+          "status": "researched",
+          "operators": ["Trans Semarang feeders (BLU UPTD)"],
+          "sourceIds": ["semarang-ppid-brt-route-article"],
+          "missing": ["Feeder routes appear only in a PPID article whose body is not machine-readable; no stops or coordinates."],
+          "note": "Data rute bus pengumpan masih dikumpulkan."
+        }
+      },
+      "missing": [
+        "The box is the Kedungsepur area (Kota Semarang, Kendal, Demak, Kabupaten Semarang, Salatiga, Grobogan). Rail was not researched for this region.",
+        "The box is the union of OpenStreetMap boundary relations R8409116, R9686810, R17241173, R9686813, R9686812, R9687051, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "surabaya-raya",
+      "name": "Surabaya Raya",
+      "provinces": ["Jawa Timur"],
+      "bbox": [112.0725, -7.7792, 113.1479, -5.7158],
+      "centre": [112.7378, -7.2463],
+      "timezone": "Asia/Jakarta",
+      "sources": [
+        {
+          "id": "djka-gapeka-2025",
+          "name": "Gapeka 2025 for Java, DJKA Kemenhub (KP-DJKA 224/2024)",
+          "url": "https://djka.kemenhub.go.id/regulasi",
+          "licence": "Published regulation PDF; no licence or terms found",
+          "attribution": "Jadwal: Gapeka 2025, DJKA Kemenhub",
+          "redistribution": "with_permission",
+          "permissionRef": "Owner's statement 2026-10-17 that the intercity timetable permission is held; credit wording approved by the owner 2026-10-17"
+        },
+        {
+          "id": "kci-surabaya-wilayah-8",
+          "name": "KAI Commuter Wilayah 8 Surabaya (Jenggala, Supas, Dhoho, Penataran, Tumapel, Blorasura, Arjonegoro)",
+          "url": "https://www.kompas.tv/info-publik/642497/jadwal-krl-wilayah-8-surabaya-dan-sekitarnya-pada-januari-2026",
+          "licence": "No licence stated; the research notes say the publisher's permission is needed and none is recorded",
+          "attribution": "KAI Commuter",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "trans-jatim-dishub-jatim",
+          "name": "Dishub Jawa Timur - Trans Jatim (Gerbangkertasusila + Malang Raya)",
+          "url": "https://dishub.jatimprov.go.id/",
+          "licence": "No licence stated",
+          "attribution": "Cite Dinas Perhubungan Provinsi Jawa Timur",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "osm-surabaya-bus-routes",
+          "name": "OpenStreetMap bus route relations - Surabaya bounding box",
+          "url": "https://overpass-api.de/api/interpreter",
+          "licence": "ODbL 1.0",
+          "licenceUrl": "https://opendatacommons.org/licenses/odbl/1-0/",
+          "attribution": "(c) OpenStreetMap contributors",
+          "redistribution": "allowed",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "surabaya-gobis-dishub",
+          "name": "GOBIS Suroboyo (Dishub Kota Surabaya app for Suroboyo Bus, Trans Semanggi, mikrolet)",
+          "url": "https://dishub.surabaya.go.id/portal/",
+          "licence": "No licence stated",
+          "attribution": "Cite Dinas Perhubungan Kota Surabaya",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "surabaya-opendata-portal",
+          "name": "Open Data Kota Surabaya (opendata.surabaya.go.id)",
+          "url": "https://opendata.surabaya.go.id/",
+          "licence": "Portal says data is free for research/app development/decisions; no named licence found",
+          "attribution": "Cite Pemerintah Kota Surabaya (Satu Data Surabaya)",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "modes": {
+        "commuter_rail": {
+          "status": "integration_in_progress",
+          "operators": ["KAI Commuter"],
+          "sourceIds": ["djka-gapeka-2025", "kci-surabaya-wilayah-8"],
+          "missing": [
+            "Jenggala, Supas, Arjonegoro, Blorasura, Penataran and Dhoho are the local trains taken from the Gapeka PDF. The Gapeka PDF has no station coordinates; they have to come from OpenStreetMap nodes.",
+            "News also names Tumapel and Sindro (merged into Jenggala); neither was checked in the PDF. An extension of Supas to Probolinggo is only planned.",
+            "Station lists, timetables and fares beyond the PDF are known from news only; Penataran also serves Malang Raya.",
+            "DJKA states no licence for the Gapeka PDF, so shipping its timetable rests on the owner's permission statement, which is not itemised per operator."
+          ],
+          "note": "Jadwal dari Gapeka 2025; daftar stasiun dan tarif lengkap belum ada, cek ulang di aplikasi operator."
+        },
+        "brt": {
+          "status": "researched",
+          "operators": ["Trans Jatim (Dishub Jatim)"],
+          "sourceIds": ["trans-jatim-dishub-jatim", "osm-surabaya-bus-routes"],
+          "missing": [
+            "The Dishub Jatim site carries only news; the programme targets 10 corridors of which 6 run (news). Three OpenStreetMap relations are tagged Trans Jatim.",
+            "Ask Dishub Jatim for stop lists; opendata.jatimprov.go.id is a client-rendered app that could not be searched."
+          ],
+          "note": "Data koridor Trans Jatim masih dikumpulkan; daftar halte belum tersedia."
+        },
+        "city_bus": {
+          "status": "source_verified",
+          "operators": ["Suroboyo Bus (Dishub)", "Trans Semanggi Suroboyo (Teman Bus / DAMRI)"],
+          "sourceIds": ["osm-surabaya-bus-routes", "surabaya-gobis-dishub", "surabaya-opendata-portal"],
+          "missing": [
+            "OpenStreetMap holds only 13 bus relations for Surabaya (Bus Suroboyo and three Trans Jatim lines), which is incomplete.",
+            "No stop coordinates from the city; the GOBIS app claims live positions but has no API. Ask Dishub Kota Surabaya.",
+            "Wira-Wiri could not be found in any source reached; Trans Semanggi corridor 3 electric buses were paused in January 2025 and replaced by diesel (news).",
+            "The city open-data portal says its data is free for research and app development but names no licence."
+          ],
+          "note": "Data rute dan halte belum lengkap; menunggu data dari operator."
+        }
+      },
+      "missing": [
+        "The box is Gerbangkertosusila (Surabaya, Gresik, Bangkalan, Mojokerto, Sidoarjo, Lamongan). It reaches far north because Kabupaten Gresik's boundary includes Bawean island, so it is oversized there.",
+        "The box is the union of OpenStreetMap boundary relations R8225862, R9677344, R9674056, R9676367, R12553602, R9677345, R9676366, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "malang-raya",
+      "name": "Malang Raya",
+      "provinces": ["Jawa Timur"],
+      "bbox": [112.2874, -8.464, 112.9565, -7.7238],
+      "centre": [112.634, -7.9771],
+      "timezone": "Asia/Jakarta",
+      "sources": [
+        {
+          "id": "djka-gapeka-2025",
+          "name": "Gapeka 2025 for Java, DJKA Kemenhub (KP-DJKA 224/2024)",
+          "url": "https://djka.kemenhub.go.id/regulasi",
+          "licence": "Published regulation PDF; no licence or terms found",
+          "attribution": "Jadwal: Gapeka 2025, DJKA Kemenhub",
+          "redistribution": "with_permission",
+          "permissionRef": "Owner's statement 2026-10-17 that the intercity timetable permission is held; credit wording approved by the owner 2026-10-17"
+        },
+        {
+          "id": "kci-surabaya-wilayah-8",
+          "name": "KAI Commuter Wilayah 8 Surabaya (Jenggala, Supas, Dhoho, Penataran, Tumapel, Blorasura, Arjonegoro)",
+          "url": "https://www.kompas.tv/info-publik/642497/jadwal-krl-wilayah-8-surabaya-dan-sekitarnya-pada-januari-2026",
+          "licence": "No licence stated; the research notes say the publisher's permission is needed and none is recorded",
+          "attribution": "KAI Commuter",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "trans-jatim-dishub-jatim",
+          "name": "Dishub Jawa Timur - Trans Jatim (Gerbangkertasusila + Malang Raya)",
+          "url": "https://dishub.jatimprov.go.id/",
+          "licence": "No licence stated",
+          "attribution": "Cite Dinas Perhubungan Provinsi Jawa Timur",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "malang-kota-ckan-opendata",
+          "name": "Open Data Kota Malang (CKAN) - transport route search",
+          "url": "https://data.malangkota.go.id/",
+          "licence": "Per-dataset (e.g. 'notspecified', 'other-pd'); no portal-wide licence",
+          "attribution": "Cite Pemerintah Kota Malang",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "modes": {
+        "commuter_rail": {
+          "status": "integration_in_progress",
+          "operators": ["KAI Commuter"],
+          "sourceIds": ["djka-gapeka-2025", "kci-surabaya-wilayah-8"],
+          "missing": [
+            "Penataran (Surabaya-Malang-Blitar) is the local train taken from the Gapeka PDF for this region; Tumapel, named in news, was not checked. The Gapeka PDF has no station coordinates; they have to come from OpenStreetMap nodes.",
+            "DJKA states no licence for the Gapeka PDF, so shipping its timetable rests on the owner's permission statement, which is not itemised per operator."
+          ],
+          "note": "Jadwal kereta dari Gapeka 2025; cek ulang di aplikasi operator sebelum berangkat."
+        },
+        "brt": {
+          "status": "researched",
+          "operators": ["Trans Jatim (Dishub Jatim)"],
+          "sourceIds": ["trans-jatim-dishub-jatim"],
+          "missing": [
+            "Trans Jatim Koridor 1 Malang Raya (Terminal Hamid Rusdi - Dau - Terminal Batu, 14 buses) is known from news only.",
+            "Koridor II Kanjuruhan (Hamid Rusdi - Talangagung/Kepanjen) is announced for 2026-10-29, with opposition from the angkot union; ask Dishub Jatim for stop lists at launch."
+          ],
+          "note": "Data koridor Trans Jatim di Malang Raya masih dikumpulkan; daftar halte belum tersedia."
+        },
+        "angkot": {
+          "status": "unavailable",
+          "operators": [],
+          "sourceIds": ["malang-kota-ckan-opendata"],
+          "missing": [
+            "The Kota Malang angkot network exists but is not documented anywhere reached: the city CKAN portal returned 0 hits for angkot, trayek, halte and bus (its 14 Dishub datasets are passenger counts or plans)."
+          ],
+          "note": "Data rute angkot belum tersedia."
+        }
+      },
+      "missing": [
+        "The box is Kota Malang, Kabupaten Malang and Kota Batu.",
+        "The box is the union of OpenStreetMap boundary relations R9674151, R9674152, R9674153, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "purwokerto",
+      "name": "Purwokerto",
+      "provinces": ["Jawa Tengah"],
+      "bbox": [108.8913, -7.6639, 109.5846, -7.1611],
+      "centre": [109.2409, -7.4279],
+      "timezone": "Asia/Jakarta",
+      "sources": [
+        {
+          "id": "trans-banyumas-teman-bus",
+          "name": "Trans Banyumas (Teman Bus BTS) - Purwokerto / Banyumas",
+          "url": "https://banyumaskab.go.id/",
+          "licence": "No licence stated",
+          "attribution": "Cite Pemerintah Kabupaten Banyumas / Dinas Perhubungan Banyumas (dishub.banyumaskab.go.id redirects here); Kemenhub BTS programme",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "jateng-opendata-trans-jateng-halte",
+          "name": "Portal Data Jawa Tengah - Jumlah Halte Pelayanan Trans Jateng (Tahun 2024), stop list with coordinates",
+          "url": "https://data.jatengprov.go.id/dataset/aa1-jumlah-halte-pelayanan-trans-jateng/resource/4a98f18a-dd95-4ebd-9b80-16be5d111e4c",
+          "licence": "Creative Commons Attribution (portal label 'cc-by'; version not stated)",
+          "licenceUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "attribution": "Credit Dinas Perhubungan Provinsi Jawa Tengah / Portal Data Jawa Tengah",
+          "redistribution": "allowed",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "modes": {
+        "brt": {
+          "status": "source_verified",
+          "operators": ["Trans Banyumas (Teman Bus BTS)", "Trans Jateng"],
+          "sourceIds": ["trans-banyumas-teman-bus", "jateng-opendata-trans-jateng-halte"],
+          "missing": [
+            "Trans Jateng stop rows tagged Purwokerto-Purbalingga have coordinates under CC-BY but no shapes or timetables.",
+            "Trans Banyumas (koridor 1 Pasar Pon - Terminal Ajibarang, 2 Stasiun Notog - Terminal Baturraden, 3A and 3B Bulupitu - Kebondalem) is known from news only; a Kota Lama corridor planned for 2026-01-01 is unconfirmed, and no official Banyumas dataset was found."
+          ],
+          "note": "Data rute dan halte belum lengkap; menunggu data dari operator."
+        }
+      },
+      "missing": [
+        "The box is Kabupaten Banyumas and Kabupaten Purbalingga.",
+        "The box is the union of OpenStreetMap boundary relations R9686820, R9686819, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "cirebon",
+      "name": "Cirebon",
+      "provinces": ["Jawa Barat"],
+      "bbox": [108.3235, -7.0064, 108.8481, -6.516],
+      "centre": [108.5608, -6.7137],
+      "timezone": "Asia/Jakarta",
+      "sources": [
+        {
+          "id": "cirebon-trans-cirebon-brt",
+          "name": "Trans Cirebon BRT and angkot D1-D10 (Dishub Kota Cirebon)",
+          "url": "https://dishub.cirebonkota.go.id/",
+          "licence": "No licence stated",
+          "attribution": "Cite Dinas Perhubungan Kota Cirebon",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "jabar-opendata-cirebon-trayek-angkot",
+          "name": "Open Data Jabar / data.go.id - Trayek Angkutan Kota Berdasarkan Panjang Trayek (Kota Cirebon)",
+          "url": "https://data.go.id/dataset/dataset/trayek-angkutan-kota-berdasarkan-panjang-trayek",
+          "licence": "No licence statement found on the portal pages inspected",
+          "attribution": "Cite the publisher (Dishub) and portal; confirm in writing",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "modes": {
+        "brt": {
+          "status": "researched",
+          "operators": ["Trans Cirebon (Dishub Kota Cirebon)"],
+          "sourceIds": ["cirebon-trans-cirebon-brt"],
+          "missing": [
+            "Trans Cirebon BRT reportedly stopped on 2026-01-01 for lack of subsidy (news); a Dishub ramp check on 2026-01-08 means a restart is possible. Ask Dishub Kota Cirebon whether it runs."
+          ],
+          "note": "Belum jelas apakah Trans Cirebon masih beroperasi; data masih dikumpulkan."
+        },
+        "angkot": {
+          "status": "researched",
+          "operators": ["Angkot Kota Cirebon (D1 to D10)"],
+          "sourceIds": ["jabar-opendata-cirebon-trayek-angkot"],
+          "missing": [
+            "Lines D1 to D10 are known from news, and D9 and D10 reportedly stopped. The only data lead is the Jabar open-data table of trayek by length, whose rows were not read."
+          ],
+          "note": "Data rute angkot masih dikumpulkan."
+        }
+      },
+      "missing": [
+        "The box is Kota Cirebon and Kabupaten Cirebon.",
+        "The box is the union of OpenStreetMap boundary relations R16991199, R16999941, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "serang",
+      "name": "Serang dan Cilegon",
+      "provinces": ["Banten"],
+      "bbox": [105.9217, -6.2197, 106.2534, -5.8757],
+      "centre": [106.1518, -6.117],
+      "timezone": "Asia/Jakarta",
+      "sources": [
+        {
+          "id": "djka-gapeka-2025",
+          "name": "Gapeka 2025 for Java, DJKA Kemenhub (KP-DJKA 224/2024)",
+          "url": "https://djka.kemenhub.go.id/regulasi",
+          "licence": "Published regulation PDF; no licence or terms found",
+          "attribution": "Jadwal: Gapeka 2025, DJKA Kemenhub",
+          "redistribution": "with_permission",
+          "permissionRef": "Owner's statement 2026-10-17 that the intercity timetable permission is held; credit wording approved by the owner 2026-10-17"
+        },
+        {
+          "id": "trans-banten-pergub-2025",
+          "name": "Trans Banten (BTS, Serang) - Pergub Banten No. 50/2025",
+          "url": "https://ppid.bantenprov.go.id/storage/document/pergub-banten-nomor-50-tahun-2025-tentang-penyelenggaraan-sistem-angkutan-umum-massal-trans-banten-202601141530.pdf",
+          "licence": "Public regulation",
+          "attribution": "Cite Pemerintah Provinsi Banten (PPID Banten)",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "asdp-ferizy",
+          "name": "ASDP Indonesia Ferry (Ferizy): crossings such as Merak-Bakauheni",
+          "url": "https://www.ferizy.com/",
+          "licence": "Not read (Syarat & Ketentuan page not included in fetch); the research notes say the publisher's permission is needed and none is recorded",
+          "attribution": "ASDP",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "modes": {
+        "commuter_rail": {
+          "status": "source_verified",
+          "operators": ["KAI Commuter"],
+          "sourceIds": ["djka-gapeka-2025"],
+          "missing": [
+            "Commuter Line Merak (KA 311-324) is already in the bundled intercity.json, parsed from the same Gapeka PDF; it is not yet part of a Serang pack.",
+            "Station coordinates come from OpenStreetMap nodes already in the repo."
+          ],
+          "note": "Jadwal Commuter Line Merak dari Gapeka 2025; cek ulang di aplikasi operator sebelum berangkat."
+        },
+        "city_bus": {
+          "status": "researched",
+          "operators": ["Trans Banten (Pemprov Banten)"],
+          "sourceIds": ["trans-banten-pergub-2025"],
+          "missing": [
+            "Trans Banten started on 2025-10-04 with one route, Terminal Pakupatan - Untirta Sindangsari (about 15 km, free until December 2025, evaluation in January 2026) under Pergub 50/2025. The regulation PDF was not read and no 2026 status was found.",
+            "Trans Cilegon Mandiri (2019) is reported to run empty. No stop data was found."
+          ],
+          "note": "Data rute Trans Banten belum lengkap; masih dikumpulkan."
+        },
+        "ferry": {
+          "status": "access_pending",
+          "operators": ["PT ASDP Indonesia Ferry"],
+          "sourceIds": ["asdp-ferizy"],
+          "missing": [
+            "Merak-Bakauheni runs about 24 hours, but ASDP publishes no timetable as data, only the Ferizy booking site and a crossing map page whose terms were not read. Ask ASDP. Only the Merak end lies in this box."
+          ],
+          "note": "Jadwal penyeberangan Merak belum tersedia; menunggu data dari operator."
+        }
+      },
+      "missing": [
+        "The box is Kota Serang and Kota Cilegon only. Kabupaten Serang is left out on purpose: its box reaches Maja, Citeras and Cikoya, Jabodetabek stations of the Rangkasbitung line, and would have taken them away from Jabodetabek in regionAt. Merak-line stations in Kabupaten Serang therefore fall outside the box.",
+        "The box is the union of OpenStreetMap boundary relations R7641588, R7641589, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "bali-sarbagita",
+      "name": "Bali (Sarbagita)",
+      "provinces": ["Bali"],
+      "bbox": [114.9152, -9.0375, 115.5701, -8.2394],
+      "centre": [115.2176, -8.6653],
+      "timezone": "Asia/Makassar",
+      "sources": [
+        {
+          "id": "bali-dishub-trans-sarbagita-rute",
+          "name": "Dishub Bali - Rute Angkutan Umum Trans Sarbagita / UPTD Trans Sarbagita pages",
+          "url": "https://dishub.baliprov.go.id/rute-angkutan-umum-trans-sarbagita",
+          "licence": "No licence stated",
+          "attribution": "Cite Dinas Perhubungan Provinsi Bali (UPTD Trans Sarbagita)",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "bali-satudata-portal",
+          "name": "Bali Satu Data (balisatudata.baliprov.go.id)",
+          "url": "https://balisatudata.baliprov.go.id/",
+          "licence": "No licence shown",
+          "attribution": "Cite Diskominfos Provinsi Bali (SPBE team)",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "modes": {
+        "brt": {
+          "status": "researched",
+          "operators": ["Trans Sarbagita (UPTD under Dishub Bali)"],
+          "sourceIds": ["bali-dishub-trans-sarbagita-rute", "bali-satudata-portal"],
+          "missing": [
+            "The Dishub Bali route page holds only two 2023 JPEG images; the six corridors and the Rp4,400 fare come from news (Trans Sarbagita was reactivated on 2025-04-20 after Trans Metro Dewata ended on 2024-12-31).",
+            "No GTFS: the only Bali feed in the Mobility Database is an inactive, unofficial Ubud Monkey Forest shuttle. OpenStreetMap coverage was not measured.",
+            "Ask Dishub Bali and the Trans Sarbagita UPTD for stops, route files and timetables. bali.trans.my.id is a login-only page of unverified ownership and is not a source."
+          ],
+          "note": "Data rute dan halte belum lengkap; menunggu data dari operator."
+        }
+      },
+      "missing": [
+        "The box is Denpasar, Badung, Gianyar and Tabanan (Sarbagita).",
+        "The box is the union of OpenStreetMap boundary relations R7789828, R14613953, R14613952, R14322005, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "medan",
+      "name": "Medan (Mebidang)",
+      "provinces": ["Sumatera Utara"],
+      "bbox": [98.4406, 3.041, 98.9455, 3.9082],
+      "centre": [98.6742, 3.5895],
+      "timezone": "Asia/Jakarta",
+      "sources": [
+        {
+          "id": "airport-rail-kualanamu-medan",
+          "name": "KA Bandara Kualanamu / Sri Lelawangsa (Medan-Kualanamu-Binjai)",
+          "url": "https://en.wikipedia.org/wiki/Sri_Lelawangsa",
+          "licence": "No licence stated; the research notes say the publisher's permission is needed and none is recorded",
+          "attribution": "KAI",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "djka-gapeka-sumbagut-2025",
+          "name": "Gapeka 2025 Sumatera Utara (Sumbagut), KP-DJKA 225/2024",
+          "url": "https://djka.kemenhub.go.id/uploads/202501/KP-DJKA%20225%20TAHUN%202024_GAPEKA_SUMBAGUT%20TAHUN%202025.pdf",
+          "licence": "Not stated (official Kemenhub decree published as PDF)",
+          "attribution": "Jadwal: Gapeka 2025, DJKA Kemenhub",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "medan-bus-listrik-transmedan",
+          "name": "Bus Listrik TransMedan (BRT Medan, successor to Trans Metro Deli)",
+          "url": "https://dephub.go.id/post/read/transportasi-terintegrasi-dan-ramah-lingkungan-untuk-masyarakat-kota-medan",
+          "licence": "No licence stated (Kemenhub web page)",
+          "attribution": "Cite Kemenhub and URL",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "medan-brt-mebidang",
+          "name": "BRT Mebidang (Medan-Binjai-Deli Serdang electric BRT, World Bank/AFD funded)",
+          "url": "https://www.antaranews.com/berita/5702483/gubernur-sumut-meresmikan-operasional-brt-mebidang",
+          "licence": "News article, all rights reserved by publisher (no open licence)",
+          "attribution": "Cite as a reference only; do not copy text, derive facts and verify against an official source.",
+          "redistribution": "forbidden",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "mitradarat-kemenhub-app",
+          "name": "MitraDarat (Kemenhub Ditjen Hubdat multi-service app, Teman Bus bus tracking)",
+          "url": "https://apps.apple.com/us/app/-/id6445860885",
+          "licence": "No reuse licence found",
+          "attribution": "Cite Direktorat Jenderal Perhubungan Darat, Kemenhub",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "modes": {
+        "commuter_rail": {
+          "status": "researched",
+          "operators": ["PT KAI"],
+          "sourceIds": ["airport-rail-kualanamu-medan", "djka-gapeka-sumbagut-2025"],
+          "missing": [
+            "Sri Lelawangsa (Medan to Kuala Bingai, 3 stations, about 34 km) is known only from an undated Wikipedia snippet; whether it appears in the Gapeka Sumbagut PDF is an assumption."
+          ],
+          "note": "Data kereta Medan masih dikumpulkan; cek jadwal di aplikasi operator."
+        },
+        "airport_rail": {
+          "status": "access_pending",
+          "operators": ["KAI Bandara (Railink)"],
+          "sourceIds": ["djka-gapeka-sumbagut-2025", "airport-rail-kualanamu-medan"],
+          "missing": [
+            "The Gapeka Sumbagut PDF (KP-DJKA 225/2024) is not in hand. The PDF was never opened: the DJKA host resets connections from automated tools, so the owner has to download it in a browser.",
+            "KAI Commuter reportedly takes over the Medan airport train in 2026 (Bisnis, 2026-03-12); not confirmed. A Rp40,000 fare from 2024-07-01 is from news."
+          ],
+          "note": "Jadwal kereta bandara belum tersedia; menunggu data dari operator."
+        },
+        "brt": {
+          "status": "researched",
+          "operators": ["Bus Listrik TransMedan (Pemko Medan)", "BRT Mebidang"],
+          "sourceIds": ["medan-bus-listrik-transmedan", "medan-brt-mebidang", "mitradarat-kemenhub-app"],
+          "missing": [
+            "No stop list with coordinates, shapes or GTFS from the operator or Dishub.",
+            "TransMedan (electric BRT run by Pemko Medan since November 2024: 5 corridors, 60 e-buses; Kemenhub page of 2025-07-22) has no dated 2026 official confirmation.",
+            "BRT Mebidang (2 corridors, 21 km, 31 halte) was inaugurated on 2026-08-19 and runs a trial with 2 buses until full operation, targeted for 2026-12-08. It is World Bank and AFD funded and may ship structured data, so ask for it.",
+            "Reports disagree on corridor numbers (11 and 12 against 1 and 2)."
+          ],
+          "note": "Data rute dan halte belum tersedia; menunggu data dari operator."
+        }
+      },
+      "missing": [
+        "The box is Kota Medan, Kota Binjai and Kabupaten Deli Serdang (where Kualanamu airport is).",
+        "The box is the union of OpenStreetMap boundary relations R8484616, R8484617, R8483353, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "palembang",
+      "name": "Palembang",
+      "provinces": ["Sumatera Selatan"],
+      "bbox": [104.6137, -3.1163, 104.8607, -2.8545],
+      "centre": [104.7569, -2.9888],
+      "timezone": "Asia/Jakarta",
+      "sources": [
+        {
+          "id": "lrt-sumsel-palembang",
+          "name": "LRT Sumatera Selatan (Palembang)",
+          "url": "https://www.metrotvnews.com/read/NgxCaoP5-sambut-hut-ri-naik-lrt-palembang-hanya-rp81",
+          "licence": "No licence stated; the research notes say the publisher's permission is needed and none is recorded",
+          "attribution": "KAI Divre III / BPKARSS",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "djka-gapeka-sumbagsel-2025",
+          "name": "Gapeka 2025 Sumatera Selatan (Sumbagsel), KP-DJKA 227/2024",
+          "url": "https://djka.kemenhub.go.id/uploads/202501/KP-DJKA%20227%20TAHUN%202024_GAPEKA_SUMBAGSEL%20TAHUN%202025.pdf",
+          "licence": "Not stated (official Kemenhub decree published as PDF)",
+          "attribution": "Jadwal: Gapeka 2025, DJKA Kemenhub",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "palembang-trans-musi",
+          "name": "Trans Musi (Palembang) and the LRT feeder",
+          "url": "https://id.wikipedia.org/wiki/Trans_Musi_Jaya",
+          "licence": "CC BY-SA 4.0 (Wikipedia text)",
+          "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "attribution": "Credit Wikipedia contributors with link; share alike",
+          "redistribution": "allowed",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "osm-palembang-bbox-count",
+          "name": "OpenStreetMap route relations and bus stops, Palembang bounding box",
+          "url": "https://overpass-api.de/api/interpreter",
+          "licence": "ODbL 1.0",
+          "licenceUrl": "https://www.openstreetmap.org/copyright",
+          "attribution": "(c) OpenStreetMap contributors",
+          "redistribution": "allowed",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "mitradarat-kemenhub-app",
+          "name": "MitraDarat (Kemenhub Ditjen Hubdat multi-service app, Teman Bus bus tracking)",
+          "url": "https://apps.apple.com/us/app/-/id6445860885",
+          "licence": "No reuse licence found",
+          "attribution": "Cite Direktorat Jenderal Perhubungan Darat, Kemenhub",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "modes": {
+        "lrt": {
+          "status": "researched",
+          "operators": ["KAI Divre III Palembang", "BPKARSS"],
+          "sourceIds": ["lrt-sumsel-palembang", "djka-gapeka-sumbagsel-2025"],
+          "missing": [
+            "One line, 13 stations, about 23.4 km and 94 trips a day, all from news; the termini are not verified.",
+            "No station coordinates, timetable or regular fare from an official source; ask KAI Divre III Palembang and BPKARSS.",
+            "Whether the Gapeka Sumbagsel PDF (KP-DJKA 227/2024) lists it is unknown. The PDF was never opened: the DJKA host resets connections from automated tools, so the owner has to download it in a browser."
+          ],
+          "note": "Jadwal dan data stasiun LRT belum tersedia; menunggu data dari operator."
+        },
+        "brt": {
+          "status": "researched",
+          "operators": ["Trans Musi (Teman Bus / BTS)"],
+          "sourceIds": ["palembang-trans-musi", "osm-palembang-bbox-count", "mitradarat-kemenhub-app"],
+          "missing": [
+            "Cut from 5 corridors to 2 for 2025; paused on 2026-01-01 and resumed on 2026-01-03 according to an unreferenced Wikipedia text, so running in 2026 is likely but second-hand.",
+            "OpenStreetMap has 0 bus relations and 27 stops for Palembang, so it does not help.",
+            "No official local channel was found; 21 microbuses are listed in the MitraDarat app, whose data cannot be read."
+          ],
+          "note": "Data rute Trans Musi masih dikumpulkan; menunggu data dari operator."
+        }
+      },
+      "missing": [
+        "The box is Kota Palembang.",
+        "The box is the union of OpenStreetMap boundary relations R10713145, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "pekanbaru",
+      "name": "Pekanbaru",
+      "provinces": ["Riau"],
+      "bbox": [101.324, 0.4203, 101.6055, 0.691],
+      "centre": [101.4516, 0.5262],
+      "timezone": "Asia/Jakarta",
+      "sources": [
+        {
+          "id": "pekanbaru-trans-metro-pekanbaru",
+          "name": "Trans Metro Pekanbaru (TMP) and electric feeder",
+          "url": "https://www.pekanbaru.go.id/p/news/trans-metro-pekanbaru-bakal-punya-tambahan-belasan-bus-listrik",
+          "licence": "No licence stated (city government web page)",
+          "attribution": "Cite Pemko Pekanbaru and URL",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "osm-pekanbaru-bbox-count",
+          "name": "OpenStreetMap route relations and bus stops, Pekanbaru bounding box",
+          "url": "https://overpass-api.de/api/interpreter",
+          "licence": "ODbL 1.0",
+          "licenceUrl": "https://www.openstreetmap.org/copyright",
+          "attribution": "(c) OpenStreetMap contributors",
+          "redistribution": "allowed",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "modes": {
+        "brt": {
+          "status": "source_verified",
+          "operators": ["Trans Metro Pekanbaru (Pemko Pekanbaru)"],
+          "sourceIds": ["pekanbaru-trans-metro-pekanbaru", "osm-pekanbaru-bbox-count"],
+          "missing": [
+            "Pemko page of 2026-01-20: 33 buses on 8 corridors, with 16 electric buses and 16 feeders planned for 2026 under BTS.",
+            "OpenStreetMap has 19 bus relations and 60 bus stops, the best OpenStreetMap base outside Java, but their quality was not audited.",
+            "No GTFS or stop coordinates from the operator; ask Dishub Pekanbaru or Hubdat."
+          ],
+          "note": "Data rute dan halte belum lengkap; menunggu data dari operator."
+        }
+      },
+      "missing": [
+        "The box is Kota Pekanbaru.",
+        "The box is the union of OpenStreetMap boundary relations R16563796, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "batam",
+      "name": "Batam",
+      "provinces": ["Kepulauan Riau"],
+      "bbox": [103.6514, 0.4625, 104.3708, 1.2048],
+      "centre": [104.0384, 1.1031],
+      "timezone": "Asia/Jakarta",
+      "sources": [
+        {
+          "id": "batam-trans-batam",
+          "name": "Trans Batam (Pemko Batam + Kemenhub BTS)",
+          "url": "https://batam.go.id/trans-batam-tambah-19-armada-baru-koridor-nongsa-batam-centre-diintegrasikan-dengan-bandara-hang-nadim/",
+          "licence": "No licence stated (city government web page)",
+          "attribution": "Cite Pemko Batam / Dishub Batam and URL",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "osm-batam-bbox-count",
+          "name": "OpenStreetMap route relations and bus stops, Batam bounding box",
+          "url": "https://overpass-api.de/api/interpreter",
+          "licence": "ODbL 1.0",
+          "licenceUrl": "https://www.openstreetmap.org/copyright",
+          "attribution": "(c) OpenStreetMap contributors",
+          "redistribution": "allowed",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "batam-ferry-schedules",
+          "name": "Batam sea links: Batam-Singapore and domestic ferry timetables (news roundups)",
+          "url": "https://www.cnbcindonesia.com/news/20250504070147-4-630711/cek-jadwal-harga-tiket-ferry-batam-singapura-per-mei-2025",
+          "licence": "News article, all rights reserved by publisher (no open licence)",
+          "attribution": "Cite as a reference only; do not copy text, derive facts and verify against an official source.",
+          "redistribution": "forbidden",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "modes": {
+        "brt": {
+          "status": "source_verified",
+          "operators": ["Trans Batam (Pemko Batam / Dishub Batam)"],
+          "sourceIds": ["batam-trans-batam", "osm-batam-bbox-count"],
+          "missing": [
+            "Pemko page of 2026-05-26: 9 main corridors, 52 units including 19 new BTS buses, about 120 halte, QRIS Tap from 2026-06-01 and an extension to Hang Nadim airport. The Kemenhub side says 5 corridors, so the corridor count is unsettled.",
+            "OpenStreetMap has only 2 bus relations, though 165 bus stops.",
+            "No stop list with coordinates, shapes or GTFS from the operator or Dishub."
+          ],
+          "note": "Data rute dan halte belum lengkap; menunggu data dari operator."
+        },
+        "ferry": {
+          "status": "researched",
+          "operators": [],
+          "sourceIds": ["batam-ferry-schedules", "osm-batam-bbox-count"],
+          "missing": [
+            "Batam ferries are Singapore and inter-island services of commercial operators; no official timetable was found, the latest roundup is news from May 2025, and OpenStreetMap has 17 ferry relations."
+          ],
+          "note": "Jadwal feri belum tersedia; data masih dikumpulkan."
+        }
+      },
+      "missing": [
+        "The box is Kota Batam and covers the sea between its islands.",
+        "The box is the union of OpenStreetMap boundary relations R10660353, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "padang",
+      "name": "Padang",
+      "provinces": ["Sumatera Barat"],
+      "bbox": [99.9621, -1.1373, 100.5657, -0.321],
+      "centre": [100.3633, -0.9248],
+      "timezone": "Asia/Jakarta",
+      "sources": [
+        {
+          "id": "airport-rail-minangkabau-padang",
+          "name": "Minangkabau Express (Padang-Bandara Internasional Minangkabau) and Pariaman Express",
+          "url": "https://setkab.go.id/en/president-jokowi-launches-minangkabau-airport-train/",
+          "licence": "No licence stated; the research notes say the publisher's permission is needed and none is recorded",
+          "attribution": "KAI",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "djka-gapeka-sumbagbar-2025",
+          "name": "Gapeka 2025 Sumatera Barat (Sumbagbar), KP-DJKA 226/2024",
+          "url": "https://djka.kemenhub.go.id/uploads/202501/KP-DJKA%20226%20TAHUN%202024_GAPEKA_SUMBAGBAR%20TAHUN%202025.pdf",
+          "licence": "Not stated (official Kemenhub decree published as PDF)",
+          "attribution": "Jadwal: Gapeka 2025, DJKA Kemenhub",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "padang-trans-padang",
+          "name": "Trans Padang (Perumda Padang Sejahtera Mandiri)",
+          "url": "https://padang.go.id/berita/dukung-open-ship-hjk-padang-ke-357-trans-padang-sesuaikan-rute-koridor-2-dan-4-serta-berlakukan-tarif-rp1",
+          "licence": "Footer: (c) 2023-2026 Diskominfo Kota Padang, all rights reserved; the research notes say the publisher's permission is needed and none is recorded",
+          "attribution": "Ask Diskominfo Padang / PSM for permission and a data export",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "modes": {
+        "airport_rail": {
+          "status": "researched",
+          "operators": ["PT KAI Divre II Sumbar (assumed)"],
+          "sourceIds": ["airport-rail-minangkabau-padang", "djka-gapeka-sumbagbar-2025"],
+          "missing": [
+            "The current service and 2026 timetable of the Minangkabau airport train were not found; the line opened in 2018 (news snippets), so do not rely on it without a current source.",
+            "The Gapeka Sumbagbar PDF (KP-DJKA 226/2024) is not in hand. The PDF was never opened: the DJKA host resets connections from automated tools, so the owner has to download it in a browser."
+          ],
+          "note": "Jadwal kereta bandara belum tersedia; menunggu data dari operator."
+        },
+        "brt": {
+          "status": "source_verified",
+          "operators": ["Trans Padang (Pemko Padang)"],
+          "sourceIds": ["padang-trans-padang"],
+          "missing": [
+            "Pemko post of 2026-08-06: six corridors described in prose, corridors 2 and 4 adjusted, all corridors Rp1 on 2026-08-07. No downloadable stop list or GTFS.",
+            "The Padang Mobile app may hold live data; ask Pemko Padang or Diskominfo whether it exposes bus positions and stops. The site footer reserves all rights, so permission is needed."
+          ],
+          "note": "Data rute dan halte belum lengkap; menunggu data dari operator."
+        }
+      },
+      "missing": [
+        "The box is Kota Padang, Kota Pariaman and Kabupaten Padang Pariaman (where Minangkabau airport is).",
+        "The box is the union of OpenStreetMap boundary relations R14954680, R14954679, R14954671, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "banda-aceh",
+      "name": "Banda Aceh",
+      "provinces": ["Aceh"],
+      "bbox": [94.9719, 5.0519, 95.8405, 5.7937],
+      "centre": [95.3193, 5.5528],
+      "timezone": "Asia/Jakarta",
+      "sources": [
+        {
+          "id": "aceh-trans-koetaradja",
+          "name": "Trans Koetaradja (Banda Aceh and Aceh Besar)",
+          "url": "https://dishub.acehprov.go.id/2025/02/24/bus-trans-koetaradja-kembali-beroperasi-layani-14-rute/",
+          "licence": "No licence stated (provincial government web page)",
+          "attribution": "Cite Dishub Aceh and URL",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "modes": {
+        "brt": {
+          "status": "source_verified",
+          "operators": ["Trans Koetaradja (Dishub Aceh)"],
+          "sourceIds": ["aceh-trans-koetaradja"],
+          "missing": [
+            "Dishub Aceh post of 2025-02-24: resumed after a contract gap, 14 routes of which 7 are named, free, funded by the provincial budget (APBA).",
+            "Stopped and restarted twice (January 2025 and January 2026), so continuity depends on the budget; the 2026 restart with six new routes is a headline only.",
+            "No stop list with coordinates, shapes or GTFS from the operator or Dishub."
+          ],
+          "note": "Data rute dan halte belum lengkap; menunggu data dari operator."
+        }
+      },
+      "missing": [
+        "The box is Kota Banda Aceh and Kabupaten Aceh Besar, so it includes the Pulo Aceh islands and the sea around them.",
+        "The box is the union of OpenStreetMap boundary relations R5978331, R8930394, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "bandar-lampung",
+      "name": "Bandar Lampung",
+      "provinces": ["Lampung"],
+      "bbox": [105.1784, -5.5173, 105.3502, -5.327],
+      "centre": [105.2626, -5.4294],
+      "timezone": "Asia/Jakarta",
+      "sources": [
+        {
+          "id": "lampung-trans-bandar-lampung",
+          "name": "Trans Bandar Lampung (BRT)",
+          "url": "https://id.wikipedia.org/wiki/Trans_Bandar_Lampung",
+          "licence": "CC BY-SA 4.0 (Wikipedia text)",
+          "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "attribution": "Credit Wikipedia contributors with link; share alike",
+          "redistribution": "allowed",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "modes": {
+        "brt": {
+          "status": "researched",
+          "operators": ["Trans Bandar Lampung"],
+          "sourceIds": ["lampung-trans-bandar-lampung"],
+          "missing": [
+            "Revived in 2019 with 4 corridors and 10 buses (Wikipedia text). There is no 2026 evidence and a magazine piece describes it as faded, so whether it runs at all is unknown; ask Dishub Kota Bandar Lampung."
+          ],
+          "note": "Belum jelas apakah layanan ini masih beroperasi; data masih dikumpulkan."
+        }
+      },
+      "missing": [
+        "The box is Kota Bandar Lampung; the Bakauheni ferry port is outside it.",
+        "The box is the union of OpenStreetMap boundary relations R11007414, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "jambi",
+      "name": "Jambi",
+      "provinces": ["Jambi"],
+      "bbox": [103.5242, -1.6962, 103.6811, -1.5466],
+      "centre": [103.6078, -1.6297],
+      "timezone": "Asia/Jakarta",
+      "sources": [
+        {
+          "id": "jambi-bus-listrik-trial",
+          "name": "Kota Jambi electric-bus trial (and Perwali 6/2026 on urban transport)",
+          "url": "https://www.kabarbursa.com/otomotif/jambi-perpanjang-uji-coba-bus-listrik-gratis-setahun-lagi",
+          "licence": "News article, all rights reserved by publisher (no open licence)",
+          "attribution": "Cite as a reference only; do not copy text, derive facts and verify against an official source.",
+          "redistribution": "forbidden",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "modes": {
+        "city_bus": {
+          "status": "researched",
+          "operators": [],
+          "sourceIds": ["jambi-bus-listrik-trial"],
+          "missing": [
+            "An electric-bus trial started on 2025-05-28 and was extended from 2025-10-24 (the dates conflict between reports). A city rule on urban passenger transport (Perwali 6/2026) appeared only as a search hit. No route list and no 2026 service report."
+          ],
+          "note": "Data rute belum tersedia; masih dikumpulkan."
+        }
+      },
+      "missing": [
+        "The box is Kota Jambi.",
+        "The box is the union of OpenStreetMap boundary relations R14940955, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "banjarbakula",
+      "name": "Banjarbakula",
+      "provinces": ["Kalimantan Selatan"],
+      "bbox": [114.3463, -4.178, 115.5959, -2.5231],
+      "centre": [114.5926, -3.3187],
+      "timezone": "Asia/Makassar",
+      "sources": [
+        {
+          "id": "kalsel-trans-banjarbakula-news",
+          "name": "Trans Banjarbakula (Banjarmasin-Banjarbaru-Martapura-Pelaihari), RRI report Aug 2026",
+          "url": "https://rri.co.id/banjarmasin/info-pemda/2630848/harjad-kalsel-bus-trans-banjarbakula-gratis-untuk-masyarakat",
+          "licence": "News article, all rights reserved by publisher (no open licence)",
+          "attribution": "Cite as a reference only; do not copy text, derive facts and verify against an official source.",
+          "redistribution": "forbidden",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "kalsel-media-center-banjarbakula",
+          "name": "Pemprov Kalsel Media Center: Trans Banjarbakula fleet and integrated-fare posts (Oct 2026), Banjarbakula Apps",
+          "url": "https://diskominfomc.kalselprov.go.id/2026/10/09/dishub-kalsel-dorong-tarif-terintegrasi-trans-banjarbakula-perjalanan-lebih-terjangkau-dan-inklusif/",
+          "licence": "No licence stated (provincial government web page)",
+          "attribution": "Cite Diskominfo Kalsel and URL",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "mitradarat-kemenhub-app",
+          "name": "MitraDarat (Kemenhub Ditjen Hubdat multi-service app, Teman Bus bus tracking)",
+          "url": "https://apps.apple.com/us/app/-/id6445860885",
+          "licence": "No reuse licence found",
+          "attribution": "Cite Direktorat Jenderal Perhubungan Darat, Kemenhub",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "modes": {
+        "brt": {
+          "status": "researched",
+          "operators": ["Trans Banjarbakula (Pemprov Kalsel)", "Trans Banjarbaru (feeder)", "Trans Banjarmasin"],
+          "sourceIds": ["kalsel-trans-banjarbakula-news", "kalsel-media-center-banjarbakula", "mitradarat-kemenhub-app"],
+          "missing": [
+            "RRI news of 2026-08-06: 72 buses on 4 corridors, free on 2026-08-14. Kalsel Media Center posts of 2026-10-02 and 2026-10-09 (seen only as search snippets, as the site returns 403) report new buses and an integrated Rp5,000 / 90-minute fare across the three systems.",
+            "A \"Banjarbakula Apps\" with live positions and AKSEL payment is mentioned in snippets, but no app listing was found: unverified.",
+            "No stop list, coordinates or GTFS; ask Dishub Kalsel, using a browser because the official site blocks bots."
+          ],
+          "note": "Data rute dan halte belum lengkap; menunggu data dari operator."
+        }
+      },
+      "missing": [
+        "The box is Banjarmasin, Banjarbaru, Kabupaten Banjar, Barito Kuala and Tanah Laut.",
+        "The box is the union of OpenStreetMap boundary relations R12354003, R12989893, R12989890, R12989892, R12989884, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "balikpapan",
+      "name": "Balikpapan",
+      "provinces": ["Kalimantan Timur"],
+      "bbox": [116.7287, -1.2824, 117.0227, -1.0133],
+      "centre": [116.8593, -1.2399],
+      "timezone": "Asia/Makassar",
+      "sources": [
+        {
+          "id": "balikpapan-city-trans",
+          "name": "Balikpapan City Trans (Bacitra, Teman Bus BTS)",
+          "url": "https://dishub.balikpapan.go.id/",
+          "licence": "No licence stated",
+          "attribution": "Cite Dishub Balikpapan and URL",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "mitradarat-kemenhub-app",
+          "name": "MitraDarat (Kemenhub Ditjen Hubdat multi-service app, Teman Bus bus tracking)",
+          "url": "https://apps.apple.com/us/app/-/id6445860885",
+          "licence": "No reuse licence found",
+          "attribution": "Cite Direktorat Jenderal Perhubungan Darat, Kemenhub",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "modes": {
+        "brt": {
+          "status": "researched",
+          "operators": ["Balikpapan City Trans (BTS)"],
+          "sourceIds": ["balikpapan-city-trans", "mitradarat-kemenhub-app"],
+          "missing": [
+            "Opened on 2024-07-08 with 3 corridors and 19 to 21 buses; handover to the city is planned for July 2027, and Bisnis (September 2025) says BTS support continues in 2026. The Dishub site was reachable but not read, so most facts are second-hand.",
+            "No stop list with coordinates, shapes or GTFS from the operator or Dishub."
+          ],
+          "note": "Data rute dan halte belum lengkap; menunggu data dari operator."
+        }
+      },
+      "missing": [
+        "The box is Kota Balikpapan.",
+        "The box is the union of OpenStreetMap boundary relations R14921096, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "pontianak",
+      "name": "Pontianak",
+      "provinces": ["Kalimantan Barat"],
+      "bbox": [109.2741, -0.0982, 109.3854, 0.0382],
+      "centre": [109.3447, -0.0227],
+      "timezone": "Asia/Jakarta",
+      "sources": [
+        {
+          "id": "pontianak-bts-trans-pontianak",
+          "name": "Pontianak BTS plan and Trans Pontianak Khatulistiwa",
+          "url": "https://www.pontianak.go.id/pontianak-hari-ini/berita/Dishub-Pontianak-Siapkan-Angkutan-Massal-BTS-Berbasis-Teknologi",
+          "licence": "No licence stated (city government web page)",
+          "attribution": "Cite Pemkot Pontianak and URL",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "modes": {
+        "brt": {
+          "status": "researched",
+          "operators": ["Trans Pontianak (BTS)"],
+          "sourceIds": ["pontianak-bts-trans-pontianak"],
+          "missing": [
+            "In January 2026 the city said two BTS corridors with live tracking, CCTV and passenger counting were being prepared; no start was reported after that. Whether the 2017 Trans Pontianak Khatulistiwa still runs is unknown. Ask Dishub Pontianak."
+          ],
+          "note": "Data rute dan halte belum tersedia; menunggu data dari operator."
+        }
+      },
+      "missing": [
+        "The box is Kota Pontianak.",
+        "The box is the union of OpenStreetMap boundary relations R10617336, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "makassar",
+      "name": "Makassar",
+      "provinces": ["Sulawesi Selatan"],
+      "bbox": [119.0738, -5.6075, 120.0315, -4.719],
+      "centre": [119.4124, -5.1343],
+      "timezone": "Asia/Makassar",
+      "sources": [
+        {
+          "id": "sulsel-railway-makassar-parepare",
+          "name": "Sulawesi Selatan railway (Makassar-Maros-Barru-Parepare)",
+          "url": "https://insight.kontan.co.id/news/berharap-bisnis-pariwisata-menggeliat-di-jalur-kereta-makassar-parepare",
+          "licence": "No licence stated",
+          "attribution": "DJKA Kemenhub",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "sulsel-trans-sulsel",
+          "name": "Trans Sulsel (Mamminasata, run by Pemprov Sulsel)",
+          "url": "https://sulselprov.go.id/",
+          "licence": "No licence stated",
+          "attribution": "Cite Pemprov Sulsel and URL",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "mitradarat-kemenhub-app",
+          "name": "MitraDarat (Kemenhub Ditjen Hubdat multi-service app, Teman Bus bus tracking)",
+          "url": "https://apps.apple.com/us/app/-/id6445860885",
+          "licence": "No reuse licence found",
+          "attribution": "Cite Direktorat Jenderal Perhubungan Darat, Kemenhub",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "makassar-pete-pete",
+          "name": "Pete-pete (Makassar angkot): no published data found",
+          "url": "https://www.detik.com/sulsel/berita/d-6122595/246-brt-baru-beroperasi-2023-pemprov-sulsel-jamin-pete-pete-tak-dirugikan",
+          "licence": "News article, all rights reserved by publisher (no open licence)",
+          "attribution": "Cite as a reference only; do not copy text, derive facts and verify against an official source.",
+          "redistribution": "forbidden",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "modes": {
+        "intercity_rail": {
+          "status": "researched",
+          "operators": ["Balai Pengelola KA Sulsel (DJKA)"],
+          "sourceIds": ["sulsel-railway-makassar-parepare"],
+          "missing": [
+            "Makassar-Parepare line (Maros-Barru opened in March 2023): two departures a day from Mandai in August 2024, from news. Its 2026 status and its operator are unconfirmed, and Sulawesi is not covered by Gapeka 2025.",
+            "Pangkep, Barru and Parepare lie outside this box."
+          ],
+          "note": "Data kereta Makassar-Parepare belum pasti; masih dikumpulkan."
+        },
+        "brt": {
+          "status": "researched",
+          "operators": ["Trans Sulsel (Pemprov Sulsel)", "Teman Bus Makassar"],
+          "sourceIds": ["sulsel-trans-sulsel", "mitradarat-kemenhub-app"],
+          "missing": [
+            "Teman Bus corridors 1 and 2 stopped on 2025-01-01; the province launched Trans Sulsel in July 2025 (27 buses); Teman Bus corridor 5 ended on 2025-12-31 and returned on trial from 2026-01-12 after protests (Kompas.id). The last dated evidence is January 2026.",
+            "The sulselprov.go.id post URLs returned 404 to our fetcher; ask Dishub Sulsel for the current network."
+          ],
+          "note": "Jaringan bus sering berubah; data rute terbaru masih dikumpulkan."
+        },
+        "angkot": {
+          "status": "researched",
+          "operators": ["Pete-pete"],
+          "sourceIds": ["makassar-pete-pete"],
+          "missing": ["No route dataset for pete-pete was found; a Dishub trayek decree or a survey is needed."],
+          "note": "Data rute pete-pete belum tersedia."
+        }
+      },
+      "missing": [
+        "The box is Kota Makassar, Gowa, Maros and Takalar.",
+        "The box is the union of OpenStreetMap boundary relations R11243159, R12534407, R12350745, R12534408, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "manado",
+      "name": "Manado",
+      "provinces": ["Sulawesi Utara"],
+      "bbox": [124.6815, 1.428, 124.9342, 1.6492],
+      "centre": [124.8408, 1.49],
+      "timezone": "Asia/Makassar",
+      "sources": [
+        {
+          "id": "manado-trans-manado",
+          "name": "Trans Manado (Teman Bus BTS, Malalayang-Kalimas-Airport)",
+          "url": "https://hubdat.kemenhub.go.id/id/publikasi/kini-di-manado-ditjen-hubdat-kembali-luncurkan-layanan-teman-bus/",
+          "licence": "Footer (c) 2023 Ditjen Perhubungan Darat; no reuse licence",
+          "attribution": "Cite Ditjen Hubdat and URL",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "mitradarat-kemenhub-app",
+          "name": "MitraDarat (Kemenhub Ditjen Hubdat multi-service app, Teman Bus bus tracking)",
+          "url": "https://apps.apple.com/us/app/-/id6445860885",
+          "licence": "No reuse licence found",
+          "attribution": "Cite Direktorat Jenderal Perhubungan Darat, Kemenhub",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "modes": {
+        "brt": {
+          "status": "source_verified",
+          "operators": ["Trans Manado (Teman Bus)"],
+          "sourceIds": ["manado-trans-manado", "mitradarat-kemenhub-app"],
+          "missing": [
+            "Hubdat article of 2025-11-19: corridors Malalayang - Manado Port and Manado Port - Sam Ratulangi Airport, a three-year handover to the city, bus tracking planned. Search snippets (16 buses, from 2025-11-28, fare Rp5,400, about 70 stops) are unconfirmed, and Dishub Manado returns 403.",
+            "No stop list with coordinates, shapes or GTFS from the operator or Dishub."
+          ],
+          "note": "Data rute dan halte belum lengkap; menunggu data dari operator."
+        }
+      },
+      "missing": [
+        "The box is Kota Manado.",
+        "The box is the union of OpenStreetMap boundary relations R14907638, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "mataram",
+      "name": "Mataram",
+      "provinces": ["Nusa Tenggara Barat"],
+      "bbox": [116.0692, -8.6266, 116.17, -8.5509],
+      "centre": [116.1069, -8.5838],
+      "timezone": "Asia/Makassar",
+      "sources": [
+        {
+          "id": "mataram-trans-mataram",
+          "name": "Trans Mataram (free city bus, 2 buses) and the 2016 BRT that failed",
+          "url": "https://mataram.antaranews.com/berita/557465/dishub-menyiapkan-tambahan-bus-trans-mataram-gratis",
+          "licence": "News article, all rights reserved by publisher (no open licence)",
+          "attribution": "Cite as a reference only; do not copy text, derive facts and verify against an official source.",
+          "redistribution": "forbidden",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "modes": {
+        "city_bus": {
+          "status": "researched",
+          "operators": ["Trans Mataram"],
+          "sourceIds": ["mataram-trans-mataram"],
+          "missing": [
+            "Antara of 2026-06-09: two free 16-seat buses since late November 2025, Monday to Saturday, with named stops; a third bus is planned for late 2026 or early 2027. The 2016 BRT failed. A tiny service known from news only, with no stop coordinates."
+          ],
+          "note": "Data rute dan halte belum tersedia; menunggu data dari operator."
+        }
+      },
+      "missing": [
+        "The box is Kota Mataram.",
+        "The box is the union of OpenStreetMap boundary relations R14315479, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "ikn",
+      "name": "Ibu Kota Nusantara (IKN)",
+      "provinces": ["Kalimantan Timur"],
+      "bbox": [116.6383, -1.0288, 116.7314, -0.9178],
+      "centre": [116.6928, -0.9734],
+      "timezone": "Asia/Makassar",
+      "sources": [
+        {
+          "id": "ikn-autonomous-rail-transit-halted",
+          "name": "IKN Autonomous Rail Transit (ART): trial halted Nov 2024",
+          "url": "https://ekonomi.bisnis.com/read/20241113/98/1815723/kereta-otonom-ikn-mau-dikembalikan-ke-china-kemenhub-buka-suara",
+          "licence": "News article, all rights reserved by publisher (no open licence)",
+          "attribution": "Cite as a reference only; do not copy text, derive facts and verify against an official source.",
+          "redistribution": "forbidden",
+          "retrieved": "2026-10-20"
+        },
+        {
+          "id": "ikn-urban-electric-bus",
+          "name": "IKN Nusantara urban electric bus / KIPP shuttle (Otorita IKN)",
+          "url": "https://ikn.kompas.com/read/2025/04/25/122721487/tiap-hari-asn-otorita-ikn-naik-bus-listrik-ke-kantor",
+          "licence": "News article, all rights reserved by publisher (no open licence)",
+          "attribution": "Cite as a reference only; do not copy text, derive facts and verify against an official source.",
+          "redistribution": "forbidden",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "modes": {
+        "brt": {
+          "status": "unavailable",
+          "operators": ["Autonomous Rail Transit (ART)"],
+          "sourceIds": ["ikn-autonomous-rail-transit-halted"],
+          "missing": ["The Autonomous Rail Transit trial was halted in November 2024 (Bisnis headline); no 2026 source was found."],
+          "note": "Belum ada data layanan ini; uji cobanya sempat dihentikan."
+        },
+        "city_bus": {
+          "status": "researched",
+          "operators": ["Otorita IKN"],
+          "sourceIds": ["ikn-urban-electric-bus"],
+          "missing": [
+            "Urban electric buses (10 units, 4 routes, staff-only mandatory since March 2025; Kompas 2025). ikn.go.id returns 403 to automated fetches and no 2026 official source was found."
+          ],
+          "note": "Data rute belum tersedia; menunggu data dari operator."
+        }
+      },
+      "missing": [
+        "The box is the Kawasan Inti Pusat Pemerintahan (core government area) relation only; the boundary of the whole IKN region was not found in the data used.",
+        "The box is the union of OpenStreetMap boundary relations R17234133, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "tegal",
+      "name": "Tegal",
+      "provinces": ["Jawa Tengah"],
+      "bbox": [109.0749, -6.9001, 109.162, -6.8394],
+      "centre": [109.1378, -6.8674],
+      "timezone": "Asia/Jakarta",
+      "sources": [],
+      "modes": {
+        "city_bus": {
+          "status": "unavailable",
+          "operators": [],
+          "sourceIds": [],
+          "missing": [
+            "No operating city bus or BRT was found (research of 2026-10-20). Trans Jateng does not serve Tegal in 2026 according to news of July 2026, and the old Bregasmalang plan (Brebes-Tegal-Slawi-Pemalang) has no 2026 status. Nothing to integrate."
+          ],
+          "note": "Belum ditemukan bus kota yang beroperasi di sini."
+        }
+      },
+      "missing": [
+        "The box is Kota Tegal.",
+        "The box is the union of OpenStreetMap boundary relations R9686828, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "kudus",
+      "name": "Kudus",
+      "provinces": ["Jawa Tengah"],
+      "bbox": [110.7591, -6.9797, 110.9772, -6.6156],
+      "centre": [110.8679, -6.7978],
+      "timezone": "Asia/Jakarta",
+      "sources": [],
+      "modes": {
+        "city_bus": {
+          "status": "unavailable",
+          "operators": [],
+          "sourceIds": [],
+          "missing": [
+            "No operating city bus or BRT was found (research of 2026-10-20). Trans Jateng does not serve Kudus in 2026 according to news of July 2026; Jekuti (Jepara-Kudus-Pati) is planned for 2028, after Gelang Manggung (Magelang-Temanggung) in 2027. Nothing to integrate."
+          ],
+          "note": "Belum ditemukan bus kota yang beroperasi di sini."
+        }
+      },
+      "missing": [
+        "The box is the whole Kabupaten Kudus, not only the town.",
+        "The box is the union of OpenStreetMap boundary relations R9687057, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "pati",
+      "name": "Pati",
+      "provinces": ["Jawa Tengah"],
+      "bbox": [110.8032, -7.0037, 111.2709, -6.4105],
+      "centre": [111.04, -6.7534],
+      "timezone": "Asia/Jakarta",
+      "sources": [],
+      "modes": {
+        "city_bus": {
+          "status": "unavailable",
+          "operators": [],
+          "sourceIds": [],
+          "missing": [
+            "No operating city bus or BRT was found (research of 2026-10-20). Trans Jateng does not serve Pati in 2026 according to news of July 2026; Jekuti (Jepara-Kudus-Pati) is planned for 2028. Nothing to integrate."
+          ],
+          "note": "Belum ditemukan bus kota yang beroperasi di sini."
+        }
+      },
+      "missing": [
+        "The box is the whole Kabupaten Pati, not only the town.",
+        "The box is the union of OpenStreetMap boundary relations R9687058, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "bengkulu",
+      "name": "Bengkulu",
+      "provinces": ["Bengkulu"],
+      "bbox": [102.1791, -3.9817, 102.3716, -3.7395],
+      "centre": [102.2624, -3.7923],
+      "timezone": "Asia/Jakarta",
+      "sources": [
+        {
+          "id": "bengkulu-no-formal-bus",
+          "name": "Bengkulu city: angkot only, no formal bus/BRT found",
+          "url": "https://jptam.org/index.php/jptam/article/download/31049/20637",
+          "licence": "Academic article, rights per journal (not checked)",
+          "attribution": "Cite the article",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "modes": {
+        "city_bus": {
+          "status": "unavailable",
+          "operators": [],
+          "sourceIds": ["bengkulu-no-formal-bus"],
+          "missing": ["No city bus, BRT or Teman Bus was found in Bengkulu (research of 2026-10-20)."],
+          "note": "Belum ditemukan bus kota di sini."
+        },
+        "angkot": {
+          "status": "unavailable",
+          "operators": [],
+          "sourceIds": ["bengkulu-no-formal-bus"],
+          "missing": ["Angkot run (a 2025 academic study of angkot lines exists) but no route data was found."],
+          "note": "Angkot ada, tetapi data rutenya belum tersedia."
+        }
+      },
+      "missing": [
+        "The box is Kota Bengkulu.",
+        "The box is the union of OpenStreetMap boundary relations R16196019, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "samarinda",
+      "name": "Samarinda",
+      "provinces": ["Kalimantan Timur"],
+      "bbox": [117.0539, -0.7168, 117.2983, -0.3143],
+      "centre": [117.1393, -0.5018],
+      "timezone": "Asia/Makassar",
+      "sources": [
+        {
+          "id": "samarinda-mass-transit-plan",
+          "name": "Samarinda mass-transit (BTS) plan: no running service found",
+          "url": "https://kaltim.bpk.go.id/wp-content/uploads/2024/10/2024-08-06-Sinyal-Skema-BTS-Menguat-Pemkot-Semakin-Dekat-Terapkan-Transportasi-Massal.pdf",
+          "licence": "News article, all rights reserved by publisher (no open licence)",
+          "attribution": "Cite as a reference only; do not copy text, derive facts and verify against an official source.",
+          "redistribution": "forbidden",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "modes": {
+        "city_bus": {
+          "status": "unavailable",
+          "operators": [],
+          "sourceIds": ["samarinda-mass-transit-plan"],
+          "missing": ["A BTS plan only (BPK Kaltim clipping of 2024-08-06); no running service was found."],
+          "note": "Belum ada bus kota yang beroperasi; baru tahap rencana."
+        }
+      },
+      "missing": [
+        "The box is Kota Samarinda.",
+        "The box is the union of OpenStreetMap boundary relations R14921097, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "kupang",
+      "name": "Kupang",
+      "provinces": ["Nusa Tenggara Timur"],
+      "bbox": [123.527, -10.2928, 123.6832, -10.125],
+      "centre": [123.6018, -10.1632],
+      "timezone": "Asia/Makassar",
+      "sources": [
+        {
+          "id": "kupang-no-city-bus-evidence",
+          "name": "Kupang: no city bus found (only Kupang-Dili cross-border coaches)",
+          "url": "https://www.detik.com/bali/nusra/d-6646553/2-bus-rute-kupang-dili-mulai-ngaspal-penumpang-rindu-timor-leste",
+          "licence": "News article, all rights reserved by publisher (no open licence)",
+          "attribution": "Cite as a reference only; do not copy text, derive facts and verify against an official source.",
+          "redistribution": "forbidden",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "modes": {
+        "city_bus": {
+          "status": "unavailable",
+          "operators": [],
+          "sourceIds": ["kupang-no-city-bus-evidence"],
+          "missing": [
+            "No city bus was found, only Kupang-Dili coaches. One search summary listed Kupang as a BTS city, but the RRI page actually fetched lists no NTT city; unresolved."
+          ],
+          "note": "Belum ditemukan bus kota di sini."
+        }
+      },
+      "missing": [
+        "The box is Kota Kupang.",
+        "The box is the union of OpenStreetMap boundary relations R11226931, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "ambon",
+      "name": "Ambon",
+      "provinces": ["Maluku"],
+      "bbox": [128.0283, -3.7944, 128.3011, -3.5732],
+      "centre": [128.1788, -3.6959],
+      "timezone": "Asia/Jayapura",
+      "sources": [
+        {
+          "id": "ambon-angkot-only",
+          "name": "Ambon: angkot and AKDP, no city bus or BRT found",
+          "url": "https://ambon.antaranews.com/berita/347277/pemkot-ambon-usulkan-penataan-jalur-masuk-akdp-ke-dalam-kota",
+          "licence": "News article, all rights reserved by publisher (no open licence)",
+          "attribution": "Cite as a reference only; do not copy text, derive facts and verify against an official source.",
+          "redistribution": "forbidden",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "modes": {
+        "city_bus": {
+          "status": "unavailable",
+          "operators": [],
+          "sourceIds": ["ambon-angkot-only"],
+          "missing": ["Only angkot and intercity buses were found (Antara Ambon, 2026-10-15); no city bus."],
+          "note": "Belum ditemukan bus kota; yang ada angkot dan bus antarkota."
+        },
+        "angkot": {
+          "status": "unavailable",
+          "operators": [],
+          "sourceIds": ["ambon-angkot-only"],
+          "missing": ["Angkot run but no route data was found."],
+          "note": "Angkot ada, tetapi data rutenya belum tersedia."
+        }
+      },
+      "missing": [
+        "The box is Kota Ambon.",
+        "The box is the union of OpenStreetMap boundary relations R13262351, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    },
+    {
+      "id": "jayapura",
+      "name": "Jayapura",
+      "provinces": ["Papua"],
+      "bbox": [140.6027, -2.8393, 141, -2.4737],
+      "centre": [140.7037, -2.5388],
+      "timezone": "Asia/Jayapura",
+      "sources": [
+        {
+          "id": "jayapura-trans-jayapura",
+          "name": "Trans Jayapura (BRT launched 2019; 2026 status unknown)",
+          "url": "https://en.wikipedia.org/wiki/Trans_Jayapura",
+          "licence": "CC BY-SA 4.0 (Wikipedia text)",
+          "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "attribution": "Credit Wikipedia contributors with link; share alike",
+          "redistribution": "allowed",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "modes": {
+        "brt": {
+          "status": "researched",
+          "operators": ["Trans Jayapura"],
+          "sourceIds": ["jayapura-trans-jayapura"],
+          "missing": [
+            "Reports conflict: Wikipedia says Trans Jayapura BRT started on 2019-12-18, but Antara of 2024-01-23 quotes Dishub saying the city has no mass transit yet. The 2026 status is unknown."
+          ],
+          "note": "Belum jelas apakah Trans Jayapura beroperasi; data masih dikumpulkan."
+        }
+      },
+      "missing": [
+        "The box is Kota Jayapura.",
+        "The box is the union of OpenStreetMap boundary relations R7754451, rounded outward to 4 decimals; the centre is the label point of the main relation. Overpass was unreachable on 2026-10-20, so both were read through Nominatim; see docs/national/regions.md."
+      ]
+    }
+  ]
+}

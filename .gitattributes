@@ -1,0 +1,2 @@
+# Served byte for byte: each pack is named by the sha256 of its bytes, which the app checks.
+national/** -text
