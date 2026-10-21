@@ -538,6 +538,13 @@
       "bbox": [112.0725, -7.7792, 113.1479, -5.7158],
       "centre": [112.7378, -7.2463],
       "timezone": "Asia/Jakarta",
+      "pack": {
+        "kind": "remote",
+        "url": "https://juansah27.github.io/rutekita-data/national/packs/surabaya-raya/c0d2847d84288656e3386dff9856175ad1637b4c8e2704e4d1a64ba2bfbd955f.json",
+        "version": "c0d2847d84288656e3386dff9856175ad1637b4c8e2704e4d1a64ba2bfbd955f",
+        "builtAt": "2026-10-21",
+        "staleAfterDays": 60
+      },
       "sources": [
         {
           "id": "djka-gapeka-2025",
@@ -619,16 +626,18 @@
           "note": "Data koridor Trans Jatim masih dikumpulkan; daftar halte belum tersedia."
         },
         "city_bus": {
-          "status": "source_verified",
-          "operators": ["Suroboyo Bus (Dishub)", "Trans Semanggi Suroboyo (Teman Bus / DAMRI)"],
+          "status": "validated",
+          "operators": ["Suroboyo Bus (Dishub)", "Trans Jatim (Dishub Jatim)", "Trans Semanggi Suroboyo (Teman Bus / DAMRI)"],
           "sourceIds": ["osm-surabaya-bus-routes", "surabaya-gobis-dishub", "surabaya-opendata-portal"],
           "missing": [
-            "OpenStreetMap holds only 13 bus relations for Surabaya (Bus Suroboyo and three Trans Jatim lines), which is incomplete.",
+            "The pack (OpenStreetMap, 2026-10-21) has 7 routes: Suroboyo Bus R1, 2, 4 and 5, and Trans Jatim K1-K3, which OSM tags route=bus, so they show as Bus kota. Lines 2 and 5 list only their two terminals as stops in OSM.",
+            "Left out because OSM lists no stops for them: Bus Tumpuk (line 3, one stop), Angkot lines A-G (old relations of ways only) and the Bagong Malang-Jombang buses. No stops were invented.",
+            "Trans Semanggi Suroboyo and Wira-Wiri have no OSM relations. A community file (github.com/ausartal/surabaya-bus-tracking: 16 routes, 927 stops) has no data licence; ask its author or Dishub Kota Surabaya.",
             "No stop coordinates from the city; the GOBIS app claims live positions but has no API. Ask Dishub Kota Surabaya.",
             "Wira-Wiri could not be found in any source reached; Trans Semanggi corridor 3 electric buses were paused in January 2025 and replaced by diesel (news).",
             "The city open-data portal says its data is free for research and app development but names no licence."
           ],
-          "note": "Data rute dan halte belum lengkap; menunggu data dari operator."
+          "note": "Baru 7 rute dari OpenStreetMap (Suroboyo Bus dan Trans Jatim); belum ada jadwal resmi dan rute lain belum ada."
         }
       },
       "missing": [
@@ -1604,6 +1613,13 @@
       "bbox": [124.6815, 1.428, 124.9342, 1.6492],
       "centre": [124.8408, 1.49],
       "timezone": "Asia/Makassar",
+      "pack": {
+        "kind": "remote",
+        "url": "https://juansah27.github.io/rutekita-data/national/packs/manado/b30711bb65a59b4f9f83fe12612f60c39c460425544c4376e2f68525ad8a7939.json",
+        "version": "b30711bb65a59b4f9f83fe12612f60c39c460425544c4376e2f68525ad8a7939",
+        "builtAt": "2026-10-21",
+        "staleAfterDays": 60
+      },
       "sources": [
         {
           "id": "manado-trans-manado",
@@ -1622,6 +1638,16 @@
           "attribution": "Cite Direktorat Jenderal Perhubungan Darat, Kemenhub",
           "redistribution": "unknown",
           "retrieved": "2026-10-20"
+        },
+        {
+          "id": "osm",
+          "name": "OpenStreetMap: bus, angkot and angdes route relations in the Kota Manado box",
+          "url": "https://www.openstreetmap.org/copyright",
+          "licence": "ODbL-1.0",
+          "licenceUrl": "https://opendatacommons.org/licenses/odbl/1-0/",
+          "attribution": "© OpenStreetMap contributors",
+          "redistribution": "allowed",
+          "retrieved": "2026-10-21"
         }
       ],
       "modes": {
@@ -1634,6 +1660,17 @@
             "No stop list with coordinates, shapes or GTFS from the operator or Dishub."
           ],
           "note": "Data rute dan halte belum lengkap; menunggu data dari operator."
+        },
+        "angkot": {
+          "status": "validated",
+          "operators": ["Angkot (mikrolet) Kota Manado", "Angdes Malalayang-Tanahwangko"],
+          "sourceIds": ["osm"],
+          "missing": [
+            "The pack (OpenStreetMap, 2026-10-21) has 3 lines: angkot 01 Terminal Malalayang-Pasar 45, angkot 14 Paal 2-Lapangan and the angdes Terminal Malalayang-Tanahwangko. OSM has no other Manado angkot lines.",
+            "DAMRI airport (Sam Ratulangi-Pantai Paal) and the intercity buses to Likupang, Bitung and Bolaang Mongondow have fewer than two stops inside the Kota Manado box, so they are not in the pack.",
+            "Angkot have no timetable, so only the line and its stops can be shown."
+          ],
+          "note": "Baru 3 trayek angkot dari OpenStreetMap; angkot tidak punya jadwal."
         }
       },
       "missing": [
