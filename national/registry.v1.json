@@ -549,8 +549,8 @@
       "timezone": "Asia/Jakarta",
       "pack": {
         "kind": "remote",
-        "url": "https://juansah27.github.io/rutekita-data/national/packs/surabaya-raya/c0d2847d84288656e3386dff9856175ad1637b4c8e2704e4d1a64ba2bfbd955f.json",
-        "version": "c0d2847d84288656e3386dff9856175ad1637b4c8e2704e4d1a64ba2bfbd955f",
+        "url": "https://juansah27.github.io/rutekita-data/national/packs/surabaya-raya/479011c22adc2ecae4908e4a6c2978b7328db1ea203fd0f463e4f6aa75fb3426.json",
+        "version": "479011c22adc2ecae4908e4a6c2978b7328db1ea203fd0f463e4f6aa75fb3426",
         "builtAt": "2026-10-21",
         "staleAfterDays": 60
       },
@@ -572,6 +572,26 @@
           "attribution": "KAI Commuter",
           "redistribution": "unknown",
           "retrieved": "2026-10-20"
+        },
+        {
+          "id": "kci-wilayah8-2026-05",
+          "name": "KAI Commuter, Jadwal Commuter Line Wilayah 8 Surabaya - Update 1 Mei 2026 (PDF); Dhoho, Penataran, Supas, Jenggala, Arjonegoro and Blorasura tables transcribed to data/national/sources/kci-<line>-2026-05.json",
+          "url": "https://www.kci.id/files/download/documents/Jadwal%20Commuter%20Line%20Wilayah%208%20Surabaya%20-%20Update%201%20Mei%202026.pdf",
+          "licence": "© PT Kereta Commuter Indonesia, all rights reserved; no open licence",
+          "attribution": "Jadwal: KAI Commuter (update 1 Mei 2026)",
+          "redistribution": "with_permission",
+          "permissionRef": "Owner's statement 2026-10-17 that all operator data permissions are held",
+          "retrieved": "2026-10-21"
+        },
+        {
+          "id": "osm-rail-jatim",
+          "name": "OpenStreetMap railway stations and railway=rail track network of East Java (station positions; track lines routed along the rails)",
+          "url": "https://www.openstreetmap.org/copyright",
+          "licence": "ODbL 1.0",
+          "licenceUrl": "https://opendatacommons.org/licenses/odbl/1-0/",
+          "attribution": "© OpenStreetMap contributors",
+          "redistribution": "allowed",
+          "retrieved": "2026-10-21"
         },
         {
           "id": "trans-jatim-dishub-jatim",
@@ -613,16 +633,19 @@
       ],
       "modes": {
         "commuter_rail": {
-          "status": "integration_in_progress",
+          "status": "validated",
           "operators": ["KAI Commuter"],
-          "sourceIds": ["djka-gapeka-2025", "kci-surabaya-wilayah-8"],
+          "sourceIds": ["kci-wilayah8-2026-05", "osm-rail-jatim", "kci-surabaya-wilayah-8", "djka-gapeka-2025"],
           "missing": [
-            "Jenggala, Supas, Arjonegoro, Blorasura, Penataran and Dhoho are the local trains taken from the Gapeka PDF. The Gapeka PDF has no station coordinates; they have to come from OpenStreetMap nodes.",
-            "News also names Tumapel and Sindro (merged into Jenggala); neither was checked in the PDF. An extension of Supas to Probolinggo is only planned.",
-            "Station lists, timetables and fares beyond the PDF are known from news only; Penataran also serves Malang Raya.",
-            "DJKA states no licence for the Gapeka PDF, so shipping its timetable rests on the owner's permission statement, which is not itemised per operator."
+            "Rows and times come from pdftotext; the column each time belongs to was read by eye from the rendered PDF pages, and each page's times were checked against the times pdftotext -layout extracts. A misplaced cell is possible until KCI publishes data.",
+            "Malang, Kediri, Blitar and the stations between them (Dhoho, Penataran), Probolinggo (Supas), and Kapas to Cepu (Arjonegoro, Blorasura) lie outside the region's box; they are in the pack because the trains that call there also serve the region.",
+            "Jenggala R473A is left out: the PDF marks it as only moving the train set (Hanya KIRIM RANGKAIAN). Tumapel and Sindro, named in news, are not in this edition.",
+            "The KCI PDF prints no day-of-week rules; services are taken as daily from 2026-05-01, the edition's date.",
+            "Fares are not in the PDF.",
+            "Track lines are routed along OpenStreetMap railway=rail ways between calls (src/national/rail.ts), not published by KCI.",
+            "The PDF is a timetable, not live positions; KCI's next \"Update\" replaces data/national/sources/kci-{dhoho,penataran,supas,jenggala,arjonegoro,blorasura}-2026-05.json, which scripts/national/kci-gtfs.ts turns into GTFS."
           ],
-          "note": "Jadwal dari Gapeka 2025; daftar stasiun dan tarif lengkap belum ada, cek ulang di aplikasi operator."
+          "note": "Commuter Line Dhoho, Penataran, Supas, Jenggala, Arjonegoro dan Blorasura dari jadwal KAI Commuter (update 1 Mei 2026). Tarif belum dimasukkan."
         },
         "brt": {
           "status": "researched",
