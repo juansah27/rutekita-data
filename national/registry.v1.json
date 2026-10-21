@@ -284,7 +284,7 @@
             "Fares are not in the pack: Premium Economy is priced dynamically, and the fixed Business and First fares last confirmed by KCIC (press release 2025-01-25) may have changed.",
             "Halim and Karawang lie outside the region's box; they are in the pack because every Whoosh trip also serves Padalarang and Tegalluar.",
             "The KCIC images are a timetable, not live positions; KCIC's next \"Update\" replaces data/national/sources/whoosh-*.json, which scripts/national/whoosh-gtfs.ts turns into GTFS.",
-            "Cross-check against the Gapeka PDF KP-DJKA 2/2025 is still open: the DJKA host resets connections from automated tools, so the owner has to download it in a browser."
+            "Cross-check against the Gapeka PDF KP-DJKA 2/2025 is still open: the DJKA host resets every connection to it, a browser included (tried on 2026-10-21 from two networks and an outside fetcher), so it has to be tried again later."
           ],
           "note": "Jadwal Whoosh dan KA Feeder dari KCIC (update 12 Maret 2026). Tarif dinamis, cek aplikasi Whoosh."
         },
@@ -1219,7 +1219,7 @@
           "operators": ["KAI Bandara (Railink)"],
           "sourceIds": ["djka-gapeka-sumbagut-2025", "airport-rail-kualanamu-medan"],
           "missing": [
-            "The Gapeka Sumbagut PDF (KP-DJKA 225/2024) is not in hand. The PDF was never opened: the DJKA host resets connections from automated tools, so the owner has to download it in a browser.",
+            "The Gapeka Sumbagut PDF (KP-DJKA 225/2024) is not in hand. The PDF was never opened: the DJKA host resets every connection to it, a browser included (tried on 2026-10-21 from two networks and an outside fetcher), so it has to be tried again later.",
             "KAI Commuter reportedly takes over the Medan airport train in 2026 (Bisnis, 2026-03-12); not confirmed. A Rp40,000 fare from 2024-07-01 is from news."
           ],
           "note": "Jadwal kereta bandara belum tersedia; menunggu data dari operator."
@@ -1249,6 +1249,13 @@
       "bbox": [104.6137, -3.1163, 104.8607, -2.8545],
       "centre": [104.7569, -2.9888],
       "timezone": "Asia/Jakarta",
+      "pack": {
+        "kind": "remote",
+        "url": "https://juansah27.github.io/rutekita-data/national/packs/palembang/5aba891f38bd609fcad34b6198f8e075e2c551d1e9a48f54875a9c2fb7b98ea6.json",
+        "version": "5aba891f38bd609fcad34b6198f8e075e2c551d1e9a48f54875a9c2fb7b98ea6",
+        "builtAt": "2026-10-21",
+        "staleAfterDays": 60
+      },
       "sources": [
         {
           "id": "lrt-sumsel-palembang",
@@ -1296,19 +1303,39 @@
           "attribution": "Cite Direktorat Jenderal Perhubungan Darat, Kemenhub",
           "redistribution": "unknown",
           "retrieved": "2026-10-20"
+        },
+        {
+          "id": "osm-lrt-sumsel",
+          "name": "OpenStreetMap route relations of LRT Palembang (route_master R9732464: R9732461 DJKA to Bandara, R9732463 Bandara to DJKA), with their stations and track",
+          "url": "https://www.openstreetmap.org/relation/9732464",
+          "licence": "ODbL 1.0",
+          "licenceUrl": "https://opendatacommons.org/licenses/odbl/1-0/",
+          "attribution": "© OpenStreetMap contributors",
+          "redistribution": "allowed",
+          "retrieved": "2026-10-21"
+        },
+        {
+          "id": "lrt-sumsel-kai-2026",
+          "name": "LRT Sumsel operated by PT KAI Divisi Regional III Palembang with BPKARSS (Sonora, 2026-07-12)",
+          "url": "https://www.sonora.id/read/424395882/lrt-sumsel-layani-16881-penumpang-selama-sumsel-bhayangkara-run-2026",
+          "licence": "News article; used only for the operator name, nothing copied",
+          "attribution": "Sonora.id",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-21"
         }
       ],
       "modes": {
         "lrt": {
-          "status": "researched",
+          "status": "validated",
           "operators": ["KAI Divre III Palembang", "BPKARSS"],
-          "sourceIds": ["lrt-sumsel-palembang", "djka-gapeka-sumbagsel-2025"],
+          "sourceIds": ["osm-lrt-sumsel", "lrt-sumsel-kai-2026", "lrt-sumsel-palembang", "djka-gapeka-sumbagsel-2025"],
           "missing": [
-            "One line, 13 stations, about 23.4 km and 94 trips a day, all from news; the termini are not verified.",
-            "No station coordinates, timetable or regular fare from an official source; ask KAI Divre III Palembang and BPKARSS.",
-            "Whether the Gapeka Sumbagsel PDF (KP-DJKA 227/2024) lists it is unknown. The PDF was never opened: the DJKA host resets connections from automated tools, so the owner has to download it in a browser."
+            "The line, its 13 stations in order both ways (DJKA, Jakabaring, Polresta, Ampera, Cinde, Dishub, Bumi Sriwijaya, Demang, Garuda Dempo, RSUD, Punti Kayu, Asrama Haji, Bandara) and its track are OpenStreetMap data (scripts/national/build-osm.ts); the 13 match the news count. OSM names one Asrama Haji node \"Stasiun LRT Asrama Haji\"; it is joined to the Asrama Haji station node beside it (--same-stop). The operator is given as KAI from the news, as the OSM master says \"Indonesian Railway Company\" (--operator).",
+            "No timetable: the route shows without a schedule. News of 2026 reports 94 regular trips a day from 05:06 and a headway of about 17-18 minutes, but no official timetable was found. Whether the Gapeka Sumbagsel PDF (KP-DJKA 227/2024) lists it is unknown. The PDF was never opened: the DJKA host resets every connection to it, a browser included (tried on 2026-10-21 from two networks and an outside fetcher), so it has to be tried again later.",
+            "No fare: Rp5.000 and Rp10.000 to or from the airport are from 2024 news only; no official fare table was found. Ask KAI Divre III Palembang and BPKARSS for the timetable and fares.",
+            "The OSM relation from Bandara has to=Depo, the depot past DJKA; that direction is signed DJKA, the last station riders use (--headsign)."
           ],
-          "note": "Jadwal dan data stasiun LRT belum tersedia; menunggu data dari operator."
+          "note": "Rute dan 13 stasiun LRT Sumsel dari OpenStreetMap; jadwal dan tarif resmi belum tersedia, cek di aplikasi atau loket KAI."
         },
         "brt": {
           "status": "researched",
@@ -1316,7 +1343,7 @@
           "sourceIds": ["palembang-trans-musi", "osm-palembang-bbox-count", "mitradarat-kemenhub-app"],
           "missing": [
             "Cut from 5 corridors to 2 for 2025; paused on 2026-01-01 and resumed on 2026-01-03 according to an unreferenced Wikipedia text, so running in 2026 is likely but second-hand.",
-            "OpenStreetMap has 0 bus relations and 27 stops for Palembang, so it does not help.",
+            "OpenStreetMap has no bus relations for Palembang (0 on 2026-10-20 and again on 2026-10-21) and 27 stops, so it does not help.",
             "No official local channel was found; 21 microbuses are listed in the MitraDarat app, whose data cannot be read."
           ],
           "note": "Data rute Trans Musi masih dikumpulkan; menunggu data dari operator."
@@ -1480,7 +1507,7 @@
           "sourceIds": ["airport-rail-minangkabau-padang", "djka-gapeka-sumbagbar-2025"],
           "missing": [
             "The current service and 2026 timetable of the Minangkabau airport train were not found; the line opened in 2018 (news snippets), so do not rely on it without a current source.",
-            "The Gapeka Sumbagbar PDF (KP-DJKA 226/2024) is not in hand. The PDF was never opened: the DJKA host resets connections from automated tools, so the owner has to download it in a browser."
+            "The Gapeka Sumbagbar PDF (KP-DJKA 226/2024) is not in hand. The PDF was never opened: the DJKA host resets every connection to it, a browser included (tried on 2026-10-21 from two networks and an outside fetcher), so it has to be tried again later."
           ],
           "note": "Jadwal kereta bandara belum tersedia; menunggu data dari operator."
         },
