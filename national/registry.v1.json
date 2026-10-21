@@ -145,8 +145,8 @@
       "timezone": "Asia/Jakarta",
       "pack": {
         "kind": "remote",
-        "url": "https://juansah27.github.io/rutekita-data/national/packs/bandung-raya/cfa247fed0870b9e50d8e111c6e938f284207ee2c2728d35e7029f21f9df9e7b.json",
-        "version": "cfa247fed0870b9e50d8e111c6e938f284207ee2c2728d35e7029f21f9df9e7b",
+        "url": "https://juansah27.github.io/rutekita-data/national/packs/bandung-raya/65b4534d4df88601ad6cdf30b1bb717d4474ff5c1cca097147bd38f6a1592bdd.json",
+        "version": "65b4534d4df88601ad6cdf30b1bb717d4474ff5c1cca097147bd38f6a1592bdd",
         "builtAt": "2026-10-21",
         "staleAfterDays": 60
       },
@@ -190,7 +190,7 @@
         },
         {
           "id": "kci-wilayah2-2026-05",
-          "name": "KAI Commuter, Jadwal Commuter Line Wilayah 2 Bandung - Update Mei 2026 (PDF); Bandung Raya tables transcribed to data/national/sources/kci-bandung-raya-2026-05.json",
+          "name": "KAI Commuter, Jadwal Commuter Line Wilayah 2 Bandung - Update Mei 2026 (PDF); Bandung Raya and Garut tables transcribed to data/national/sources/kci-bandung-raya-2026-05.json and kci-garut-2026-05.json",
           "url": "https://kci.id/files/download/documents/Jadwal%20Commuter%20Line%20Wilayah%202%20Bandung%20-%20Update%20Mei%202026.pdf",
           "licence": "© PT Kereta Commuter Indonesia, all rights reserved; no open licence",
           "attribution": "Jadwal: KAI Commuter (update Mei 2026)",
@@ -268,12 +268,13 @@
           "operators": ["KAI Commuter", "KAI (KA Feeder Padalarang-Bandung)"],
           "sourceIds": ["djka-gapeka-2025", "kci-bandung-raya-garut", "kci-wilayah2-2026-05", "kcic-whoosh", "osm"],
           "missing": [
-            "Commuter Line Garut is not in the pack: in the KCI PDF its tables lose column positions when extracted, so trains that skip stations cannot be placed without reading the page by eye.",
+            "The Commuter Line Garut tables were read by eye from the rendered PDF page (extraction loses their columns) and checked against the times extraction does give; a misread cell is possible until KCI publishes data.",
+            "Purwakarta, Ciganea, Sukatani and Plered (north) and Cibatu, Pasirjengkol and Wanaraja (east) lie outside the region's box; they are in the pack because the Commuter Line Garut trains that call there also serve the region.",
             "The KCI PDF prints no start day and no day-of-week rules; services are taken as daily from 2026-05-01, the edition's month.",
             "Fares are not in the PDF; news reports Rp4,000 to Rp5,000 for Padalarang-Cicalengka.",
-            "The PDF is a timetable, not live positions; KCI's next \"Update\" replaces data/national/sources/kci-bandung-raya-*.json, which scripts/national/kci-gtfs.ts turns into GTFS."
+            "The PDF is a timetable, not live positions; KCI's next \"Update\" replaces data/national/sources/kci-bandung-raya-*.json and kci-garut-*.json, which scripts/national/kci-gtfs.ts turns into GTFS."
           ],
-          "note": "Commuter Line Bandung Raya Padalarang–Cicalengka dari jadwal KAI Commuter (update Mei 2026), dan KA Feeder Padalarang–Bandung untuk penumpang Whoosh (tunjukkan tiket Whoosh). Commuter Line Garut belum ada. Tarif belum dimasukkan."
+          "note": "Commuter Line Bandung Raya Padalarang–Cicalengka dan Commuter Line Garut Purwakarta–Garut dari jadwal KAI Commuter (update Mei 2026), dan KA Feeder Padalarang–Bandung untuk penumpang Whoosh (tunjukkan tiket Whoosh). Tarif belum dimasukkan."
         },
         "high_speed_rail": {
           "status": "validated",
