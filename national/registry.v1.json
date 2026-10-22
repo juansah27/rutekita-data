@@ -625,8 +625,8 @@
       "timezone": "Asia/Jakarta",
       "pack": {
         "kind": "remote",
-        "url": "https://juansah27.github.io/rutekita-data/national/packs/surabaya-raya/c7f4eb5de40e98a077b1fc88a3d78f0d5c76cd4a0aa91fce16e179c93175e275.json",
-        "version": "c7f4eb5de40e98a077b1fc88a3d78f0d5c76cd4a0aa91fce16e179c93175e275",
+        "url": "https://juansah27.github.io/rutekita-data/national/packs/surabaya-raya/15792c8aa1cd2dab5182bc97d570dad8ff960ebf5c602d5a5ab6c1ed6963c76f.json",
+        "version": "15792c8aa1cd2dab5182bc97d570dad8ff960ebf5c602d5a5ab6c1ed6963c76f",
         "builtAt": "2026-10-21",
         "staleAfterDays": 60
       },
@@ -714,6 +714,15 @@
           "attribution": "Tarif: Peraturan Wali Kota Surabaya 22/2023",
           "redistribution": "allowed",
           "retrieved": "2026-10-21"
+        },
+        {
+          "id": "fares-trans-jatim-2026",
+          "name": "Peraturan Daerah Provinsi Jawa Timur Nomor 3 Tahun 2026 tentang Perubahan Peraturan Daerah Nomor 8 Tahun 2023 tentang Pajak Daerah dan Retribusi Daerah (JDIH Provinsi Jawa Timur); transcribed to data/national/sources/fares-trans-jatim-2026.json",
+          "url": "https://files.jdih.jatimprov.go.id/jdih-prod/uploads/topics/2026pd00350003.pdf",
+          "licence": "Peraturan perundang-undangan; not protected by copyright (UU 28/2014 Pasal 42)",
+          "attribution": "Tarif: Peraturan Daerah Provinsi Jawa Timur 3/2026",
+          "redistribution": "allowed",
+          "retrieved": "2026-10-22"
         }
       ],
       "modes": {
@@ -753,18 +762,19 @@
             "osm-surabaya-bus-routes",
             "surabaya-gobis-dishub",
             "surabaya-opendata-portal",
-            "fares-suroboyo-bus-2023"
+            "fares-suroboyo-bus-2023",
+            "fares-trans-jatim-2026"
           ],
           "missing": [
             "The pack (OpenStreetMap, 2026-10-21) has 7 routes: Suroboyo Bus R1, 2, 4 and 5, and Trans Jatim K1-K3, which OSM tags route=bus, so they show as Bus kota. Lines 2 and 5 list only their two terminals as stops in OSM.",
-            "Fares: Suroboyo Bus R1, 2, 4 and 5 Rp5.000 umum, Rp2.500 pelajar and mahasiswa, free for lansia, veteran, balita and penyandang disabilitas (Perwali Surabaya 22/2023, data/national/sources/fares-suroboyo-bus-2023.json). Trans Jatim K1-K3 have no fare in the pack.",
+            "Fares: Suroboyo Bus R1, 2, 4 and 5 Rp5.000 umum, Rp2.500 pelajar and mahasiswa, free for lansia, veteran, balita and penyandang disabilitas (Perwali Surabaya 22/2023, data/national/sources/fares-suroboyo-bus-2023.json). Trans Jatim K1-K3 Rp5.000 umum, Rp2.500 santri, mahasiswa and pelajar, free transfer to another Trans Jatim corridor (Perda Jatim 3/2026, in force 2026-07-15, data/national/sources/fares-trans-jatim-2026.json); its integration fares with partner modes are not modelled.",
             "Left out because OSM lists no stops for them: Bus Tumpuk (line 3, one stop), Angkot lines A-G (old relations of ways only) and the Bagong Malang-Jombang buses. No stops were invented.",
             "Trans Semanggi Suroboyo and Wira-Wiri have no OSM relations. A community file (github.com/ausartal/surabaya-bus-tracking: 16 routes, 927 stops) has no data licence; ask its author or Dishub Kota Surabaya.",
             "No stop coordinates from the city; the GOBIS app claims live positions but has no API. Ask Dishub Kota Surabaya.",
             "Wira-Wiri could not be found in any source reached; Trans Semanggi corridor 3 electric buses were paused in January 2025 and replaced by diesel (news).",
             "The city open-data portal says its data is free for research and app development but names no licence."
           ],
-          "note": "Baru 7 rute dari OpenStreetMap (Suroboyo Bus dengan tarif resmi, dan Trans Jatim); belum ada jadwal resmi dan rute lain belum ada."
+          "note": "Baru 7 rute dari OpenStreetMap (Suroboyo Bus dan Trans Jatim, dengan tarif resmi); belum ada jadwal resmi dan rute lain belum ada."
         }
       },
       "missing": [
@@ -864,7 +874,8 @@
           "sourceIds": ["trans-jatim-dishub-jatim"],
           "missing": [
             "Trans Jatim Koridor 1 Malang Raya (Terminal Hamid Rusdi - Dau - Terminal Batu, 14 buses) is known from news only.",
-            "Koridor II Kanjuruhan (Hamid Rusdi - Talangagung/Kepanjen) is announced for 2026-10-29, with opposition from the angkot union; ask Dishub Jatim for stop lists at launch."
+            "Koridor II Kanjuruhan (Hamid Rusdi - Talangagung/Kepanjen) is announced for 2026-10-29, with opposition from the angkot union; ask Dishub Jatim for stop lists at launch.",
+            "The fare is known (Rp5.000 umum, Rp2.500 santri, mahasiswa and pelajar; Perda Jatim 3/2026, data/national/sources/fares-trans-jatim-2026.json) and can be added once a corridor is in the pack."
           ],
           "note": "Data koridor Trans Jatim di Malang Raya masih dikumpulkan; daftar halte belum tersedia."
         },
