@@ -1,0 +1,259 @@
+{
+  "sha256": "15792c8aa1cd2dab5182bc97d570dad8ff960ebf5c602d5a5ab6c1ed6963c76f",
+  "region": "surabaya-raya",
+  "checkedOn": "2026-10-22",
+  "ok": true,
+  "base": {
+    "file": "pack.json",
+    "sha256": "c7f4eb5de40e98a077b1fc88a3d78f0d5c76cd4a0aa91fce16e179c93175e275"
+  },
+  "fareSources": [
+    "fares-trans-jatim-2026.json"
+  ],
+  "counts": {
+    "fares": 7,
+    "added": 3
+  },
+  "errors": [],
+  "warnings": [
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Bojonegoro\" (BJ) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "BJ"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Blitar\" (BL) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "BL"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Blimbing\" (BMG) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "BMG"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Cepu\" (CU) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "CU"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Garum\" (GRM) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "GRM"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Kediri\" (KD) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "KD"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Kepanjen\" (KPN) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "KPN"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Kapas\" (KPS) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "KPS"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Kras\" (KRS) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "KRS"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Kesamben\" (KSB) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "KSB"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Lawang\" (LW) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "LW"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Malang\" (ML) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "ML"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Malang Kota Lama\" (MLK) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "MLK"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Ngebruk\" (NB) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "NB"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Ngadiluwih\" (NDL) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "NDL"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Ngujang\" (NJG) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "NJG"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Ngunut\" (NT) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "NT"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Probolinggo\" (PB) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "PB"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Pogajih\" (PGJ) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "PGJ"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Pakisaji\" (PSI) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "PSI"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Rejotangan\" (RJ) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "RJ"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Sumbergempol\" (SBL) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "SBL"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Sumberpucung\" (SBP) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "SBP"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Singosari\" (SGS) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "SGS"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Sumberrejo\" (SRJ) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "SRJ"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Tulungagung\" (TA) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "TA"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Talun\" (TAL) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "TAL"
+      ]
+    },
+    {
+      "code": "stop_outside_region",
+      "message": "Stop \"Wlingi\" (WG) lies outside the region's box; every pattern that calls there also serves the region",
+      "ids": [
+        "WG"
+      ]
+    },
+    {
+      "code": "route_no_fare",
+      "message": "Route \"Arjonegoro\" (kci-arjonegoro) has no known fare",
+      "ids": [
+        "kci-arjonegoro"
+      ]
+    },
+    {
+      "code": "route_no_fare",
+      "message": "Route \"Blorasura\" (kci-blorasura) has no known fare",
+      "ids": [
+        "kci-blorasura"
+      ]
+    },
+    {
+      "code": "route_no_fare",
+      "message": "Route \"Dhoho\" (kci-dhoho) has no known fare",
+      "ids": [
+        "kci-dhoho"
+      ]
+    },
+    {
+      "code": "route_no_fare",
+      "message": "Route \"Jenggala\" (kci-jenggala) has no known fare",
+      "ids": [
+        "kci-jenggala"
+      ]
+    },
+    {
+      "code": "route_no_fare",
+      "message": "Route \"Penataran\" (kci-penataran) has no known fare",
+      "ids": [
+        "kci-penataran"
+      ]
+    },
+    {
+      "code": "route_no_fare",
+      "message": "Route \"Supas\" (kci-supas) has no known fare",
+      "ids": [
+        "kci-supas"
+      ]
+    }
+  ],
+  "notes": []
+}
