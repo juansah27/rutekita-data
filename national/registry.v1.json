@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-21",
+  "updatedAt": "2026-10-31",
   "regions": [
     {
       "id": "jabodetabek",
@@ -10,6 +10,13 @@
       "centre": [106.85, -6.21],
       "timezone": "Asia/Jakarta",
       "pack": { "kind": "builtin" },
+      "overlay": {
+        "kind": "remote",
+        "url": "https://juansah27.github.io/rutekita-data/national/packs/jabodetabek/4f1f36eb812ba57bb64d6a7e19fd65a3ba37cfa5fe210a25dd4f16f7ccd0ded1.json",
+        "version": "4f1f36eb812ba57bb64d6a7e19fd65a3ba37cfa5fe210a25dd4f16f7ccd0ded1",
+        "builtAt": "2026-10-31",
+        "staleAfterDays": 60
+      },
       "sources": [
         {
           "id": "kci-timetable",
@@ -77,6 +84,25 @@
           "licenceUrl": "https://opendatacommons.org/licenses/odbl/1-0/",
           "attribution": "© OpenStreetMap contributors",
           "redistribution": "allowed"
+        },
+        {
+          "id": "osm-tangerang",
+          "name": "OpenStreetMap route relations of Tangerang drawn over the bundled data: Trans Tangerang Ayo (Bus Tayo) K1-K4 (R17772210, R17776266, R17770415, R17777596), Kalayang Soekarno-Hatta (R16414281), 13 Kabupaten Tangerang angkot lines and the three Sutera Loop lines (R11557649, R11557783, R11557784), with their stops and paths",
+          "url": "https://www.openstreetmap.org/relation/17772210",
+          "licence": "ODbL 1.0",
+          "licenceUrl": "https://opendatacommons.org/licenses/odbl/1-0/",
+          "attribution": "© OpenStreetMap contributors",
+          "redistribution": "allowed",
+          "retrieved": "2026-10-31"
+        },
+        {
+          "id": "tayo-pemkot-tangerang",
+          "name": "Bus Tayo operated by PT Tangerang Nusantara Global with GPS on every bus (PT TNG, 2023-06-12) and its corridors and hours (Pemkot Tangerang, 2026-05-25)",
+          "url": "https://tng.id/id/peningkatan-layanan-bus-rapid-transit-di-kota-tangerang-melalui-kerjasama-pt-tangerang-nusantara-global-dan-pt-nusantara-global-inovasi/",
+          "licence": "Press releases; used only for the operator name and facts, nothing copied",
+          "attribution": "PT Tangerang Nusantara Global; Pemerintah Kota Tangerang",
+          "redistribution": "unknown",
+          "retrieved": "2026-10-31"
         }
       ],
       "modes": {
@@ -96,23 +122,34 @@
         },
         "lrt": {
           "status": "published",
-          "operators": ["LRT Jakarta", "LRT Jabodebek"],
-          "sourceIds": ["lrt-jakarta", "lrt-jabodebek", "osm"],
-          "missing": ["The operators publish departures per station, not per train, so trains are rebuilt from them."],
+          "operators": ["LRT Jakarta", "LRT Jabodebek", "Bandara Soekarno-Hatta (Kalayang)"],
+          "sourceIds": ["lrt-jakarta", "lrt-jabodebek", "osm", "osm-tangerang"],
+          "missing": [
+            "The operators publish departures per station, not per train, so trains are rebuilt from them.",
+            "Kalayang, the Soekarno-Hatta skytrain, comes from OpenStreetMap in the Tangerang overlay, with its stations and no timetable."
+          ],
           "note": "Jadwal disusun dari jam berangkat tiap stasiun, jadi posisi kereta di peta hanya perkiraan."
         },
         "brt": {
           "status": "published",
-          "operators": ["Transjakarta"],
-          "sourceIds": ["transjakarta-gtfs"],
-          "missing": ["Live bus positions are missing: the buses on the map are simulated from headways and labelled so."],
+          "operators": ["Transjakarta", "PT Tangerang Nusantara Global (Bus Tayo)"],
+          "sourceIds": ["transjakarta-gtfs", "osm-tangerang", "tayo-pemkot-tangerang"],
+          "missing": [
+            "Live bus positions are missing: the buses on the map are simulated from headways and labelled so.",
+            "Bus Tayo K1-K4 come from OpenStreetMap in the Tangerang overlay, as lines and stops without a schedule: no official headway or timetable was found (Pemkot gives 05:00-19:00 only). Live positions exist only inside the operator's app Trans Tangerang Ayo (GPS by PT Nusantara Global Inovasi); ask PT TNG (info@tng.id, ppid.tng.id) for GTFS and a realtime feed.",
+            "The Bus Tayo fare of Rp2.000 is from news only (ANTARA 2024); no regulation was found, so the pack has no fare.",
+            "OSM ends K1 at Jatake and K4 at Periuk, where Pemkot news of 2026 names GOR Jatiuwung/GOR Karawaci and Cadas; check the termini with PT TNG."
+          ],
           "note": "Posisi bus di peta hanya simulasi dari jarak antar bus, bukan posisi sebenarnya."
         },
         "city_bus": {
           "status": "published",
-          "operators": ["Transjakarta"],
-          "sourceIds": ["transjakarta-gtfs"],
-          "missing": ["Live bus positions are missing: the buses on the map are simulated from headways and labelled so."],
+          "operators": ["Transjakarta", "Alam Sutera Township Management (Sutera Loop)"],
+          "sourceIds": ["transjakarta-gtfs", "osm-tangerang"],
+          "missing": [
+            "Live bus positions are missing: the buses on the map are simulated from headways and labelled so.",
+            "The three Sutera Loop lines come from OpenStreetMap in the Tangerang overlay, without a schedule."
+          ],
           "note": "Posisi bus di peta hanya simulasi dari jarak antar bus, bukan posisi sebenarnya."
         },
         "feeder": {
@@ -128,10 +165,20 @@
           "sourceIds": ["djka-gapeka-2025"],
           "missing": ["Only trains that call at stations the app has, plus a few extra ones."],
           "note": "Hanya kereta jarak jauh yang berhenti di stasiun Jabodetabek yang ada di aplikasi."
+        },
+        "angkot": {
+          "status": "validated",
+          "operators": ["Angkot Kabupaten Tangerang"],
+          "sourceIds": ["osm-tangerang"],
+          "missing": [
+            "13 Kabupaten Tangerang angkot lines (A01A-A06, B01, B02, E03-E12, F03) come from OpenStreetMap in the Tangerang overlay, without a schedule or fare.",
+            "Angkot Si Benteng (Kota Tangerang) is not in: no open route data was found, and no current official route list."
+          ],
+          "note": "Rute angkot Kabupaten Tangerang dari OpenStreetMap, tanpa jadwal dan tarif."
         }
       },
       "missing": [
-        "Buses and angkot of operators other than Transjakarta are not in the app.",
+        "Buses and angkot of operators other than Transjakarta are not in the app, except the Tangerang overlay (Bus Tayo, Kalayang, Sutera Loop and Kabupaten Tangerang angkot from OpenStreetMap, without schedules).",
         "The journey planner allows at most one Transjakarta bus at each end of a train ride; there are no bus-to-bus transfers.",
         "Two bundled timetable sources (KAI Commuter, DJKA Gapeka 2025) state no licence, so their redistribution is marked unknown."
       ]
